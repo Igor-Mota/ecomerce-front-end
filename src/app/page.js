@@ -18,7 +18,10 @@ import ProductListOne from "@/components/product/ProductListOne";
 import { mapInSlices, slugify } from "@/utils";
 import PosterTwo from "@/components/poster/PosterTwo";
 
-import { useGetHomeProducts } from "@/services/http/home.service";
+import {
+  useGetHomeProducts,
+  useGetHomePromotion,
+} from "@/services/http/home.service";
 
 const HomeElectronics = () => {
   const pathname = usePathname();
@@ -29,13 +32,19 @@ const HomeElectronics = () => {
   );
   const exploreProduct = mapInSlices(electronicsProduct, 8);
   const { data, isLoading } = useGetHomeProducts();
+  const { data: promotion, isLoading: isPromotionLoading } =
+    useGetHomePromotion();
 
   return (
     <>
       <HeaderOne />
       <main className="main-wrapper">
         <BannerOne data={data} isLoading={isLoading} />
-        <PosterOne singleAnimation />
+        <PosterOne
+          singleAnimation
+          data={promotion.data}
+          isLoading={isPromotionLoading}
+        />
         <Section>
           <SectionTitle
             title="Explore our Products"
@@ -129,7 +138,7 @@ const HomeElectronics = () => {
             ))}
           </div>
         </Section>
-        <WhyChoose />
+        {/* <WhyChoose /> */}
         <PosterTwo column="mb--30" />
         <NewsLetter />
         <ServiceTwo />

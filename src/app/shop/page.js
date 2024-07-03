@@ -10,7 +10,7 @@ import ShopWithSidebar from "./ShopWithSidebar";
 import { useGetManyProducts } from "@/services/http/many.products";
 
 const Shop = ({ searchParams }) => {
-  const [offset, setOffset] = useState(1);
+  const [offset, setOffset] = useState(3);
   const { data, isLoading, isRefetching } = useGetManyProducts(offset);
 
   if (!!isLoading) return <p>Carregando...</p>;
@@ -21,9 +21,14 @@ const Shop = ({ searchParams }) => {
       <Breadcrumb activeItem="Shop" title="Explore All Products" />
       <main className="main-wrapper">
         {searchParams.layout === "no-sidebar" ? (
-          <ShopNoSidebar products={data} setOffSet={setOffset} />
+          <ShopNoSidebar
+            isLoad={isLoading}
+            products={data}
+            setOffSet={setOffset}
+          />
         ) : (
           <ShopWithSidebar
+            isLoad={isLoading}
             products={data}
             setOffSet={setOffset}
             refetch={isRefetching}

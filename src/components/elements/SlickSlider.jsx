@@ -13,7 +13,7 @@ const SlickSlider = forwardRef((props, ref) => {
     dots: props.dots ?? false,
     arrows: props.arrows ?? true,
     infinite: props.infinite ?? true,
-    speed: props.speed ?? 500,
+    speed: props.speed ?? 2500,
     slidesToShow: props.slidesToShow ?? 3,
     slidesToScroll: props.slidesToScroll ?? 1,
     fade: props.fade ?? false,

@@ -19,6 +19,7 @@ const ProductOne = ({ product, pClass }) => {
         <ProductThumbnail
           src={`${environment.API_STORE}/${product.images[0].url}`}
           attributeImg={colorAttribute}
+          id={product.id}
           discountLabel
           hoverItems
           wishlistBtn

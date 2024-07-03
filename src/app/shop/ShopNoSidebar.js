@@ -6,8 +6,9 @@ import ProductOne from "@/components/product/ProductOne";
 import ProductsData from "@/data/Products";
 import Section from "@/components/elements/Section";
 import { ColorAttribute } from "@/data/ProductAttribute";
+import Skeleton from "react-loading-skeleton";
 
-const ShopNoSidebar = ({ products, setOffSet }) => {
+const ShopNoSidebar = ({ products, setOffSet, isLoad }) => {
   console.log(products);
 
   const [cateProduct, setcateProduct] = useState(products);
@@ -118,7 +119,13 @@ const ShopNoSidebar = ({ products, setOffSet }) => {
         </div>
       </div>
       <div className="row row--15">
-        {cateProduct.length > 0 ? (
+        {isLoad && (
+          <div className="col-xl-3 col-lg-4 col-sm-6">
+            <Skeleton count={9} height={200} width={330} />
+          </div>
+        )}
+
+        {cateProduct.length > 0 && !isLoad ? (
           cateProduct.slice(0, productShow).map((data) => (
             <div className="col-xl-3 col-lg-4 col-sm-6" key={data.id}>
               <ProductOne product={data} pClass="mt--40" />
@@ -131,11 +138,11 @@ const ShopNoSidebar = ({ products, setOffSet }) => {
       <div className="text-center pt--30">
         <button
           className={`axil-btn btn-bg-lighter btn-load-more ${
-            cateProduct.length < productShow ? "disabled" : ""
+            cateProduct.length <= productShow ? "disabled" : ""
           }`}
           onClick={ProductShowHandler}
         >
-          {cateProduct.length < productShow ? "No More Data" : "Load more"}
+          {cateProduct.length <= productShow ? "No More Data" : "Load more"}
         </button>
       </div>
     </Section>

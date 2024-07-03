@@ -18,7 +18,8 @@ const BannerOne = ({ data, isLoading }) => {
           <div className="col-lg-5 col-sm-6">
             <div className="main-slider-content">
               <SlickSlider
-                slidesToShow={1}
+                autoplay={true}
+                slidesToShow={2}
                 arrows={false}
                 fade={true}
                 asNavFor={nav2}
@@ -31,7 +32,6 @@ const BannerOne = ({ data, isLoading }) => {
                       width={680}
                       src={`${environment.API_STORE}/${data.images[0].url}`}
                       alt={data.name}
-                      unoptimized
                     />
                     <div className="slide-action">
                       <div className="shop-btn">
@@ -52,6 +52,7 @@ const BannerOne = ({ data, isLoading }) => {
           <div className="col-lg-7 col-sm-6">
             <div className="main-slider-large-thumb">
               <SlickSlider
+                autoplay={true}
                 class="axil-slick-dots slick-dotted"
                 slidesToShow={2}
                 arrows={false}

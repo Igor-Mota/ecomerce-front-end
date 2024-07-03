@@ -8,8 +8,8 @@ import { Category } from "@/data/ProductCategory";
 import { Gender } from "@/data/ProductAttribute";
 import { ColorAttribute } from "@/data/ProductAttribute";
 import { SizeAttribute } from "@/data/ProductAttribute";
-
-const ShopWithSidebar = ({ products, setOffSet, refetch }) => {
+import { ProductSkeleton } from "@/components/product/elements/ProductSkeleton";
+const ShopWithSidebar = ({ products, setOffSet, refetch, isLoad }) => {
   const [filterProduct, setFilterProduct] = useState(products.length - 1);
   const productShow = useRef(products.length - 1);
   const [filterText, setFilterText] = useState("");
@@ -237,7 +237,8 @@ const ShopWithSidebar = ({ products, setOffSet, refetch }) => {
         </div>
         <div className="col-lg-9">
           <div className="row row--15">
-            {products.data.length > 0 ? (
+            {isLoad && <ProductSkeleton />}
+            {products.data.length > 0 && !isLoad ? (
               products.data.map((data) => (
                 <div className="col-xl-4 col-sm-6" key={data.id}>
                   <ProductOne product={data} pClass="mb--30" />
@@ -252,13 +253,11 @@ const ShopWithSidebar = ({ products, setOffSet, refetch }) => {
             {!refetch && (
               <button
                 className={`axil-btn btn-bg-lighter btn-load-more ${
-                  filterProduct.length < productShow ? "disabled" : ""
+                  filterProduct <= productShow ? "disabled" : ""
                 }`}
                 onClick={ProductShowHandler}
               >
-                {filterProduct.length < productShow
-                  ? "No More Data"
-                  : "Load more"}
+                {filterProduct <= productShow ? "No More Data" : "Load more"}
               </button>
             )}
           </div>
