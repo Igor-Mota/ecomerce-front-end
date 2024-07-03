@@ -3,45 +3,42 @@ import Image from "next/image";
 import ProductDiscountLabel from "./ProductDiscountLabel";
 import ActionButtons from "./ActionButtons";
 
-const ProductThumbnail = (props) => {
-	
+const ProductThumbnail = ({ src, alt, id, noImage, price, ...props }) => {
   return (
-      <div className="thumbnail">
-        <Link href={`/products/${props.productThumb.id}`}>
+    <div className="thumbnail">
+      <Link href={`/products/${id}`}>
+        <Image
+          src={src ? src : noImage}
+          width={props.width ?? 300}
+          height={props.height ?? 300}
+          alt={props.name}
+        />
+        {src && props.isHoverThumbnail ? (
           <Image
-            src={
-              props.attributeImg ? props.attributeImg : props.productThumb.thumbnail
-            }
+            src={src}
             width={props.width ?? 300}
             height={props.height ?? 300}
-            alt={props.productThumb.title}
+            alt={props.name}
+            className="hover-img"
           />
-          {props.productThumb.hoverThumbnail && props.isHoverThumbnail ? (
-            <Image
-              src={props.productThumb.hoverThumbnail}
-              width={props.width ?? 300}
-              height={props.height ?? 300}
-              alt={props.productThumb.title}
-              className="hover-img"
-            />
-          ) : (
-            ""
-          )}
-        </Link>
-        {props.productThumb.salePrice && props.discountLabel && (
-          <ProductDiscountLabel discount={props.productThumb} />
+        ) : (
+          ""
         )}
-		{props.hoverItems &&
-		<div className="product-hover-action">
-			<ActionButtons 
-			productAction={props.productThumb}
-			wishlistBtn={props.wishlistBtn}
-			cartBtn = {props.cartBtn}
-			quickViewBtn={props.quickViewBtn}
-			/>
-		</div>
-		}
-      </div>
+      </Link>
+      {price && props.discountLabel && (
+        <ProductDiscountLabel discount={props.price} />
+      )}
+      {props.hoverItems && (
+        <div className="product-hover-action">
+          {/* <ActionButtons
+            productAction={props.price}
+            wishlistBtn={props.wishlistBtn}
+            cartBtn={props.cartBtn}
+            quickViewBtn={props.quickViewBtn}
+          /> */}
+        </div>
+      )}
+    </div>
   );
 };
 
