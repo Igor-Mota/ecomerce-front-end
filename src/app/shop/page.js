@@ -7,33 +7,14 @@ import NewsLetter from "@/components/newsletter/NewsLetter";
 import ServiceTwo from "@/components/services/ServiceTwo";
 import ShopNoSidebar from "./ShopNoSidebar";
 import ShopWithSidebar from "./ShopWithSidebar";
-import { useGetManyProducts } from "@/services/http/many.products";
 
 const Shop = ({ searchParams }) => {
-  const [offset, setOffset] = useState(3);
-  const { data, isLoading, isRefetching } = useGetManyProducts(offset);
-
-  if (!!isLoading) return <p>Carregando...</p>;
-
   return (
     <>
       <HeaderFive headerCampaign />
       <Breadcrumb activeItem="Shop" title="Explore All Products" />
       <main className="main-wrapper">
-        {searchParams.layout === "no-sidebar" ? (
-          <ShopNoSidebar
-            isLoad={isLoading}
-            products={data}
-            setOffSet={setOffset}
-          />
-        ) : (
-          <ShopWithSidebar
-            isLoad={isLoading}
-            products={data}
-            setOffSet={setOffset}
-            refetch={isRefetching}
-          />
-        )}
+        {searchParams.layout === "no-sidebar" ? <ShopNoSidebar /> : <ShopWithSidebar />}
         <NewsLetter />
         <ServiceTwo />
       </main>

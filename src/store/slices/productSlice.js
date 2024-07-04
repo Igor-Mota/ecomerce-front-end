@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import Swal from "sweetalert2";
 import { calculateTotalAmount, calculateTotalQuantity } from "@/utils";
-import { environment } from "@/data/environment";
 
 const productSlice = createSlice({
   name: "products",
@@ -26,8 +25,8 @@ const productSlice = createSlice({
       } else {
         const tempProduct = {
           id: action.payload.id,
-          title: action.payload.name,
-          thumbnail: environment.API_STORE + "/" + action.payload.images[0].url,
+          title: action.payload.title,
+          thumbnail: action.payload.thumbnail,
           salePrice: action.payload.salePrice ?? 0,
           price: action.payload.price,
           productType: action.payload.productType,

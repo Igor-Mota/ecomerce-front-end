@@ -3,7 +3,6 @@ import SlickSlider from "@/components/elements/SlickSlider";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { environment } from "@/data/environment";
 
 const BannerOne = ({ data, isLoading }) => {
   const [nav1, setNav1] = useState();
@@ -18,7 +17,6 @@ const BannerOne = ({ data, isLoading }) => {
           <div className="col-lg-5 col-sm-6">
             <div className="main-slider-content">
               <SlickSlider
-                autoplay={true}
                 slidesToShow={2}
                 arrows={false}
                 fade={true}
@@ -27,18 +25,10 @@ const BannerOne = ({ data, isLoading }) => {
               >
                 {data.data.map((data, index) => (
                   <div key={index}>
-                    <Image
-                      height={550}
-                      width={680}
-                      src={`${environment.API_STORE}/${data.images[0].url}`}
-                      alt={data.name}
-                    />
+                    <Image src={data.thumb} height={550} width={680} alt={data.title} />
                     <div className="slide-action">
                       <div className="shop-btn">
-                        <Link
-                          href={`/products/${data.id}`}
-                          className="axil-btn btn-bg-white"
-                        >
+                        <Link href={`/products/${data.id}`} className="axil-btn btn-bg-white">
                           <i className="fal fa-shopping-cart" />
                           Shop Now
                         </Link>
@@ -52,7 +42,6 @@ const BannerOne = ({ data, isLoading }) => {
           <div className="col-lg-7 col-sm-6">
             <div className="main-slider-large-thumb">
               <SlickSlider
-                autoplay={true}
                 class="axil-slick-dots slick-dotted"
                 slidesToShow={2}
                 arrows={false}
@@ -62,13 +51,7 @@ const BannerOne = ({ data, isLoading }) => {
               >
                 {data.data.map((data, index) => (
                   <div key={index}>
-                    <Image
-                      src={`${environment.API_STORE}/${data.images[1].url}`}
-                      height={550}
-                      width={680}
-                      alt={data.name}
-                      unoptimized
-                    />
+                    <Image src={data.thumb} height={550} width={680} alt={data.title} />
                     <div className="product-price">
                       <span className="text">From</span>
                       <span className="price-amount">{data.price}</span>
@@ -82,20 +65,10 @@ const BannerOne = ({ data, isLoading }) => {
       </div>
       <ul className="shape-group">
         <li className="shape-1">
-          <Image
-            src="/images/others/shape-1.png"
-            alt="Shape"
-            height={672}
-            width={500}
-          />
+          <Image src="/images/others/shape-1.png" alt="Shape" height={672} width={500} />
         </li>
         <li className="shape-2">
-          <Image
-            src="/images/others/shape-2.png"
-            alt="Shape"
-            height={313}
-            width={420}
-          />
+          <Image src="/images/others/shape-2.png" alt="Shape" height={313} width={420} />
         </li>
       </ul>
     </div>

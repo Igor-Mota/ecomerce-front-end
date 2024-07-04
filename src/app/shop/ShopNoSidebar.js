@@ -6,22 +6,22 @@ import ProductOne from "@/components/product/ProductOne";
 import ProductsData from "@/data/Products";
 import Section from "@/components/elements/Section";
 import { ColorAttribute } from "@/data/ProductAttribute";
-import Skeleton from "react-loading-skeleton";
+import { useGetManyProducts } from "@/services/http/many.products";
 
-const ShopNoSidebar = ({ products, setOffSet, isLoad }) => {
-  console.log(products);
-
-  const [cateProduct, setcateProduct] = useState(products);
+const ShopNoSidebar = ({}) => {
+  const [cateProduct, setcateProduct] = useState([]);
   const [productShow, setProductShow] = useState(12);
+
   const priceRange = getPriceRange(ProductsData);
+  const { data } = useGetManyProducts(productShow);
+
+  if (data.data.length > 0 && cateProduct.length === 0) setcateProduct(data.data);
 
   const ProductShowHandler = () => {
-    setOffSet((current) => current + 4);
+    setProductShow(productShow + 4);
   };
   const CategoryHandler = (e) => {
-    const getCategoryData = ProductsData.filter(
-      (data) => slugify(data.pCate) === e.target.value
-    );
+    const getCategoryData = ProductsData.filter((data) => slugify(data.pCate) === e.target.value);
     if (e.target.value === "all") {
       setcateProduct(ProductsData);
     } else {
@@ -30,9 +30,7 @@ const ShopNoSidebar = ({ products, setOffSet, isLoad }) => {
   };
   const colorHandler = (e) => {
     let getColorData = ProductsData.filter((items) => {
-      let colors = items.colorAttribute?.filter(
-        (color) => slugify(color.color) === e.target.value
-      );
+      let colors = items.colorAttribute?.filter((color) => slugify(color.color) === e.target.value);
       return colors?.length > 0;
     });
     setcateProduct(getColorData);
@@ -41,9 +39,7 @@ const ShopNoSidebar = ({ products, setOffSet, isLoad }) => {
     const value = e.target.value;
     const splitValue = value.split("-");
     const getPriceData = ProductsData.filter(
-      (data) =>
-        data.price >= parseInt(splitValue[0]) &&
-        data.price <= parseInt(splitValue[1])
+      (data) => data.price >= parseInt(splitValue[0]) && data.price <= parseInt(splitValue[1])
     );
     if (value === "null") {
       setcateProduct(ProductsData);
@@ -55,14 +51,10 @@ const ShopNoSidebar = ({ products, setOffSet, isLoad }) => {
   const sortHandler = (e) => {
     const value = e.target.value;
     if (value === "price") {
-      const getSortingData = ProductsData.sort((product1, product2) =>
-        product1.price > product2.price ? -1 : 1
-      );
+      const getSortingData = ProductsData.sort((product1, product2) => (product1.price > product2.price ? -1 : 1));
       setcateProduct(getSortingData);
     } else if (value === "name") {
-      const getSortingData = ProductsData.sort((product1, product2) =>
-        product1.title > product2.title ? 1 : -1
-      );
+      const getSortingData = ProductsData.sort((product1, product2) => (product1.title > product2.title ? 1 : -1));
       setcateProduct(getSortingData);
     } else if (value === "latest") {
       setcateProduct(ProductsData.reverse());
@@ -92,10 +84,7 @@ const ShopNoSidebar = ({ products, setOffSet, isLoad }) => {
                       </option>
                     ))}
                   </select>
-                  <select
-                    className="single-select"
-                    onChange={priceRangeHandler}
-                  >
+                  <select className="single-select" onChange={priceRangeHandler}>
                     <option value="null">Price Range</option>
                     {priceRange.map((data, index) => (
                       <option value={`${data.from}-${data.to}`} key={index}>
@@ -119,13 +108,7 @@ const ShopNoSidebar = ({ products, setOffSet, isLoad }) => {
         </div>
       </div>
       <div className="row row--15">
-        {isLoad && (
-          <div className="col-xl-3 col-lg-4 col-sm-6">
-            <Skeleton count={9} height={200} width={330} />
-          </div>
-        )}
-
-        {cateProduct.length > 0 && !isLoad ? (
+        {cateProduct.length > 0 ? (
           cateProduct.slice(0, productShow).map((data) => (
             <div className="col-xl-3 col-lg-4 col-sm-6" key={data.id}>
               <ProductOne product={data} pClass="mt--40" />
@@ -137,12 +120,10 @@ const ShopNoSidebar = ({ products, setOffSet, isLoad }) => {
       </div>
       <div className="text-center pt--30">
         <button
-          className={`axil-btn btn-bg-lighter btn-load-more ${
-            cateProduct.length <= productShow ? "disabled" : ""
-          }`}
+          className={`axil-btn btn-bg-lighter btn-load-more ${cateProduct.length < productShow ? "disabled" : ""}`}
           onClick={ProductShowHandler}
         >
-          {cateProduct.length <= productShow ? "No More Data" : "Load more"}
+          {cateProduct.length < productShow ? "No More Data" : "Load more"}
         </button>
       </div>
     </Section>

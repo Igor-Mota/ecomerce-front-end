@@ -3,39 +3,37 @@ import Image from "next/image";
 import ProductDiscountLabel from "./ProductDiscountLabel";
 import ActionButtons from "./ActionButtons";
 
-const ProductThumbnail = ({ src, alt, id, noImage, price, ...props }) => {
+const ProductThumbnail = (props) => {
   return (
     <div className="thumbnail">
-      <Link href={`/products/${id}`}>
+      <Link href={`/products/${props.productThumb.id}`}>
         <Image
-          src={src ? src : noImage}
+          src={props.attributeImg ? props.attributeImg : props.productThumb.thumbnail}
           width={props.width ?? 300}
           height={props.height ?? 300}
-          alt={props.name}
+          alt={props.productThumb.title}
         />
-        {src && props.isHoverThumbnail ? (
+        {props.productThumb.hoverThumbnail && props.isHoverThumbnail ? (
           <Image
-            src={src}
+            src={props.productThumb.hoverThumbnail}
             width={props.width ?? 300}
             height={props.height ?? 300}
-            alt={props.name}
+            alt={props.productThumb.title}
             className="hover-img"
           />
         ) : (
           ""
         )}
       </Link>
-      {price && props.discountLabel && (
-        <ProductDiscountLabel discount={props.price} />
-      )}
+      {props.productThumb.salePrice && props.discountLabel && <ProductDiscountLabel discount={props.productThumb} />}
       {props.hoverItems && (
         <div className="product-hover-action">
-          {/* <ActionButtons
-            productAction={props.price}
+          <ActionButtons
+            productAction={props.productThumb}
             wishlistBtn={props.wishlistBtn}
             cartBtn={props.cartBtn}
             quickViewBtn={props.quickViewBtn}
-          /> */}
+          />
         </div>
       )}
     </div>

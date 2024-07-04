@@ -4,7 +4,6 @@ import ProductPrice from "./elements/ProductPrice";
 import ProductColorAttribute from "./elements/ProductColorAttribute";
 import ProductThumbnail from "./elements/ProductThumbnail";
 import ProductTitle from "./elements/ProductTitle";
-import { environment } from "@/data/environment";
 
 const ProductOne = ({ product, pClass }) => {
   const [colorAttribute, setColorAttribute] = useState("");
@@ -17,25 +16,22 @@ const ProductOne = ({ product, pClass }) => {
     <>
       <div className={`axil-product product-style-one ${pClass ?? ""}`}>
         <ProductThumbnail
-          src={`${environment.API_STORE}/${product.images[0].url}`}
+          productThumb={product}
           attributeImg={colorAttribute}
-          id={product.id}
           discountLabel
           hoverItems
           wishlistBtn
           cartBtn
           quickViewBtn
+          isHoverThumbnail
         />
         <div className="product-content">
           <div className="inner">
-            {/* <ProductTitle verified={product.verified} productTitle={product} />
-            <ProductPrice price={product.price} /> */}
-            {/* {product.colorAttribute && (
-              <ProductColorAttribute
-                attributeColor={product}
-                getAttribute={getAttributeData}
-              />
-            )} */}
+            <ProductTitle verified={product.verified} productTitle={product} />
+            <ProductPrice price={product.price} />
+            {product.colorAttribute && (
+              <ProductColorAttribute attributeColor={product} getAttribute={getAttributeData} />
+            )}
           </div>
         </div>
       </div>

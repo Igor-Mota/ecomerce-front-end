@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@emailjs/browser": "^3.11.0",
+    "@hookform/resolvers": "^3.7.0",
     "@reduxjs/toolkit": "^1.9.5",
     "axios": "^1.7.2",
     "bootstrap": "^5.2.3",
@@ -30,11 +31,13 @@
     "react-range": "^1.8.14",
     "react-redux": "^8.0.5",
     "react-slick": "^0.29.0",
+    "reactjs-social-login": "^2.6.3",
     "remark": "^14.0.3",
     "remark-html": "^15.0.2",
     "sass": "^1.62.1",
     "sharp": "^0.32.4",
     "slick-carousel": "^1.8.1",
-    "sweetalert2": "^11.7.5"
+    "sweetalert2": "^11.7.5",
+    "yup": "^1.4.0"
   }
 }

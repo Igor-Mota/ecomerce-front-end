@@ -21,11 +21,11 @@ const HeaderActions = (props) => {
   };
   const cartHandler = (data) => {
     dispatch(miniCartHandler(data));
-  }
+  };
 
-const mobileMneuHandler = (data) => {
-  dispatch(mobileMenu(data))
-}
+  const mobileMneuHandler = (data) => {
+    dispatch(mobileMenu(data));
+  };
   return (
     <div className="header-action">
       <ul className="action-list">
@@ -45,10 +45,7 @@ const mobileMneuHandler = (data) => {
         )}
         {props.searchIcon && (
           <li className="axil-search axil-search-icon">
-            <button
-              className="header-search-icon"
-              onClick={searchBoxToggleHandler}
-            >
+            <button className="header-search-icon" onClick={searchBoxToggleHandler}>
               <i className="far fa-search" />
             </button>
           </li>
@@ -56,9 +53,7 @@ const mobileMneuHandler = (data) => {
 
         <li className="wishlist">
           <Link href="/wishlist">
-            {getProducts.wishListQuantity > 0 && 
-              <span className="cart-count">{getProducts.wishListQuantity}</span>
-            }
+            {getProducts.wishListQuantity > 0 && <span className="cart-count">{getProducts.wishListQuantity}</span>}
             <i className="far fa-heart" />
           </Link>
         </li>
@@ -72,9 +67,7 @@ const mobileMneuHandler = (data) => {
           <button onClick={accountDropdownToggler}>
             <i className="far fa-user" />
           </button>
-          <div
-            className={`my-account-dropdown ${accountDropdown ? "open" : ""}`}
-          >
+          <div className={`my-account-dropdown ${accountDropdown ? "open" : ""}`}>
             <span className="title">QUICKLINKS</span>
             <ul>
               <li>
@@ -108,10 +101,7 @@ const mobileMneuHandler = (data) => {
       </ul>
       <MiniCart />
       {(props.searchIcon || props.searchBox) && (
-        <ProductSearchModal
-          toggleHandler={searchBoxToggleHandler}
-          toggler={searchToggle}
-        />
+        <ProductSearchModal toggleHandler={searchBoxToggleHandler} toggler={searchToggle} />
       )}
     </div>
   );

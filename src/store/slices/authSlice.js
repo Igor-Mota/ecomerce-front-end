@@ -2,25 +2,21 @@ import { createSlice } from "@reduxjs/toolkit";
 import { UserLists } from "@/data/Users";
 
 const authSlice = createSlice({
-    name: 'auth',
-    initialState: {
-        login: false,
-        userData: {},
+  name: "auth",
+  initialState: {
+    login: false,
+    userData: {},
+    token: undefined,
+  },
+  reducers: {
+    logIn(state, action) {
+      state.login = true;
+      state.userData = action.payload.user;
+      state.token = action.payload.token;
     },
-    reducers: {
-        logIn(state, action) {
-            const findUser = UserLists.filter(user => user.email === action.payload);
-            if (findUser.length) {
-                state.userData = findUser[0];
-                state.login = true;
-            } 
-        }
-    }
+  },
 });
 
 export const { logIn } = authSlice.actions;
 
 export default authSlice.reducer;
-
-
-

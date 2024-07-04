@@ -3,11 +3,6 @@ import { slugify } from "@/utils";
 import Image from "next/image";
 
 const SingleLayouSeven = ({ singleData }) => {
-  console.log(singleData);
-
-  if (!("images" in singleData) || singleData.images.length < 1)
-    return <p>Loading...</p>;
-
   return (
     <section className="axil-single-product-area bg-color-white">
       <div className="single-product-thumb axil-section-gap pb--30 pb_sm--20">
@@ -18,13 +13,7 @@ const SingleLayouSeven = ({ singleData }) => {
                 <div className="position-sticky sticky-top">
                   <div className="single-product-thumbnail axil-product">
                     <div className="thumbnail">
-                      <Image
-                        src={singleData.images[0].url}
-                        width={595}
-                        height={595}
-                        alt={singleData.name}
-                        unoptimized
-                      />
+                      <Image src={singleData.thumbnail} width={595} height={595} alt={singleData.title} />
                     </div>
                   </div>
                 </div>
@@ -35,18 +24,16 @@ const SingleLayouSeven = ({ singleData }) => {
                 <div className="position-sticky sticky-top">
                   <div className="single-product-content nft-single-product-content">
                     <div className="inner">
-                      <h2 className="product-title">{singleData.name}</h2>
+                      <h2 className="product-title">{singleData.title}</h2>
                       <div className="price-amount price-offer-amount">
-                        <span className="price current-price">
-                          ${singleData.price}
-                        </span>
+                        <span className="price current-price">${singleData.price}</span>
                       </div>
                       {/* Start Product Action Wrapper  */}
                       <div className="product-action-wrapper d-flex-center">
                         {/* Start Product Action  */}
                         <ul className="product-action action-style-two d-flex-center mb--0">
                           <li className="add-to-cart">
-                            <a href={"#"} className="axil-btn btn-bg-primary">
+                            <a href={singleData.buyUrl} className="axil-btn btn-bg-primary">
                               Buy Product
                             </a>
                           </li>
@@ -59,9 +46,9 @@ const SingleLayouSeven = ({ singleData }) => {
                             <div className="nft-category">
                               <label>Category :</label>
                               <div className="category-list">
-                                {/* {singleData.cate.map((cat, index) => (
+                                {singleData.cate.map((cat, index) => (
                                   <span key={index}>{cat}, </span>
-                                ))} */}
+                                ))}
                               </div>
                             </div>
                           </div>
@@ -70,9 +57,7 @@ const SingleLayouSeven = ({ singleData }) => {
                               <label>Is this item Authentic?</label>
                               <a
                                 className="verify-btn axil-btn btn-bg-secondary"
-                                href={`https://www.google.com/search?q=${slugify(
-                                  singleData.name
-                                )}`}
+                                href={`https://www.google.com/search?q=${slugify(singleData.title)}`}
                               >
                                 Verifiy
                               </a>
@@ -130,12 +115,21 @@ const SingleLayouSeven = ({ singleData }) => {
                             >
                               <div className="product-additional-info">
                                 <p className="mb--15">
-                                  <strong>
-                                    {singleData.description_small}
-                                  </strong>
+                                  <strong>{singleData.description.textDesc.title}</strong>
                                 </p>
-                                <p>{singleData.description}</p>
-                                <div className="table-responsive"></div>
+                                <p>{singleData.description.textDesc.text}</p>
+                                <div className="table-responsive">
+                                  <table>
+                                    <tbody>
+                                      {singleData.description.listDesc?.map((data, index) => (
+                                        <tr key={index}>
+                                          <th>{data.title}</th>
+                                          <td>{data.text}</td>
+                                        </tr>
+                                      ))}
+                                    </tbody>
+                                  </table>
+                                </div>
                               </div>
                             </div>
                             <div
@@ -146,30 +140,32 @@ const SingleLayouSeven = ({ singleData }) => {
                             >
                               <div className="product-additional-info">
                                 <div className="table-responsive">
-                                  Informacoes adicionais
+                                  <table>
+                                    <tbody>
+                                      {singleData.addInfo?.map((data, index) => (
+                                        <tr key={index}>
+                                          <th>{data.title}</th>
+                                          <td>{data.text}</td>
+                                        </tr>
+                                      ))}
+                                    </tbody>
+                                  </table>
                                 </div>
                               </div>
                             </div>
-                            <div
-                              className="tab-pane fade"
-                              id="reviews"
-                              role="tabpanel"
-                              aria-labelledby="reviews-tab"
-                            >
+                            <div className="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
                               <div className="product-additional-info">
                                 <div className="table-responsive">
-                                  <span className="d-block">
-                                    Peso : {singleData.weight}g
-                                  </span>
-                                  <span className="d-block">
-                                    Altura : {singleData.height}cm
-                                  </span>
-                                  <span className="d-block">
-                                    Largura : {singleData.width}cm
-                                  </span>
-                                  <span className="d-block">
-                                    Comprimento : {singleData.length}cm
-                                  </span>
+                                  <table>
+                                    <tbody>
+                                      {singleData.property?.map((data, index) => (
+                                        <tr key={index}>
+                                          <th>{data.title}</th>
+                                          <td>{data.text}</td>
+                                        </tr>
+                                      ))}
+                                    </tbody>
+                                  </table>
                                 </div>
                               </div>
                             </div>

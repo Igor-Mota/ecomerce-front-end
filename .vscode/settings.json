@@ -13,12 +13,5 @@
     "editor.tabSize": 2
   },
 
-  "cSpell.words": [
-    "alises",
-    "hononaries",
-    "metatype",
-    "ppblaw",
-    "recive",
-    "timesheet"
-  ]
+  "cSpell.words": ["alises", "hononaries", "metatype", "ppblaw", "reactjs", "recive", "timesheet"]
 }

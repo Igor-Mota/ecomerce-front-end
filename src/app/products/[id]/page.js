@@ -1,6 +1,8 @@
 "use client";
-
 import { useParams } from "next/navigation";
+import ProductsData from "@/data/Products";
+import ProductOne from "@/components/product/ProductOne";
+import { slugify } from "@/utils";
 import SlickSlider from "@/components/elements/SlickSlider";
 import SingleLayouThree from "./SingleLayouThree";
 import Section from "@/components/elements/Section";
@@ -11,31 +13,28 @@ import SingleLayoutTwo from "./SingleLayoutTwo";
 import SingleLayoutFour from "./SingleLayoutFour";
 import { useGetProductById } from "@/services/http/product.byId";
 
-const ProductDetails = ({ params }) => {
+const ProductDetails = () => {
   const { id } = useParams();
+  const { data: singleProduct, isLoading } = useGetProductById(id);
 
-  const { data, isLoading } = useGetProductById(id);
-
-  if (!!isLoading) return <p>Carregando...</p>;
-
-  console.log(data);
+  if (!!isLoading || !("id" in singleProduct)) return <p>Carregando...</p>;
 
   const ProductSingleLayout = () => {
-    switch ("NFT") {
+    switch (singleProduct.pCate) {
       case "NFT":
-        return <SingleLayouSeven singleData={data} />;
+        return <SingleLayouSeven singleData={singleProduct} />;
         break;
       case "Electronics":
-        return <SingleLayouThree singleData={data} />;
+        return <SingleLayouThree singleData={singleProduct} />;
         break;
       case "Fashion":
-        return <SingleLayoutOne singleData={data} />;
+        return <SingleLayoutOne singleData={singleProduct} />;
         break;
       case "Furniture":
-        return <SingleLayoutFour singleData={data} />;
+        return <SingleLayoutFour singleData={singleProduct} />;
         break;
       default:
-        return <> </>;
+        return <SingleLayoutTwo singleData={singleProduct} />;
         break;
     }
   };
@@ -78,7 +77,7 @@ const ProductDetails = ({ params }) => {
             },
           ]}
         >
-          {/* {relatedProduct?.slice(0, 10).map((data) => (
+          {/* {singleProduct.map((data) => (
             <ProductOne product={data} key={data.id} />
           ))} */}
         </SlickSlider>

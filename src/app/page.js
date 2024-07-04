@@ -25,18 +25,19 @@ const HomeElectronics = () => {
   const pageCategory = split[split.length - 1];
   const electronicsProduct = ProductsData.filter((data) => slugify(data.pCate) === pageCategory);
   const exploreProduct = mapInSlices(electronicsProduct, 8);
-  const { data, isLoading } = useGetHomeProducts();
-  const { data: promotion, isLoading: promotionIsLoading } = useGetHomePromotion();
+  const { data } = useGetHomeProducts();
+  const { data: promotion, isLoading: promotionIsLoad } = useGetHomePromotion();
   const { data: arrivals, isLoading: arrivalsIsLoading } = useGetArrivals();
   const { data: mostSold, isLoading: mostSoldIsLoading } = useGetMostSold();
+  const idx = promotion.data.findIndex((product) => typeof product.CountTime === "string");
+
   return (
     <>
       <HeaderOne />
       <main className="main-wrapper">
-        <BannerOne data={data} isLoading={isLoading} />
-        <PosterOne singleAnimation data={promotion.data} isLoading={promotionIsLoading} />
+        {data.data.length > 0 && <BannerOne data={data} />}
+        {idx !== -1 && <PosterOne isLoading={promotionIsLoad} singleAnimation {...promotion.data[idx]} />}
 
-        <TestimonialOne />
         <Section pClass="pb--0" borderBottom="pb--50">
           <SectionTitle
             title="New Arrivals"
@@ -82,10 +83,11 @@ const HomeElectronics = () => {
             )}
             {!arrivalsIsLoading &&
               arrivals.data.map((product) => {
-                return <ProductTwo id={product.id} product={product} />;
+                return <ProductTwo key={product.id} product={product} />;
               })}
           </SlickSlider>
         </Section>
+
         <Section pClass="axil-most-sold-product" borderBottom="pb--50">
           <SectionTitle
             title="Most Sold in eTrade Store"
@@ -103,7 +105,7 @@ const HomeElectronics = () => {
             )}
             {mostSold.data.map((product) => (
               <div className="col" key={product.id}>
-                <ProductTwo id={product.id} product={product} />;
+                <ProductTwo product={product} />;
               </div>
             ))}
           </div>
