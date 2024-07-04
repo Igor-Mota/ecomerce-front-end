@@ -13,75 +13,29 @@ import ProductsData from "@/data/Products";
 import FooterTwo from "@/components/footer/FooterTwo";
 import ServiceTwo from "@/components/services/ServiceTwo";
 import NewsLetter from "@/components/newsletter/NewsLetter";
-import WhyChoose from "@/components/why-choose/WhyChoose";
 import ProductListOne from "@/components/product/ProductListOne";
 import { mapInSlices, slugify } from "@/utils";
-import PosterTwo from "@/components/poster/PosterTwo";
-
-import {
-  useGetHomeProducts,
-  useGetHomePromotion,
-} from "@/services/http/home.service";
+import ProductTwo from "@/components/product/ProductTwo";
+import { useGetHomeProducts, useGetHomePromotion, useGetArrivals, useGetMostSold } from "@/services/http/home.service";
+import Skeleton from "react-loading-skeleton";
 
 const HomeElectronics = () => {
   const pathname = usePathname();
   const split = pathname.split("/");
   const pageCategory = split[split.length - 1];
-  const electronicsProduct = ProductsData.filter(
-    (data) => slugify(data.pCate) === pageCategory
-  );
+  const electronicsProduct = ProductsData.filter((data) => slugify(data.pCate) === pageCategory);
   const exploreProduct = mapInSlices(electronicsProduct, 8);
   const { data, isLoading } = useGetHomeProducts();
-  const { data: promotion, isLoading: isPromotionLoading } =
-    useGetHomePromotion();
-
+  const { data: promotion, isLoading: promotionIsLoading } = useGetHomePromotion();
+  const { data: arrivals, isLoading: arrivalsIsLoading } = useGetArrivals();
+  const { data: mostSold, isLoading: mostSoldIsLoading } = useGetMostSold();
   return (
     <>
       <HeaderOne />
       <main className="main-wrapper">
         <BannerOne data={data} isLoading={isLoading} />
-        <PosterOne
-          singleAnimation
-          data={promotion.data}
-          isLoading={isPromotionLoading}
-        />
-        <Section>
-          <SectionTitle
-            title="Explore our Products"
-            subtitle="Our Products"
-            subtitleIcon="far fa-shopping-basket"
-            subColor="highlighter-secondary"
-          />
-          <SlickSlider
-            class="explore-product-activation slick-layout-wrapper slick-layout-wrapper--15 axil-slick-arrow arrow-top-slide"
-            slidesToShow={1}
-          >
-            {exploreProduct.slice(0, 2).map((product, index) => (
-              <div key={index}>
-                <div className="row row--15">
-                  {product.map((data) => (
-                    <div
-                      className="col-xl-3 col-lg-4 col-sm-6 col-12 mb--30"
-                      key={data.id}
-                    >
-                      <ProductOne product={data} />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </SlickSlider>
-          <div className="row">
-            <div className="col-lg-12 text-center mt--20 mt_sm--0">
-              <Link
-                href="/shop"
-                className="axil-btn btn-bg-lighter btn-load-more"
-              >
-                View All Products
-              </Link>
-            </div>
-          </div>
-        </Section>
+        <PosterOne singleAnimation data={promotion.data} isLoading={promotionIsLoading} />
+
         <TestimonialOne />
         <Section pClass="pb--0" borderBottom="pb--50">
           <SectionTitle
@@ -119,7 +73,17 @@ const HomeElectronics = () => {
               },
             ]}
           >
-            <></>
+            {arrivalsIsLoading && (
+              <>
+                <Skeleton circle width="100%" height={200} />
+                <Skeleton circle width="100%" height={200} />
+                <Skeleton circle width="100%" height={200} />
+              </>
+            )}
+            {!arrivalsIsLoading &&
+              arrivals.data.map((product) => {
+                return <ProductTwo id={product.id} product={product} />;
+              })}
           </SlickSlider>
         </Section>
         <Section pClass="axil-most-sold-product" borderBottom="pb--50">
@@ -131,15 +95,19 @@ const HomeElectronics = () => {
             pClass="section-title-center"
           />
           <div className="row row-cols-xl-2 row-cols-1 row--15">
-            {electronicsProduct.slice(0, 8).map((data) => (
-              <div className="col" key={data.id}>
-                <ProductListOne product={data} />
+            {mostSoldIsLoading && (
+              <>
+                <Skeleton circle width="100%" height={180} />
+                <Skeleton circle width="100%" height={180} />
+              </>
+            )}
+            {mostSold.data.map((product) => (
+              <div className="col" key={product.id}>
+                <ProductTwo id={product.id} product={product} />;
               </div>
             ))}
           </div>
         </Section>
-        {/* <WhyChoose /> */}
-        <PosterTwo column="mb--30" />
         <NewsLetter />
         <ServiceTwo />
       </main>
