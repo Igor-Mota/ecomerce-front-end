@@ -24,13 +24,13 @@ const registerFetcher = async (email, password) => {
 export const loginMutation = () => {
   return useMutation({
     mutationKey: "post:login",
-    mutationFn: loginFetcher(),
+    mutationFn: loginFetcher,
   });
 };
 
 export const registerMutation = () => {
   return useMutation({
     mutationKey: "post:login",
-    mutationFn: registerFetcher(),
+    mutationFn: registerFetcher,
   });
 };

@@ -1,15 +1,15 @@
 "use client";
+
 import Link from "next/link";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
 import AuthLayout from "../layout";
-import { LoginSocialGoogle } from "reactjs-social-login";
 import { logIn } from "@/store/slices/authSlice";
 import { loginMutation } from "@/services/http/auth";
+import { GoogleSocialLogin, FacebookSocialLogin } from "@/components/auth/login";
 
 const schema = yup
   .object()
@@ -35,7 +35,7 @@ const SignIn = () => {
     },
   });
   const { mutate, data } = loginMutation();
-  console.log(data);
+
   if (data && "token" in data) {
     const { token, ...rest } = data;
     dispatch(
@@ -47,6 +47,17 @@ const SignIn = () => {
   }
 
   const onSubmit = async (data) => mutate(data.email, data.password);
+
+  const onGoogleLogin = (data) => {
+    mutate({
+      provider: "Google",
+      token: data.credential,
+    });
+  };
+
+  const onLoginError = (error) => {
+    console.log(error);
+  };
 
   return (
     <AuthLayout bgImage="bg_image--9">
@@ -80,11 +91,12 @@ const SignIn = () => {
               Esqueci minha senha
             </Link>
           </div>
-          <div className="d-flex flex-column flex-md-row">
-            <LoginSocialGoogle />
-          </div>
           {loginError && <p className="error text-danger">User and Password doesn&apos;t match</p>}
         </form>
+        <div className="row">
+          <GoogleSocialLogin onLogin={onGoogleLogin} onerror={onLoginError} />
+          <FacebookSocialLogin />
+        </div>
       </div>
     </AuthLayout>
   );
