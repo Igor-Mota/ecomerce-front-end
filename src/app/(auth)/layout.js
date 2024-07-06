@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Logo } from "@/data/Common";
 
-const AuthLayout = ({ children, bgImage }) => {
+const AuthLayout = ({ children }) => {
   const pathname = usePathname();
   const slug = pathname.replace("/", "");
 

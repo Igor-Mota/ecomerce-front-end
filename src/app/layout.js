@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { Providers } from "@/store/provider";
 import { QueryClientProvider } from "react-query";
 import { queryClient } from "@/services/http/api";
+import { AuthProvider } from "@/providers/auth.provider";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "@/styles/style.scss";
@@ -27,7 +28,7 @@ const RootLayout = ({ children }) => {
       <body>
         <Providers>
           <QueryClientProvider client={queryClient}>
-            {children}
+            <AuthProvider>{children}</AuthProvider>
           </QueryClientProvider>
         </Providers>
       </body>

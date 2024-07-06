@@ -1,6 +1,5 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect } from "react";
 import { GoogleLoginButton } from "react-social-login-buttons";
-import { LoginSocialGoogle } from "reactjs-social-login";
 import { environment } from "@/data/environment";
 
 export const GoogleSocialLogin = ({ onLogin, onerror }) => {

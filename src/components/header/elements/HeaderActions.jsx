@@ -12,6 +12,7 @@ const HeaderActions = (props) => {
 
   const dispatch = useDispatch();
   const getProducts = useSelector((state) => state.productData);
+  const authInfo = useSelector((state) => state.auth);
 
   const searchBoxToggleHandler = () => {
     setSearchToggle((toggler) => !toggler);
@@ -26,6 +27,9 @@ const HeaderActions = (props) => {
   const mobileMneuHandler = (data) => {
     dispatch(mobileMenu(data));
   };
+
+  const handleLogout = () => {};
+
   return (
     <div className="header-action">
       <ul className="action-list">
@@ -80,17 +84,28 @@ const HeaderActions = (props) => {
                 <Link href="dashboard/account-details">Settings</Link>
               </li>
             </ul>
-            <div className="login-btn">
-              <Link href="/sign-in" className="axil-btn btn-bg-primary">
-                Login
-              </Link>
-            </div>
-            <div className="reg-footer text-center">
-              No account yet?
-              <Link href="/sign-up" className="btn-link">
-                REGISTER HERE.
-              </Link>
-            </div>
+            {authInfo.login && (
+              <div className="reg-footer text-center">
+                <Link href="/sign-in" className="axil-btn btn-bg-primary" onClick={handleLogout}>
+                  Sair
+                </Link>
+              </div>
+            )}
+            {!authInfo.login && (
+              <>
+                <div className="login-btn">
+                  <Link href="/sign-in" className="axil-btn btn-bg-primary">
+                    Login
+                  </Link>
+                </div>
+                <div className="reg-footer text-center">
+                  No account yet?
+                  <Link href="/sign-up" className="btn-link">
+                    REGISTER HERE.
+                  </Link>
+                </div>
+              </>
+            )}
           </div>
         </li>
         <li className="axil-mobile-toggle">

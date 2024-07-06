@@ -1,15 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { redirect } from "next/navigation";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import AuthLayout from "../layout";
 import { logIn } from "@/store/slices/authSlice";
 import { loginMutation } from "@/services/http/auth";
-import { GoogleSocialLogin, FacebookSocialLogin } from "@/components/auth/login";
+import { GoogleSocialLogin } from "@/components/auth/login";
 
 const schema = yup
   .object()
@@ -23,6 +24,14 @@ const SignIn = () => {
   const dispatch = useDispatch();
   const [loginError, setLoginError] = useState(false);
 
+  const authInfo = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (authInfo.login) {
+      redirect("/");
+    }
+  }, [authInfo]);
+
   const {
     control,
     handleSubmit,
@@ -34,22 +43,24 @@ const SignIn = () => {
       password: "",
     },
   });
+
   const { mutate, data } = loginMutation();
 
-  if (data && "token" in data) {
-    const { token, ...rest } = data;
-    dispatch(
-      logIn({
-        token: token,
-        user: rest,
-      })
-    );
-  }
+  useEffect(() => {
+    if (data && data.data) {
+      const { token, user } = data.data;
+      dispatch(logIn({ token, user }));
+    }
+  }, [data, dispatch]);
 
-  const onSubmit = async (data) => mutate(data.email, data.password);
+  const onSubmit = async (formData) => {
+    mutate(formData.email, formData.password);
+  };
 
   const onGoogleLogin = (data) => {
+    console.log("Credentials: ", data);
     mutate({
+      email: "email@email.com",
       provider: "Google",
       token: data.credential,
     });
@@ -95,7 +106,7 @@ const SignIn = () => {
         </form>
         <div className="row">
           <GoogleSocialLogin onLogin={onGoogleLogin} onerror={onLoginError} />
-          <FacebookSocialLogin />
+          {/* <FacebookSocialLogin /> */}
         </div>
       </div>
     </AuthLayout>

@@ -3,6 +3,7 @@
   "editor.formatOnSave": true,
   "prettier.tabWidth": 2,
   "editor.tabSize": 2,
+  "editor.fontSize": 11,
   "prettier.printWidth": 120,
 
   "[dotenv]": {
@@ -30,6 +31,7 @@
     "ppblaw",
     "reactjs",
     "recive",
+    "Sair",
     "signin",
     "singin",
     "timesheet",

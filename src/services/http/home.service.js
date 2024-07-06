@@ -12,8 +12,6 @@ const fetcher = async () => {
 };
 
 const promotionFetcher = async () => {
-  const [today, _] = new Date().toISOString().split("T");
-  console.log(today);
   const { data } = await api.get("product", {
     params: {
       page: 0,
