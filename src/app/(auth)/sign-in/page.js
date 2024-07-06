@@ -58,7 +58,6 @@ const SignIn = () => {
   };
 
   const onGoogleLogin = (data) => {
-    console.log("Credentials: ", data);
     mutate({
       email: "email@email.com",
       provider: "Google",

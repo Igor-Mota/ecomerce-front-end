@@ -5,12 +5,14 @@ import ProductSearchModal from "@/components/header/elements/ProductSearchModal"
 import MiniCart from "@/components/header/elements/MiniCart";
 import { miniCartHandler } from "@/store/slices/productSlice";
 import { mobileMenu } from "@/store/slices/menuSlice";
+import { logout } from "@/store/slices/authSlice";
 
 const HeaderActions = (props) => {
   const [searchToggle, setSearchToggle] = useState(false);
   const [accountDropdown, setaccountDropdown] = useState(false);
 
   const dispatch = useDispatch();
+
   const getProducts = useSelector((state) => state.productData);
   const authInfo = useSelector((state) => state.auth);
 
@@ -28,7 +30,9 @@ const HeaderActions = (props) => {
     dispatch(mobileMenu(data));
   };
 
-  const handleLogout = () => {};
+  const handleLogout = () => {
+    dispatch(logout());
+  };
 
   return (
     <div className="header-action">
@@ -74,15 +78,19 @@ const HeaderActions = (props) => {
           <div className={`my-account-dropdown ${accountDropdown ? "open" : ""}`}>
             <span className="title">QUICKLINKS</span>
             <ul>
-              <li>
-                <Link href="/dashboard">My Account</Link>
-              </li>
-              <li>
-                <Link href="dashboard/orders">Orders</Link>
-              </li>
-              <li>
-                <Link href="dashboard/account-details">Settings</Link>
-              </li>
+              {authInfo.login && (
+                <>
+                  <li>
+                    <Link href="/dashboard">My Account</Link>
+                  </li>
+                  <li>
+                    <Link href="dashboard/orders">Orders</Link>
+                  </li>
+                  <li>
+                    <Link href="dashboard/account-details">Settings</Link>
+                  </li>
+                </>
+              )}
             </ul>
             {authInfo.login && (
               <div className="reg-footer text-center">

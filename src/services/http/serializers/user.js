@@ -16,6 +16,7 @@ const serializer = (user) => {
     email: user.email,
     phone: user.client.phone,
     name: user.client.userName,
+    provider: user.provider,
     avatar: user.client.avatar ?? "/images/product/author1.png",
     joinDate: new Date(user.created_at).toISOString().split("T")[0],
     shippingAddress: user.client.address
