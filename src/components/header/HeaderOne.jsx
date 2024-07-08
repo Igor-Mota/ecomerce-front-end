@@ -15,6 +15,7 @@ const HeaderOne = () => {
   const axilMainmenu = useRef();
   const menuOption = useSelector((state) => state.menu);
   const authIfo = useSelector((state) => state.auth);
+  console.log(authIfo);
   useEffect(() => {
     const headerHeight = axilHeader.current.clientHeight;
     const mainMenu = axilMainmenu.current;

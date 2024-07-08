@@ -48,7 +48,6 @@ const SignIn = () => {
         token: credential,
       })
         .then((response) => {
-          
           const { data } = response;
 
           window.localStorage.setItem("token", data.token);
@@ -56,7 +55,7 @@ const SignIn = () => {
           dispatch(
             logIn({
               token: data.token,
-              user: data.user,
+              user: { user: data.user },
             })
           );
         })

@@ -1,11 +1,12 @@
-import { createContext, useEffect } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { refreshTokenFetcher, meFetcher } from "@/services/http/auth";
 import { useSelector, useDispatch } from "react-redux";
 import { logIn } from "@/store/slices/authSlice";
 
-const AuthContext = createContext(null);
+export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
+  const [authProviderLoading, setAuthProviderLoading] = useState(true);
   const authInfo = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
@@ -23,11 +24,17 @@ export const AuthProvider = ({ children }) => {
         );
       }
     }
+    setAuthProviderLoading(false);
   };
 
   useEffect(() => {
     isAuth();
   }, []);
 
-  return <AuthContext.Provider>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ authProviderLoading }}>{children}</AuthContext.Provider>;
+};
+
+export const useAuthContext = () => {
+  const { authProviderLoading } = useContext(AuthContext);
+  return { authProviderLoading };
 };

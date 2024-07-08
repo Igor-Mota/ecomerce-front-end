@@ -19,38 +19,40 @@ const serializer = (user) => {
     provider: user.provider,
     avatar: user.client.avatar ?? "/images/product/author1.png",
     joinDate: new Date(user.created_at).toISOString().split("T")[0],
-    shippingAddress: user.client.address
-      ? user.client.address.find((address, index) => {
+    shippingAddress: user.client.addresses
+      ? user.client.addresses.map((address, index) => {
           if (index === 0) {
             return {
-              name: "Hasan AH",
-              email: "admin@email.com",
-              phone: "1234 567890",
-              street: "7398 Smoke Ranch Road",
-              state: "Las Vegas",
-              city: "Nevada",
-              postCode: "89128",
-              country: "United States",
+              id: address.id,
+              name: user.client.userName,
+              email: user.email,
+              phone: user.client.phone,
+              street: address.address,
+              state: address.state,
+              city: address.city,
+              postCode: address.zip_code,
+              country: "Brazil",
             };
           }
-        })
-      : {},
+        })[0]
+      : null,
 
-    billingAddress: user.client.address
-      ? user.client.address.find((address, index) => {
+    billingAddress: user.client.addresses
+      ? user.client.addresses.map((address, index) => {
           if (index === 1) {
             return {
-              name: "Hasan AH",
-              email: "admin@email.com",
-              phone: "1234 567890",
-              street: "7398 Smoke Ranch Road",
-              state: "Las Vegas",
-              city: "Nevada",
-              postCode: "89128",
-              country: "United States",
+              id: address.id,
+              name: user.client.username,
+              email: user.email,
+              phone: user.client.phone,
+              street: address.address,
+              state: address.state,
+              city: address.city,
+              postCode: address.zip_code,
+              country: "Brazil",
             };
           }
-        })
-      : {},
+        })[1]
+      : null,
   };
 };

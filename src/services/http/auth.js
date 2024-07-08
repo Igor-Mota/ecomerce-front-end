@@ -18,7 +18,9 @@ export const loginFetcher = async ({ email, password, token, provider }) => {
       });
       return { data };
     }
-  } catch (err) {}
+  } catch (err) {
+    return err;
+  }
 };
 
 const registerFetcher = async ({ email, password, provider, token }) => {
@@ -39,7 +41,9 @@ const registerFetcher = async ({ email, password, provider, token }) => {
       });
       return { data };
     }
-  } catch (err) {}
+  } catch (err) {
+    return err;
+  }
 };
 
 export const refreshTokenFetcher = async () => {

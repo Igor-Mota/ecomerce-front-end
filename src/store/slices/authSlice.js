@@ -1,3 +1,4 @@
+import BillingAddress from "@/app/dashboard/addresses-edit/billing/page";
 import { createSlice } from "@reduxjs/toolkit";
 
 const authSlice = createSlice({
@@ -20,9 +21,15 @@ const authSlice = createSlice({
       state.userData = { user: {} };
       state.token = undefined;
     },
+    shippingAddress(state, action) {
+      state.userData.user.shippingAddress = action.payload;
+    },
+    billingAddress(state, action) {
+      state.userData.user.billingAddress = action.payload;
+    },
   },
 });
 
-export const { logIn, logout } = authSlice.actions;
+export const { logIn, logout, shippingAddress, billingAddress } = authSlice.actions;
 
 export default authSlice.reducer;

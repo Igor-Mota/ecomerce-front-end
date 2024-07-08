@@ -10,6 +10,7 @@ const schema = yup.object({});
 
 const AccountDetails = () => {
   const { userData } = useSelector((state) => state.auth);
+
   const dispatch = useDispatch();
   const [isLoad, setIsLoad] = useState(false);
   const {
@@ -20,7 +21,7 @@ const AccountDetails = () => {
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      username: userData.user.name,
+      username: userData.user && userData.user.name ? userData.user.userName : "",
     },
   });
 

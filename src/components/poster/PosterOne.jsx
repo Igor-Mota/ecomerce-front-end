@@ -5,7 +5,6 @@ import CountDown from "../elements/CountDown";
 import Image from "next/image";
 
 const PosterOne = (props) => {
-  console.log(props);
   return (
     <div className="axil-poster-countdown">
       <div className="container">

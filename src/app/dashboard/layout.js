@@ -1,6 +1,10 @@
 "use client";
+
+import { useEffect, useContext } from "react";
+import { useAuthContext } from "@/providers/auth.provider";
 import Link from "next/link";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 import { usePathname } from "next/navigation";
 import Breadcrumb from "@/components/breadcrumb/Breadcrumb";
 import FooterTwo from "@/components/footer/FooterTwo";
@@ -12,14 +16,21 @@ import { UserLists } from "@/data/Users";
 import { useSelector } from "react-redux";
 
 const DahsboardLayout = ({ children }) => {
+  const { authProviderLoading } = useAuthContext();
   const userInfo = UserLists[0];
   const pathname = usePathname();
   const split = pathname.split("/");
   const pageSlug = split[split.length - 1];
+
   const {
+    login,
     userData: { user },
   } = useSelector((state) => state.auth);
-  console.log(user);
+
+  useEffect(() => {
+    if (!login && !authProviderLoading) redirect("/");
+  }, [user]);
+
   return (
     <>
       <HeaderFive headerSlider />
@@ -65,7 +76,10 @@ const DahsboardLayout = ({ children }) => {
                   </aside>
                 </div>
                 <div className="col-xl-9 col-md-8">
-                  <div className="tab-content">{children}</div>
+                  <div className="tab-content">
+                    {authProviderLoading && <h1>Loading</h1>}
+                    {!authProviderLoading && children}
+                  </div>
                 </div>
               </div>
             </div>

@@ -49,7 +49,7 @@ const SignIn = () => {
   useEffect(() => {
     if (data && data.data) {
       const { token, user } = data.data;
-      dispatch(logIn({ token, user }));
+      dispatch(logIn({ token, user: { user } }));
     }
   }, [data, dispatch]);
 
