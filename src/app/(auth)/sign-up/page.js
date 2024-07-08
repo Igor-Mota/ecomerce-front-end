@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import dynamic from "next/dynamic";
+
 import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -9,7 +11,8 @@ import { useDispatch } from "react-redux";
 import AuthLayout from "../layout";
 import { logIn } from "@/store/slices/authSlice";
 import { registerMutation, loginFetcher } from "@/services/http/auth";
-import { GoogleSocialLogin } from "@/components/auth/login";
+
+const GoogleSocialLogin = dynamic(() => import("@/components/auth/login/google"), { ssr: false });
 
 const schema = yup
   .object()

@@ -14,23 +14,5 @@ export const FacebookSocialLogin = ({ className }) => {
 
   const onLogout = useCallback(() => {}, []);
 
-  return (
-    <LoginSocialFacebook
-      className={`${className}`}
-      appId={"2200055216993989"}
-      fieldsProfile={"name,picture,email"}
-      onLoginStart={onLoginStart}
-      onLogoutSuccess={onLogoutSuccess}
-      redirect_uri={environment.BASE_URL}
-      onResolve={({ provider, data }) => {
-        console.log(provider);
-        console.log(data);
-      }}
-      onReject={(err) => {
-        console.log(err);
-      }}
-    >
-      <FacebookLoginButton />
-    </LoginSocialFacebook>
-  );
+  return <></>;
 };

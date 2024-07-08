@@ -3,6 +3,8 @@ const nextConfig = {
   images: {
     domains: ["www.talkiebot.com.br", "talkiebot.com.br", "psychic-tribble-9jj5gg9xv56277j-3100.app.github.dev"],
   },
+  distDir: "./dist",
+
   webpack: (config) => {
     config.resolve.fallback = { fs: false };
     return config;

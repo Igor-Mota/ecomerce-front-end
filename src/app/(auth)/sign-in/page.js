@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { redirect } from "next/navigation";
 import { useForm, Controller } from "react-hook-form";
@@ -10,7 +11,11 @@ import { useDispatch, useSelector } from "react-redux";
 import AuthLayout from "../layout";
 import { logIn } from "@/store/slices/authSlice";
 import { loginMutation } from "@/services/http/auth";
-import { GoogleSocialLogin } from "@/components/auth/login";
+
+const GoogleSocialLogin = dynamic(() => import("@/components/auth/login/google"), {
+  ssr: false,
+  loading: () => <></>,
+});
 
 const schema = yup
   .object()
@@ -105,7 +110,6 @@ const SignIn = () => {
         </form>
         <div className="row">
           <GoogleSocialLogin onLogin={onGoogleLogin} onerror={onLoginError} />
-          {/* <FacebookSocialLogin /> */}
         </div>
       </div>
     </AuthLayout>

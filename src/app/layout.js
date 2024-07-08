@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect } from "react";
 import { Providers } from "@/store/provider";
 import { QueryClientProvider } from "react-query";

@@ -10,15 +10,17 @@ const ProductListOne = ({ product }) => {
     <div className="axil-product-list">
       <ProductThumbnail
         productThumb={product}
+        width={240}
+        heigh={240}
         discountLabel
         isHoverThumbnail
         src={`${environment.API_STORE}/${product.images[0].url}`}
       />
       <div className="product-content">
-        {/* <ProductRating rating={product} />
+        <ProductRating rating={product} />
         <ProductTitle productTitle={product} titleTag="h6" />
         <ProductPrice price={product} />
-        <ActionButtons productAction={product} wishlistBtn cartBtn /> */}
+        <ActionButtons productAction={product} wishlistBtn cartBtn />
       </div>
     </div>
   );

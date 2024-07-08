@@ -2,11 +2,11 @@ import { useCallback, useEffect } from "react";
 import { GoogleLoginButton } from "react-social-login-buttons";
 import { environment } from "@/data/environment";
 
-export const GoogleSocialLogin = ({ onLogin, onerror }) => {
-  let _window = undefined;
+function GoogleSocialLogin({ onLogin, onerror }) {
+  let _window = null;
 
   useEffect(() => {
-    if (!document.getElementById("google-login")) {
+    if (window && !document.getElementById("google-login")) {
       const s = document.createElement("script");
       s.src = "https://accounts.google.com/gsi/client";
       s.id = "google-login";
@@ -40,4 +40,6 @@ export const GoogleSocialLogin = ({ onLogin, onerror }) => {
   }, []);
 
   return <GoogleLoginButton onClick={onLoginStart} />;
-};
+}
+
+export default GoogleSocialLogin;
