@@ -17,7 +17,8 @@ const ForgotPassword = () => {
     <div className="axil-signin-form">
       <h3 className="title">Forgot Password?</h3>
       <p className="b2 mb--55">
-        Enter the email address you used when you joined and we’ll send you instructions to reset your password.
+        Enter the email address you used when you joined and we’ll send you
+        instructions to reset your password.
       </p>
       <form className="singin-form" onSubmit={handleSubmit(onSubmit)}>
         <div className="form-group">
@@ -34,7 +35,9 @@ const ForgotPassword = () => {
           <button type="submit" className="axil-btn btn-bg-primary submit-btn">
             Send Reset Instructions
           </button>
-          {forgotEmail && <p className="success">Reset Instruction Send successfully</p>}
+          {forgotEmail && (
+            <p className="success">Reset Instruction Send successfully</p>
+          )}
         </div>
       </form>
     </div>

@@ -4,7 +4,9 @@ const NewsLetter = (props) => {
   return (
     <div className="axil-newsletter-area axil-section-gap pt--0">
       <div className="container">
-        <div className={`etrade-newsletter-wrapper bg_image ${props.bgImage ? props.bgImage : "bg_image--14"}`}>
+        <div
+          className={`etrade-newsletter-wrapper bg_image ${props.bgImage ? props.bgImage : "bg_image--14"}`}
+        >
           <div className="newsletter-content">
             <SectionTitle
               pClass="pr--0"

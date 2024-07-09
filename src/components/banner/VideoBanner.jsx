@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { useState } from "react";
 import Image from "next/image";
 import Section from "../elements/Section";
@@ -6,7 +6,7 @@ import SectionTitle from "../elements/SectionTitle";
 import FsLightbox from "fslightbox-react";
 
 const VideoBanner = () => {
-    const [toggler, setToggler] = useState(false);
+  const [toggler, setToggler] = useState(false);
 
   return (
     <Section
@@ -31,9 +31,17 @@ const VideoBanner = () => {
               alt="Images"
             />
             <div className="popup-video-icon">
-                <button className="video-icon" onClick={ () => setToggler(!toggler) }><i className="fas fa-play" /></button>
-            </div> 
-            <FsLightbox toggler={ toggler } sources={ ['https://www.youtube.com/watch?v=FkUn86bH34M'] }/>
+              <button
+                className="video-icon"
+                onClick={() => setToggler(!toggler)}
+              >
+                <i className="fas fa-play" />
+              </button>
+            </div>
+            <FsLightbox
+              toggler={toggler}
+              sources={["https://www.youtube.com/watch?v=FkUn86bH34M"]}
+            />
           </div>
         </div>
       </div>

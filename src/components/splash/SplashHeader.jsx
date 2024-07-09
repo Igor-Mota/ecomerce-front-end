@@ -4,23 +4,23 @@ import HeaderBrand from "../header/elements/HeaderBrand";
 import HeaderTopNotify from "../header/elements/HeaderTopNotify";
 
 const SplashHeader = () => {
-	const axilPlaceholder = useRef();
-	const axilMainmenu = useRef();
-  
-	useEffect(() => {
-	  const mainMenu = axilMainmenu.current;
-	  const mainMenuHeight = axilMainmenu.current.clientHeight;
-	  const mainmenuPlaceholder = axilPlaceholder.current;
-	  window.addEventListener("scroll", (event) => {
-		  if (window.scrollY > 40) {
-			  mainmenuPlaceholder.style.height = mainMenuHeight + 'px';
-			  mainMenu.classList.add("axil-sticky");
-		  } else {
-			  mainmenuPlaceholder.style.height = '0';
-			  mainMenu.classList.remove("axil-sticky");
-		  }
-	  });
-	}, []);
+  const axilPlaceholder = useRef();
+  const axilMainmenu = useRef();
+
+  useEffect(() => {
+    const mainMenu = axilMainmenu.current;
+    const mainMenuHeight = axilMainmenu.current.clientHeight;
+    const mainmenuPlaceholder = axilPlaceholder.current;
+    window.addEventListener("scroll", (event) => {
+      if (window.scrollY > 40) {
+        mainmenuPlaceholder.style.height = mainMenuHeight + "px";
+        mainMenu.classList.add("axil-sticky");
+      } else {
+        mainmenuPlaceholder.style.height = "0";
+        mainMenu.classList.remove("axil-sticky");
+      }
+    });
+  }, []);
 
   return (
     <header className="header axil-header header-style-3">
@@ -35,7 +35,7 @@ const SplashHeader = () => {
           </a>
         </p>
       </HeaderTopNotify>
-      <div id="axil-sticky-placeholder" ref={axilPlaceholder}/>
+      <div id="axil-sticky-placeholder" ref={axilPlaceholder} />
       <div className="axil-mainmenu" ref={axilMainmenu}>
         <div className="container">
           <div className="header-navbar">

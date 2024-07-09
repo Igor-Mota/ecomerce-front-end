@@ -14,10 +14,10 @@ import ProductSearchModal from "./elements/ProductSearchModal";
 
 const HeaderTwo = () => {
   const menuOption = useSelector((state) => state.menu);
-	const [searchToggle, setSearchToggle] = useState(false);
-	const searchBoxToggleHandler = () => {
-		setSearchToggle((toggler) => !toggler);
-	};
+  const [searchToggle, setSearchToggle] = useState(false);
+  const searchBoxToggleHandler = () => {
+    setSearchToggle((toggler) => !toggler);
+  };
 
   return (
     <header className="header axil-header header-style-2">
@@ -61,14 +61,16 @@ const HeaderTwo = () => {
         <div className="container">
           <div className="header-navbar">
             <HeaderAsideMenu />
-            <div className={`header-main-nav ${menuOption.isMobileMenuOpen ? "open": ""}`}>
+            <div
+              className={`header-main-nav ${menuOption.isMobileMenuOpen ? "open" : ""}`}
+            >
               <Nav />
             </div>
             <HeaderActions />
           </div>
         </div>
       </div>
-	  { searchToggle && (
+      {searchToggle && (
         <ProductSearchModal
           toggleHandler={searchBoxToggleHandler}
           toggler={searchToggle}

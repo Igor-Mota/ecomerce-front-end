@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import Link from "next/link";
 import { useState } from "react";
 import ProductsData from "@/data/Products";
@@ -11,11 +11,11 @@ import ActionButtons from "@/components/product/elements/ActionButtons";
 const ProductSearchModal = (props) => {
   const getProducts = ProductsData;
   const [productQuery, setProductQuery] = useState([]);
- 
+
   const SearchInputHandler = (inputValue) => {
     if (inputValue.length > 0) {
       let matchingData = getProducts.filter((product) =>
-        product.title.toLowerCase().includes(inputValue.toLowerCase())
+        product.title.toLowerCase().includes(inputValue.toLowerCase()),
       );
       setProductQuery(matchingData);
     } else {
@@ -55,20 +55,20 @@ const ProductSearchModal = (props) => {
               {productQuery &&
                 productQuery.map((data) => (
                   <div className="axil-product-list" key={data.id}>
-					<div onClick={props.toggleHandler}>
-						<ProductThumbnail
-						productThumb={data}
-						width={120}
-						height={120}
-						/>
-					</div>
+                    <div onClick={props.toggleHandler}>
+                      <ProductThumbnail
+                        productThumb={data}
+                        width={120}
+                        height={120}
+                      />
+                    </div>
                     <div className="product-content">
                       <ProductRating rating={data} />
-					  <div onClick={props.toggleHandler}>
-                      	<ProductTitle productTitle={data} titleTag="h6" />
-					  </div>
+                      <div onClick={props.toggleHandler}>
+                        <ProductTitle productTitle={data} titleTag="h6" />
+                      </div>
                       <ProductPrice price={data} />
-					  <ActionButtons productAction={data} wishlistBtn cartBtn/>
+                      <ActionButtons productAction={data} wishlistBtn cartBtn />
                     </div>
                   </div>
                 ))}

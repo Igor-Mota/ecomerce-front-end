@@ -24,16 +24,24 @@ const Dashboard = () => {
   return (
     <div className="axil-dashboard-overview">
       <div className="welcome-text">
-        Hello {userData.user && userData.user.userName ? userData.user.userName : ""} <br /> (você não e o(a)
-        <span>{userData.user && userData.user.userName ? userData.user.userName : ""}?</span>
+        Hello{" "}
+        {userData.user && userData.user.userName ? userData.user.userName : ""}{" "}
+        <br /> (você não e o(a)
+        <span>
+          {userData.user && userData.user.userName
+            ? userData.user.userName
+            : ""}
+          ?
+        </span>
         <Link href="#" onClick={handleLogout}>
           Log Out
         </Link>
         )
       </div>
       <p>
-        From your account dashboard you can view your recent orders, manage your shipping and billing addresses, and
-        edit your password and account details.
+        From your account dashboard you can view your recent orders, manage your
+        shipping and billing addresses, and edit your password and account
+        details.
       </p>
     </div>
   );

@@ -1,26 +1,26 @@
 ---
 id: 5
-postFormat: 'audio'
-audioFile: '/images/axil_file_example.mp3'
-title: 'How to generate blog ideas are great for businesses that sell both B2B and D2C.'
-excerpt: 'Donec metus lorem, vulputate at sapien sit amet, auctor iaculis lorem. In vel hendrerit nisi. Vestibulum eget risus velit. Aliquam tristique libero at dui sodales, et placerat orci lobortis. Maecenas ipsum neque, elementum id dignissim et, imperdiet vitae mauris.'
-featureImg: '/images/blog/blog-02.png'
-largeImg: '/images/blog/blog-single-4.jpg'
-date: 'May 20, 2022'
-pCate: 'Fashion'
-cate: 'Shoes'
-views: '300k Views'
-author_name: 'Theresa Underwood'
-author_img: '/images/blog/author-image-1.png'
-tags: 
-    - Design
-    - HTML
-    - Graphic 
-    - Development 
-    - UI/UX Design
-    - eCommerce
-    - CSS
-    - JS
+postFormat: "audio"
+audioFile: "/images/axil_file_example.mp3"
+title: "How to generate blog ideas are great for businesses that sell both B2B and D2C."
+excerpt: "Donec metus lorem, vulputate at sapien sit amet, auctor iaculis lorem. In vel hendrerit nisi. Vestibulum eget risus velit. Aliquam tristique libero at dui sodales, et placerat orci lobortis. Maecenas ipsum neque, elementum id dignissim et, imperdiet vitae mauris."
+featureImg: "/images/blog/blog-02.png"
+largeImg: "/images/blog/blog-single-4.jpg"
+date: "May 20, 2022"
+pCate: "Fashion"
+cate: "Shoes"
+views: "300k Views"
+author_name: "Theresa Underwood"
+author_img: "/images/blog/author-image-1.png"
+tags:
+  - Design
+  - HTML
+  - Graphic
+  - Development
+  - UI/UX Design
+  - eCommerce
+  - CSS
+  - JS
 ---
 
 Habitasse per feugiat aliquam luctus accumsan curae, suspendisse aliquam taciti eros neque, aenean sit iaculis risus commodo ut sociosqu rhoncus potenti tristique placerat sit tempus, duis erat feugiat cras sociosqu porta ut praesent, fermentum donec convallis tellus vulputate duis nibh rhoncus phasellus dui massa nisl.

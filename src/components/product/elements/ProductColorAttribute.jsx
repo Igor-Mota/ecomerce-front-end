@@ -1,14 +1,13 @@
 import { useState } from "react";
 
 const ProductColorAttribute = (props) => {
+  const [colorImage, setColorImage] = useState("");
 
-    const [colorImage, setColorImage] = useState("");
+  const colorImageHandler = (color) => {
+    setColorImage(color);
+    props.getAttribute(color);
+  };
 
-    const colorImageHandler = (color) => {
-        setColorImage(color);
-		  props.getAttribute(color);
-    };
-  
   return (
     <div className="color-variant-wrapper">
       <ul className="color-variant">
@@ -31,4 +30,3 @@ const ProductColorAttribute = (props) => {
 };
 
 export default ProductColorAttribute;
-

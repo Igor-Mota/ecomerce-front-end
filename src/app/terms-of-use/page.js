@@ -6,30 +6,34 @@ import ServiceTwo from "@/components/services/ServiceTwo";
 import { fetchMarkdownFile } from "@/utils/api";
 import markdownToHtml from "@/utils/markdownToHtml";
 
-const TermsOfUse = async() => {
-    const termsUseMeta = fetchMarkdownFile('TermsUse', 'src/data');
-    const termsUseContent = await markdownToHtml(termsUseMeta.content || "");
-    const getTermsUse = {termsUseContent};
+const TermsOfUse = async () => {
+  const termsUseMeta = fetchMarkdownFile("TermsUse", "src/data");
+  const termsUseContent = await markdownToHtml(termsUseMeta.content || "");
+  const getTermsUse = { termsUseContent };
 
-    return ( 
-        <>
-        <HeaderFive headerSlider />
-        <main className="main-wrapper">
+  return (
+    <>
+      <HeaderFive headerSlider />
+      <main className="main-wrapper">
         <Breadcrumb activeItem="Pages" title="Terms of Use" />
         <Section>
-            <div className="row">
-                <div className="col-lg-10">
-                    <div className="axil-privacy-policy">
-                        <div dangerouslySetInnerHTML={{__html: getTermsUse.termsUseContent}}></div>
-                    </div>
-                </div>
+          <div className="row">
+            <div className="col-lg-10">
+              <div className="axil-privacy-policy">
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: getTermsUse.termsUseContent,
+                  }}
+                ></div>
+              </div>
             </div>
+          </div>
         </Section>
         <ServiceTwo />
-        </main>
-        <FooterTwo />
-        </>
-    );
-}
- 
+      </main>
+      <FooterTwo />
+    </>
+  );
+};
+
 export default TermsOfUse;

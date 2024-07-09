@@ -10,26 +10,25 @@ export const AuthProvider = ({ children }) => {
   const authInfo = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  const isAuth = async () => {
-    if (!authInfo.login) {
-      const response = await refreshTokenFetcher();
-      if (response.access_token) {
-        window.localStorage.setItem("token", response.access_token);
-        const user = await meFetcher();
-        dispatch(
-          logIn({
-            token: response.access_token,
-            user,
-          })
-        );
-      }
-    }
-    setAuthProviderLoading(false);
-  };
-
   useEffect(() => {
+    const isAuth = async () => {
+      if (!authInfo.login) {
+        const response = await refreshTokenFetcher();
+        if (response.access_token) {
+          window.localStorage.setItem("token", response.access_token);
+          const user = await meFetcher();
+          dispatch(
+            logIn({
+              token: response.access_token,
+              user,
+            })
+          );
+        }
+      }
+      setAuthProviderLoading(false);
+    };
     isAuth();
-  }, []);
+  }, [authInfo.login, dispatch]);
 
   return <AuthContext.Provider value={{ authProviderLoading }}>{children}</AuthContext.Provider>;
 };

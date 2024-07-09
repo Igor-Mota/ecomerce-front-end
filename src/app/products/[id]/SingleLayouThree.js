@@ -10,10 +10,14 @@ import { ProductReview } from "@/data/Comments";
 import ProductRating from "@/components/product/elements/ProductRating";
 
 const SingleLayouThree = ({ singleData }) => {
-  const findReview = ProductReview.filter((data) => slugify(data.productId) === slugify(singleData.id));
+  const findReview = ProductReview.filter(
+    (data) => slugify(data.productId) === slugify(singleData.id),
+  );
   const ratingNumber = reviewAverage(findReview);
   const getWishlist = useSelector((state) => state.productData.wishlistItems);
-  const isWishlistAdded = getWishlist.filter((data) => data.id === singleData.id);
+  const isWishlistAdded = getWishlist.filter(
+    (data) => data.id === singleData.id,
+  );
 
   const [nav1, setNav1] = useState();
   const [nav2, setNav2] = useState();
@@ -91,19 +95,33 @@ const SingleLayouThree = ({ singleData }) => {
                       {singleData.gallery ? (
                         singleData.gallery.map((galleryImg, index) => (
                           <div className="thumbnail" key={index}>
-                            <Image src={galleryImg} height={584} width={584} alt="Gallery Image" />
+                            <Image
+                              src={galleryImg}
+                              height={584}
+                              width={584}
+                              alt="Gallery Image"
+                            />
                           </div>
                         ))
                       ) : (
                         <div className="thumbnail">
-                          <Image src={singleData.thumbnail} height={584} width={584} alt="Gallery Image" />
+                          <Image
+                            src={singleData.thumbnail}
+                            height={584}
+                            width={584}
+                            alt="Gallery Image"
+                          />
                         </div>
                       )}
                     </SlickSlider>
                     {singleData.salePrice && (
                       <div className="label-block">
                         <div className="product-badget">
-                          {discountPercentage(singleData.price, singleData.salePrice)}% OFF
+                          {discountPercentage(
+                            singleData.price,
+                            singleData.salePrice,
+                          )}
+                          % OFF
                         </div>
                       </div>
                     )}
@@ -144,12 +162,22 @@ const SingleLayouThree = ({ singleData }) => {
                     {singleData.gallery ? (
                       singleData.gallery.map((galleryImg, index) => (
                         <div className="small-thumb-img" key={index}>
-                          <Image src={galleryImg} height={207} width={213} alt="Thumb Image" />
+                          <Image
+                            src={galleryImg}
+                            height={207}
+                            width={213}
+                            alt="Thumb Image"
+                          />
                         </div>
                       ))
                     ) : (
                       <div className="small-thumb-img">
-                        <Image src={singleData.thumbnail} height={207} width={213} alt="Thumb Image" />
+                        <Image
+                          src={singleData.thumbnail}
+                          height={207}
+                          width={213}
+                          alt="Thumb Image"
+                        />
                       </div>
                     )}
                   </SlickSlider>
@@ -161,14 +189,19 @@ const SingleLayouThree = ({ singleData }) => {
                 <div className="inner">
                   <h2 className="product-title">{singleData.title}</h2>
                   <span className="price-amount">
-                    ${singleData.salePrice ? singleData.salePrice : singleData.price}
+                    $
+                    {singleData.salePrice
+                      ? singleData.salePrice
+                      : singleData.price}
                   </span>
                   <ProductRating rating={singleData} textEnable />
                   {singleData.shortDes && (
                     <>
                       <ul
                         className="product-meta"
-                        dangerouslySetInnerHTML={{ __html: singleData.shortDes.listItem }}
+                        dangerouslySetInnerHTML={{
+                          __html: singleData.shortDes.listItem,
+                        }}
                       ></ul>
                       <p>{singleData.shortDes.text}</p>
                     </>
@@ -217,7 +250,12 @@ const SingleLayouThree = ({ singleData }) => {
                       <span className="qtybtn" onClick={decrementQuantity}>
                         -
                       </span>
-                      <input type="number" className="quantity-input" value={quantity} readOnly />
+                      <input
+                        type="number"
+                        className="quantity-input"
+                        value={quantity}
+                        readOnly
+                      />
                       <span className="qtybtn" onClick={incrementQuantity}>
                         +
                       </span>
@@ -226,7 +264,8 @@ const SingleLayouThree = ({ singleData }) => {
                       <li className="add-to-cart">
                         <button
                           disabled={
-                            (singleData.colorAttribute && !colorImage) || (singleData.sizeAttribute && !productSize)
+                            (singleData.colorAttribute && !colorImage) ||
+                            (singleData.sizeAttribute && !productSize)
                               ? true
                               : false
                           }
@@ -237,8 +276,17 @@ const SingleLayouThree = ({ singleData }) => {
                         </button>
                       </li>
                       <li className="wishlist">
-                        <button className="axil-btn wishlist-btn" onClick={() => handleAddToWishlist(singleData)}>
-                          <i className={isWishlistAdded.length === 1 ? "fas fa-heart" : "far fa-heart"} />
+                        <button
+                          className="axil-btn wishlist-btn"
+                          onClick={() => handleAddToWishlist(singleData)}
+                        >
+                          <i
+                            className={
+                              isWishlistAdded.length === 1
+                                ? "fas fa-heart"
+                                : "far fa-heart"
+                            }
+                          />
                         </button>
                       </li>
                     </ul>
@@ -315,7 +363,12 @@ const SingleLayouThree = ({ singleData }) => {
                       {singleData.description.listDesc?.map((data, index) => (
                         <li className="single-features" key={index}>
                           <div className="icon">
-                            <Image src={data.icon} width={30} height={34} alt="icon" />
+                            <Image
+                              src={data.icon}
+                              width={30}
+                              height={34}
+                              alt="icon"
+                            />
                           </div>
                           {data.title}
                         </li>
@@ -325,7 +378,12 @@ const SingleLayouThree = ({ singleData }) => {
                 </div>
               </div>
             </div>
-            <div className="tab-pane fade" id="additional-info" role="tabpanel" aria-labelledby="additional-info-tab">
+            <div
+              className="tab-pane fade"
+              id="additional-info"
+              role="tabpanel"
+              aria-labelledby="additional-info-tab"
+            >
               <div className="product-additional-info">
                 <div className="table-responsive">
                   <table>
@@ -341,23 +399,37 @@ const SingleLayouThree = ({ singleData }) => {
                 </div>
               </div>
             </div>
-            <div className="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+            <div
+              className="tab-pane fade"
+              id="reviews"
+              role="tabpanel"
+              aria-labelledby="reviews-tab"
+            >
               <div className="reviews-wrapper">
                 <div className="row">
                   <div className="col-lg-6 mb--40">
                     <div className="axil-comment-area pro-desc-commnet-area">
-                      <h5 className="title">{findReview.length} Review for this product</h5>
+                      <h5 className="title">
+                        {findReview.length} Review for this product
+                      </h5>
                       <ul className="comment-list">
                         {findReview.map((data, index) => (
                           <li className="comment" key={index}>
                             <div className="comment-body">
                               <div className="single-comment">
                                 <div className="comment-img">
-                                  <Image src={data.user_thumbnail} height={60} width={60} alt={data.user_name} />
+                                  <Image
+                                    src={data.user_thumbnail}
+                                    height={60}
+                                    width={60}
+                                    alt={data.user_name}
+                                  />
                                 </div>
                                 <div className="comment-inner">
                                   <h6 className="commenter">
-                                    <span className="hover-flip-item-wrapper">{data.user_name}</span>
+                                    <span className="hover-flip-item-wrapper">
+                                      {data.user_name}
+                                    </span>
                                     <span className="commenter-rating">
                                       {[...Array(5)].map((item, index) => (
                                         <i
@@ -381,7 +453,10 @@ const SingleLayouThree = ({ singleData }) => {
                   <div className="col-lg-6 mb--40">
                     <div className="comment-respond pro-des-commend-respond mt--0">
                       <h5 className="title mb--30">Add a Review</h5>
-                      <p>Your email address will not be published. Required fields are marked *</p>
+                      <p>
+                        Your email address will not be published. Required
+                        fields are marked *
+                      </p>
                       <div className="rating-wrapper d-flex-center mb--40">
                         Your Rating <span className="require">*</span>
                         <div className="reating-inner ml--20">
@@ -407,7 +482,11 @@ const SingleLayouThree = ({ singleData }) => {
                           <div className="col-12">
                             <div className="form-group">
                               <label>Other Notes (optional)</label>
-                              <textarea name="message" placeholder="Your Comment" defaultValue={""} />
+                              <textarea
+                                name="message"
+                                placeholder="Your Comment"
+                                defaultValue={""}
+                              />
                             </div>
                           </div>
                           <div className="col-lg-6 col-md-6 col-12">
@@ -428,7 +507,11 @@ const SingleLayouThree = ({ singleData }) => {
                           </div>
                           <div className="col-lg-12">
                             <div className="form-submit">
-                              <button type="submit" id="submit" className="axil-btn btn-bg-primary w-auto">
+                              <button
+                                type="submit"
+                                id="submit"
+                                className="axil-btn btn-bg-primary w-auto"
+                              >
                                 Submit Comment
                               </button>
                             </div>

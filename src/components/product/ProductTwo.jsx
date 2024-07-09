@@ -13,7 +13,12 @@ const ProductTwo = ({ product }) => {
         <div className="inner">
           <ProductTitle productTitle={product} />
           <ProductPrice price={product.price} />
-          <ActionButtons productAction={product} wishlistBtn cartBtn quickViewBtn />
+          <ActionButtons
+            productAction={product}
+            wishlistBtn
+            cartBtn
+            quickViewBtn
+          />
         </div>
       </div>
     </div>

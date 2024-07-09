@@ -10,7 +10,9 @@ import {
 const ActionButtons = (props) => {
   const dispatch = useDispatch();
   const getWishlist = useSelector((state) => state.productData.wishlistItems);
-  const isWishlistAdded = getWishlist.filter((data) => data.id === props.productAction.id);
+  const isWishlistAdded = getWishlist.filter(
+    (data) => data.id === props.productAction.id,
+  );
 
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
@@ -21,10 +23,12 @@ const ActionButtons = (props) => {
   };
 
   const quickViewHandler = (product) => {
-    dispatch(addToQuickView({
-      viewItem: product,
-      quickView: true
-    }));
+    dispatch(
+      addToQuickView({
+        viewItem: product,
+        quickView: true,
+      }),
+    );
   };
 
   return (
@@ -32,13 +36,18 @@ const ActionButtons = (props) => {
       {props.wishlistBtn && props.productAction.pCate !== "NFT" && (
         <li className="wishlist">
           <button onClick={() => handleAddToWishlist(props.productAction)}>
-		  <i className={isWishlistAdded.length === 1 ? "fas fa-heart" : "far fa-heart"} />
+            <i
+              className={
+                isWishlistAdded.length === 1 ? "fas fa-heart" : "far fa-heart"
+              }
+            />
           </button>
         </li>
       )}
       {props.cartBtn && (
         <li className="select-option">
-          {props.productAction.pCate === "NFT" || props.productAction.productType === "variable" ? (
+          {props.productAction.pCate === "NFT" ||
+          props.productAction.productType === "variable" ? (
             <Link href={`/products/${props.productAction.id}`}>
               Buy Product
             </Link>

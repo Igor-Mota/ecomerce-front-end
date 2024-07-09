@@ -22,11 +22,16 @@ const MiniCart = () => {
 
   return (
     <>
-      <div className={`cart-dropdown ${getProducts.isMinicartOpen ? "open" : ""}`}>
+      <div
+        className={`cart-dropdown ${getProducts.isMinicartOpen ? "open" : ""}`}
+      >
         <div className="cart-content-wrap">
           <div className="cart-header">
             <h2 className="header-title">Cart review</h2>
-            <button className="cart-close sidebar-close" onClick={() => cartHandler(false)}>
+            <button
+              className="cart-close sidebar-close"
+              onClick={() => cartHandler(false)}
+            >
               <i className="fas fa-times"></i>
             </button>
           </div>
@@ -36,8 +41,16 @@ const MiniCart = () => {
                 getProducts.cartItems.map((data) => (
                   <li className="cart-item" key={data.id}>
                     <div className="item-img">
-                      <Image src={data.thumbnail} alt={data.title} height={100} width={100} />
-                      <button className="close-btn" onClick={() => removeCartHandler(data)}>
+                      <Image
+                        src={data.thumbnail}
+                        alt={data.title}
+                        height={100}
+                        width={100}
+                      />
+                      <button
+                        className="close-btn"
+                        onClick={() => removeCartHandler(data)}
+                      >
                         <i className="fas fa-times"></i>
                       </button>
                     </div>
@@ -63,7 +76,9 @@ const MiniCart = () => {
             <div className="cart-footer">
               <h3 className="cart-subtotal">
                 <span className="subtotal-title">Subtotal:</span>
-                <span className="subtotal-amount">${getProducts.cartTotalAmount}</span>
+                <span className="subtotal-amount">
+                  ${getProducts.cartTotalAmount}
+                </span>
               </h3>
               <div className="group-btn">
                 <button
@@ -85,7 +100,9 @@ const MiniCart = () => {
           )}
         </div>
       </div>
-      {getProducts.isMinicartOpen && <div className="closeMask" onClick={() => cartHandler(false)}></div>}
+      {getProducts.isMinicartOpen && (
+        <div className="closeMask" onClick={() => cartHandler(false)}></div>
+      )}
     </>
   );
 };

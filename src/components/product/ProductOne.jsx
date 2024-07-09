@@ -30,7 +30,10 @@ const ProductOne = ({ product, pClass }) => {
             <ProductTitle verified={product.verified} productTitle={product} />
             <ProductPrice price={product.price} />
             {product.colorAttribute && (
-              <ProductColorAttribute attributeColor={product} getAttribute={getAttributeData} />
+              <ProductColorAttribute
+                attributeColor={product}
+                getAttribute={getAttributeData}
+              />
             )}
           </div>
         </div>

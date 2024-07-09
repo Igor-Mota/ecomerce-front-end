@@ -21,7 +21,8 @@ const AccountDetails = () => {
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      username: userData.user && userData.user.name ? userData.user.userName : "",
+      username:
+        userData.user && userData.user.name ? userData.user.userName : "",
     },
   });
 
@@ -37,7 +38,7 @@ const AccountDetails = () => {
             ...userData.user,
             userName: response.userName,
           },
-        })
+        }),
       );
     }
     setIsLoad(false);
@@ -45,7 +46,10 @@ const AccountDetails = () => {
 
   return (
     <div className="axil-dashboard-account">
-      <form className="account-details-form" onSubmit={handleSubmit(userInfoHandler)}>
+      <form
+        className="account-details-form"
+        onSubmit={handleSubmit(userInfoHandler)}
+      >
         <div className="row">
           <div className="col-lg-6">
             <div className="form-group">
@@ -55,11 +59,18 @@ const AccountDetails = () => {
                 control={control}
                 render={({ field }) => {
                   return (
-                    <input {...field} type="text" defaultValue={userData.user.userName} className="form-control" />
+                    <input
+                      {...field}
+                      type="text"
+                      defaultValue={userData.user.userName}
+                      className="form-control"
+                    />
                   );
                 }}
               />
-              {errors.firstName && <p className="error">First Name is required.</p>}
+              {errors.firstName && (
+                <p className="error">First Name is required.</p>
+              )}
             </div>
           </div>
           {userData.user && userData.user.provider === "Default" && (
@@ -67,7 +78,11 @@ const AccountDetails = () => {
               <h5 className="title">Password Change</h5>
               <div className="form-group">
                 <label>Password</label>
-                <input type="password" className="form-control" defaultValue={1201112131415} />
+                <input
+                  type="password"
+                  className="form-control"
+                  defaultValue={1201112131415}
+                />
               </div>
               <div className="form-group">
                 <label>New Password</label>

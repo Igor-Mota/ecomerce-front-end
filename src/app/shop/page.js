@@ -14,7 +14,11 @@ const Shop = ({ searchParams }) => {
       <HeaderFive headerCampaign />
       <Breadcrumb activeItem="Shop" title="Explore All Products" />
       <main className="main-wrapper">
-        {searchParams.layout === "no-sidebar" ? <ShopNoSidebar /> : <ShopWithSidebar />}
+        {searchParams.layout === "no-sidebar" ? (
+          <ShopNoSidebar />
+        ) : (
+          <ShopWithSidebar />
+        )}
         <NewsLetter />
         <ServiceTwo />
       </main>

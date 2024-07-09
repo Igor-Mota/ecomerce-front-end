@@ -1,5 +1,5 @@
 ---
-date: 'February 26th, 2022'
+date: "February 26th, 2022"
 ---
 
 #### GDPR compliance

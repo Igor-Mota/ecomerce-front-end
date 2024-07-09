@@ -59,85 +59,84 @@ STYLESHEET INDEXING
 
 ======================================================== --*/
 
-
 /* ===============================
 Default Styles
 ================================== */
-@import '/node_modules/bootstrap/scss/bootstrap.scss';
+@import "/node_modules/bootstrap/scss/bootstrap.scss";
 
-@import 'default/variables';
-@import 'default/mixins';
-@import 'default/reset';
-@import 'default/typography';
-@import 'default/extend';
-@import 'default/animations';
-@import 'default/shortcode';
-@import 'default/common';
-@import 'default/forms';
+@import "default/variables";
+@import "default/mixins";
+@import "default/reset";
+@import "default/typography";
+@import "default/extend";
+@import "default/animations";
+@import "default/shortcode";
+@import "default/common";
+@import "default/forms";
 
 /* ===============================
 Elements Styles
 ================================== */
 
-@import 'elements/about';
-@import 'elements/back-to-top';
-@import 'elements/breadcrumb';
-@import 'elements/button';
-@import 'elements/categories';
-@import 'elements/contact';
-@import 'elements/countdown';
-@import 'elements/error';
-@import 'elements/newsletter';
-@import 'elements/pagination';
-@import 'elements/poster';
-@import 'elements/price-slider';
-@import 'elements/privacy-policy';
-@import 'elements/section';
-@import 'elements/service';
-@import 'elements/slick';
-@import 'elements/slider';
-@import 'elements/social';
-@import 'elements/team';
-@import 'elements/testimonial';
-@import 'elements/video';
-@import 'elements/splash';
+@import "elements/about";
+@import "elements/back-to-top";
+@import "elements/breadcrumb";
+@import "elements/button";
+@import "elements/categories";
+@import "elements/contact";
+@import "elements/countdown";
+@import "elements/error";
+@import "elements/newsletter";
+@import "elements/pagination";
+@import "elements/poster";
+@import "elements/price-slider";
+@import "elements/privacy-policy";
+@import "elements/section";
+@import "elements/service";
+@import "elements/slick";
+@import "elements/slider";
+@import "elements/social";
+@import "elements/team";
+@import "elements/testimonial";
+@import "elements/video";
+@import "elements/splash";
 
 /* ===============================
 Header Styles
 ================================== */
-@import 'header/header-top';
-@import 'header/header';
-@import 'header/nav';
+@import "header/header-top";
+@import "header/header";
+@import "header/nav";
 
 /* ===============================
 Shop Styles
 ================================== */
 
-@import 'shop/header-cart';
-@import 'shop/shop';
-@import 'shop/product-details';
-@import 'shop/checkout';
-@import 'shop/my-account';
+@import "shop/header-cart";
+@import "shop/shop";
+@import "shop/product-details";
+@import "shop/checkout";
+@import "shop/my-account";
 
 /* ===============================
 Blog Styles
 ================================== */
 
-@import 'blog/blog-list';
-@import 'blog/blog-single';
-@import 'blog/comment';
-@import 'blog/sidebar';
+@import "blog/blog-list";
+@import "blog/blog-single";
+@import "blog/comment";
+@import "blog/sidebar";
 
 /* ===============================
 Footer Styles
 ================================== */
 
-@import 'footer/footer';
+@import "footer/footer";
 
 /* ===============================
 Spacing
 ================================== */
-@import 'default/spacing';
+@import "default/spacing";
 
 /* ===============================
 Dark Style

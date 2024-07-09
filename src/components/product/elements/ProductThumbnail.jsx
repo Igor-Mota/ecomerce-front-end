@@ -8,7 +8,11 @@ const ProductThumbnail = (props) => {
     <div className="thumbnail">
       <Link href={`/products/${props.productThumb.id}`}>
         <Image
-          src={props.attributeImg ? props.attributeImg : props.productThumb.thumbnail}
+          src={
+            props.attributeImg
+              ? props.attributeImg
+              : props.productThumb.thumbnail
+          }
           width={props.width ?? 300}
           height={props.height ?? 300}
           alt={props.productThumb.title}
@@ -25,7 +29,9 @@ const ProductThumbnail = (props) => {
           ""
         )}
       </Link>
-      {props.productThumb.salePrice && props.discountLabel && <ProductDiscountLabel discount={props.productThumb} />}
+      {props.productThumb.salePrice && props.discountLabel && (
+        <ProductDiscountLabel discount={props.productThumb} />
+      )}
       {props.hoverItems && (
         <div className="product-hover-action">
           <ActionButtons

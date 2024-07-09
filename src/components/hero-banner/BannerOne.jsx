@@ -25,10 +25,18 @@ const BannerOne = ({ data, isLoading }) => {
               >
                 {data.data.map((data, index) => (
                   <div key={index}>
-                    <Image src={data.thumb} height={550} width={680} alt={data.title} />
+                    <Image
+                      src={data.thumb}
+                      height={550}
+                      width={680}
+                      alt={data.title}
+                    />
                     <div className="slide-action">
                       <div className="shop-btn">
-                        <Link href={`/products/${data.id}`} className="axil-btn btn-bg-white">
+                        <Link
+                          href={`/products/${data.id}`}
+                          className="axil-btn btn-bg-white"
+                        >
                           <i className="fal fa-shopping-cart" />
                           Shop Now
                         </Link>
@@ -51,7 +59,12 @@ const BannerOne = ({ data, isLoading }) => {
               >
                 {data.data.map((data, index) => (
                   <div key={index}>
-                    <Image src={data.thumb} height={550} width={680} alt={data.title} />
+                    <Image
+                      src={data.thumb}
+                      height={550}
+                      width={680}
+                      alt={data.title}
+                    />
                     <div className="product-price">
                       <span className="text">From</span>
                       <span className="price-amount">{data.price}</span>
@@ -65,10 +78,20 @@ const BannerOne = ({ data, isLoading }) => {
       </div>
       <ul className="shape-group">
         <li className="shape-1">
-          <Image src="/images/others/shape-1.png" alt="Shape" height={672} width={500} />
+          <Image
+            src="/images/others/shape-1.png"
+            alt="Shape"
+            height={672}
+            width={500}
+          />
         </li>
         <li className="shape-2">
-          <Image src="/images/others/shape-2.png" alt="Shape" height={313} width={420} />
+          <Image
+            src="/images/others/shape-2.png"
+            alt="Shape"
+            height={313}
+            width={420}
+          />
         </li>
       </ul>
     </div>

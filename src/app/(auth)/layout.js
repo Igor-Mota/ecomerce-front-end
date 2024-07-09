@@ -20,7 +20,9 @@ const AuthLayout = ({ children }) => {
           </div>
           <div className="col-md-6">
             <div className="singin-header-btn">
-              <p>{slug === "sign-in" ? "Not a member?" : "Already a member?"}</p>
+              <p>
+                {slug === "sign-in" ? "Not a member?" : "Already a member?"}
+              </p>
               <Link
                 href={slug === "sign-in" ? "/sign-up" : "/sign-in"}
                 className="axil-btn btn-bg-secondary sign-up-btn"

@@ -13,17 +13,17 @@ const TestimonialOne = () => {
         subtitleIcon="fal fa-quote-left"
         subColor="highlighter-secondary"
       />
-      <SlickSlider 
-      class="testimonial-style-one-wrapper slick-layout-wrapper--20 axil-slick-arrow arrow-top-slide"
-      responsive = {[
-        {
-          breakpoint: 992,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-          }
-        }
-      ]}
+      <SlickSlider
+        class="testimonial-style-one-wrapper slick-layout-wrapper--20 axil-slick-arrow arrow-top-slide"
+        responsive={[
+          {
+            breakpoint: 992,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+            },
+          },
+        ]}
       >
         {TestimonialData.map((data, index) => (
           <div className="testimonial-style-one" key={index}>

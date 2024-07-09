@@ -53,7 +53,10 @@ const HeaderActions = (props) => {
         )}
         {props.searchIcon && (
           <li className="axil-search axil-search-icon">
-            <button className="header-search-icon" onClick={searchBoxToggleHandler}>
+            <button
+              className="header-search-icon"
+              onClick={searchBoxToggleHandler}
+            >
               <i className="far fa-search" />
             </button>
           </li>
@@ -61,12 +64,17 @@ const HeaderActions = (props) => {
 
         <li className="wishlist">
           <Link href="/wishlist">
-            {getProducts.wishListQuantity > 0 && <span className="cart-count">{getProducts.wishListQuantity}</span>}
+            {getProducts.wishListQuantity > 0 && (
+              <span className="cart-count">{getProducts.wishListQuantity}</span>
+            )}
             <i className="far fa-heart" />
           </Link>
         </li>
         <li className="shopping-cart">
-          <button className="cart-dropdown-btn" onClick={() => cartHandler(true)}>
+          <button
+            className="cart-dropdown-btn"
+            onClick={() => cartHandler(true)}
+          >
             <span className="cart-count">{getProducts.cartQuantityTotal}</span>
             <i className="far fa-shopping-cart" />
           </button>
@@ -75,7 +83,9 @@ const HeaderActions = (props) => {
           <button onClick={accountDropdownToggler}>
             <i className="far fa-user" />
           </button>
-          <div className={`my-account-dropdown ${accountDropdown ? "open" : ""}`}>
+          <div
+            className={`my-account-dropdown ${accountDropdown ? "open" : ""}`}
+          >
             <span className="title">QUICKLINKS</span>
             <ul>
               {authInfo.login && (
@@ -94,7 +104,11 @@ const HeaderActions = (props) => {
             </ul>
             {authInfo.login && (
               <div className="reg-footer text-center">
-                <Link href="/sign-in" className="axil-btn btn-bg-primary" onClick={handleLogout}>
+                <Link
+                  href="/sign-in"
+                  className="axil-btn btn-bg-primary"
+                  onClick={handleLogout}
+                >
                   Sair
                 </Link>
               </div>
@@ -117,14 +131,20 @@ const HeaderActions = (props) => {
           </div>
         </li>
         <li className="axil-mobile-toggle">
-          <button className="menu-btn mobile-nav-toggler" onClick={() => mobileMneuHandler(true)}>
+          <button
+            className="menu-btn mobile-nav-toggler"
+            onClick={() => mobileMneuHandler(true)}
+          >
             <i className="fal fa-bars"></i>
           </button>
         </li>
       </ul>
       <MiniCart />
       {(props.searchIcon || props.searchBox) && (
-        <ProductSearchModal toggleHandler={searchBoxToggleHandler} toggler={searchToggle} />
+        <ProductSearchModal
+          toggleHandler={searchBoxToggleHandler}
+          toggler={searchToggle}
+        />
       )}
     </div>
   );

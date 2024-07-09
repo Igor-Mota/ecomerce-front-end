@@ -1,22 +1,22 @@
 ---
 id: 4
-postFormat: 'quote'
-title: '“An oral history of the AIM away message (by the people who were there)”'
-excerpt: 'Donec metus lorem, vulputate at sapien sit amet, auctor iaculis lorem. In vel hendrerit nisi. Vestibulum eget risus velit. Aliquam tristique libero at dui sodales, et placerat orci lobortis. Maecenas ipsum neque, elementum id dignissim et, imperdiet vitae mauris.'
-date: 'May 20, 2022'
-pCate: 'Fashion'
-cate: 'Shoes'
-views: '300k Views'
-author_name: 'Leslie Alexander'
-author_img: '/images/blog/author-image-3.png'
-tags: 
-    - HTML
-    - Graphic 
-    - Development 
-    - UI/UX Design
-    - eCommerce
-    - CSS
-    - JS
+postFormat: "quote"
+title: "“An oral history of the AIM away message (by the people who were there)”"
+excerpt: "Donec metus lorem, vulputate at sapien sit amet, auctor iaculis lorem. In vel hendrerit nisi. Vestibulum eget risus velit. Aliquam tristique libero at dui sodales, et placerat orci lobortis. Maecenas ipsum neque, elementum id dignissim et, imperdiet vitae mauris."
+date: "May 20, 2022"
+pCate: "Fashion"
+cate: "Shoes"
+views: "300k Views"
+author_name: "Leslie Alexander"
+author_img: "/images/blog/author-image-3.png"
+tags:
+  - HTML
+  - Graphic
+  - Development
+  - UI/UX Design
+  - eCommerce
+  - CSS
+  - JS
 ---
 
 Habitasse per feugiat aliquam luctus accumsan curae, suspendisse aliquam taciti eros neque, aenean sit iaculis risus commodo ut sociosqu rhoncus potenti tristique placerat sit tempus, duis erat feugiat cras sociosqu porta ut praesent, fermentum donec convallis tellus vulputate duis nibh rhoncus phasellus dui massa nisl.

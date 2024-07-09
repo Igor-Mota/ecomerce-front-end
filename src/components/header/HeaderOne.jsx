@@ -43,7 +43,9 @@ const HeaderOne = () => {
                 <CuurencyDropdown />
               </div>
             </div>
-            <div className="col-sm-6">{!authIfo.login && <HeaderQuickLink />} </div>
+            <div className="col-sm-6">
+              {!authIfo.login && <HeaderQuickLink />}{" "}
+            </div>
           </div>
         </div>
       </div>
@@ -52,7 +54,9 @@ const HeaderOne = () => {
         <div className="container">
           <div className="header-navbar">
             <HeaderBrand />
-            <div className={`header-main-nav ${menuOption.isMobileMenuOpen ? "open" : ""}`}>
+            <div
+              className={`header-main-nav ${menuOption.isMobileMenuOpen ? "open" : ""}`}
+            >
               <Nav />
             </div>
             <HeaderActions searchIcon />

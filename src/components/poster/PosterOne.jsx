@@ -19,7 +19,10 @@ const PosterOne = (props) => {
                   subtitleIcon={props.subtitleIcon ?? "fal fa-headphones-alt"}
                 />
                 <div className="poster-countdown countdown mb--40">
-                  <CountDown unit date={props.CountTime ?? "2023-12-01T23:59:59"} />
+                  <CountDown
+                    unit
+                    date={props.CountTime ?? "2023-12-01T23:59:59"}
+                  />
                 </div>
                 <Link href="/shop" className="axil-btn btn-bg-primary">
                   Check it Out!
@@ -29,7 +32,9 @@ const PosterOne = (props) => {
             <div className="col-xl-7 col-lg-6">
               <div className="poster-countdown-thumbnail">
                 <Image
-                  src={props.thumbnail ?? "/images/product/poster/poster-03.png"}
+                  src={
+                    props.thumbnail ?? "/images/product/poster/poster-03.png"
+                  }
                   alt="Poster Thumbnail"
                   width={props.thumbWidth ?? 452}
                   height={props.thumbHeight ?? 502}

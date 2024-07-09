@@ -5,7 +5,7 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { cepFetcher } from "@/services/http/externals/cep";
-import { useCreateAddress } from "@/services/http/address";
+import { useCreateAddress, useUpdateAddress } from "@/services/http/address";
 import { useDispatch, useSelector } from "react-redux";
 import { shippingAddress } from "@/store/slices/authSlice";
 
@@ -23,7 +23,6 @@ const ShippingAddress = () => {
 
   const { userData } = useSelector((state) => state.auth);
   const address = userData.user.shippingAddress ?? null;
-  console.log(address);
 
   const {
     control,
@@ -43,9 +42,33 @@ const ShippingAddress = () => {
     mutate: createAddressFn,
   } = useCreateAddress();
 
+  const {
+    data: updateData,
+    reset: updateReset,
+    isLoading: isUpdateLoading,
+    mutate: updateAddressFn,
+  } = useUpdateAddress();
+
   if (createData && createData.id) {
     dispatch(shippingAddress(createData));
     createReset();
+  }
+
+  if (updateData && updateData.id) {
+    dispatch(
+      shippingAddress({
+        ...address,
+        id: updateData.id,
+        number: updateData.number,
+        street: updateData.updateData,
+        state: updateData.state,
+        city: updateData.city,
+        neighborhood: updateData.neighborhood,
+        postCode: updateData.zip_code,
+        country: "Brazil",
+      }),
+    );
+    updateReset();
   }
 
   const getAddressByCep = async (value) => {
@@ -74,7 +97,14 @@ const ShippingAddress = () => {
 
   const userShippingInfoHandler = async (data) => {
     console.log(data);
-    createAddressFn({ ...data, complement: data.complement ?? "" });
+    if (address && address.id) {
+      updateAddressFn({
+        id: address.id,
+        ...data,
+      });
+    } else {
+      createAddressFn({ ...data, complement: data.complement ?? "" });
+    }
   };
 
   const replacerCep = (value) => {
@@ -85,10 +115,23 @@ const ShippingAddress = () => {
       .slice(0, 10);
   };
 
+  const defaultState = (state) => {
+    if (
+      !!address &&
+      address.country.toUpperCase() === state.code.toUpperCase()
+    ) {
+      return true;
+    }
+    return false;
+  };
+
   return (
     <>
       <h4 className="title">Shipping Address</h4>
-      <form className="account-details-form" onSubmit={handleSubmit(userShippingInfoHandler)}>
+      <form
+        className="account-details-form"
+        onSubmit={handleSubmit(userShippingInfoHandler)}
+      >
         <div className="row">
           <div className="form-group col-12 col-md-6">
             <label>CEP *</label>
@@ -113,7 +156,9 @@ const ShippingAddress = () => {
                 );
               }}
             />
-            {errors.zip_code && <p className="text-danger">{errors.zip_code.message}</p>}
+            {errors.zip_code && (
+              <p className="text-danger">{errors.zip_code.message}</p>
+            )}
           </div>
 
           <div className="form-group col-12 col-md-6">
@@ -123,10 +168,14 @@ const ShippingAddress = () => {
               name="city"
               defaultValue={address ? address.city : ""}
               render={({ field }) => {
-                return <input {...field} type="text" className="form-control" />;
+                return (
+                  <input {...field} type="text" className="form-control" />
+                );
               }}
             />
-            {errors.city && <p className="text-danger">{errors.city.message}</p>}
+            {errors.city && (
+              <p className="text-danger">{errors.city.message}</p>
+            )}
           </div>
 
           <div className="form-group col-12 col-md-6">
@@ -136,10 +185,14 @@ const ShippingAddress = () => {
               name="neighborhood"
               defaultValue={address ? address.neighborhood : ""}
               render={({ field }) => {
-                return <input {...field} type="text" className="form-control" />;
+                return (
+                  <input {...field} type="text" className="form-control" />
+                );
               }}
             />
-            {errors.neighborhood && <p className="text-danger">{errors.neighborhood.message}</p>}
+            {errors.neighborhood && (
+              <p className="text-danger">{errors.neighborhood.message}</p>
+            )}
           </div>
 
           <div className="form-group col-12 col-md-6">
@@ -149,10 +202,14 @@ const ShippingAddress = () => {
               defaultValue={address ? address.street : ""}
               name="address"
               render={({ field }) => {
-                return <input {...field} type="text" className="form-control" />;
+                return (
+                  <input {...field} type="text" className="form-control" />
+                );
               }}
             />
-            {errors.address && <p className="text-danger">{errors.address.message}</p>}
+            {errors.address && (
+              <p className="text-danger">{errors.address.message}</p>
+            )}
           </div>
 
           <div className="form-group col-12 col-md-6">
@@ -162,10 +219,14 @@ const ShippingAddress = () => {
               name="number"
               defaultValue={address ? address.number : ""}
               render={({ field }) => {
-                return <input {...field} type="text" className="form-control" />;
+                return (
+                  <input {...field} type="text" className="form-control" />
+                );
               }}
             />
-            {errors.number && <p className="text-danger">{errors.number.message}</p>}
+            {errors.number && (
+              <p className="text-danger">{errors.number.message}</p>
+            )}
           </div>
 
           <div className="form-group col-12 col-md-6">
@@ -174,16 +235,26 @@ const ShippingAddress = () => {
               control={control}
               name="state"
               render={({ field }) => (
-                <select {...field} ref={selectRef} className="form-control js-select-states fs-3  ps-4">
+                <select
+                  {...field}
+                  ref={selectRef}
+                  className="form-control js-select-states fs-3  ps-4"
+                >
                   {getStates().map((state) => (
-                    <option key={state.code} value={state.code}>
+                    <option
+                      key={state.code}
+                      value={state.code}
+                      selected={defaultState(state)}
+                    >
                       {state.name}
                     </option>
                   ))}
                 </select>
               )}
             />
-            {errors.state && <p className="text-danger">{errors.state.message}</p>}
+            {errors.state && (
+              <p className="text-danger">{errors.state.message}</p>
+            )}
           </div>
 
           <div className="form-group col-12 col-md-6">
@@ -192,27 +263,32 @@ const ShippingAddress = () => {
               control={control}
               name="complement"
               render={({ field }) => {
-                return <input {...field} type="text" className="form-control" />;
+                return (
+                  <input {...field} type="text" className="form-control" />
+                );
               }}
             />
-            {errors.complement && <p className="text-danger">{errors.complement.message}</p>}
+            {errors.complement && (
+              <p className="text-danger">{errors.complement.message}</p>
+            )}
           </div>
         </div>
 
         <div className="col-lg-12">
           <div className="form-group mb--0">
-            {!isCreateLoading && (
+            {!isCreateLoading && !isUpdateLoading && (
               <button type="submit" className=" btn btn-primary axil-btn">
                 Salvar
               </button>
             )}
-            {isCreateLoading && (
-              <button type="submit" className=" btn btn-primary axil-btn">
-                <div class="spinner-border text-light" role="status">
-                  <span class="sr-only">Loading...</span>
-                </div>
-              </button>
-            )}
+            {isCreateLoading ||
+              (isUpdateLoading && (
+                <button type="submit" className=" btn btn-primary axil-btn">
+                  <div class="spinner-border text-light" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </button>
+              ))}
           </div>
         </div>
       </form>

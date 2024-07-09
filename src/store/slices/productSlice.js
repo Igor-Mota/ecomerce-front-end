@@ -17,9 +17,12 @@ const productSlice = createSlice({
   },
   reducers: {
     addToCart(state, action) {
-      const ItemIndex = state.cartItems.findIndex((item) => item.id === action.payload.id);
+      const ItemIndex = state.cartItems.findIndex(
+        (item) => item.id === action.payload.id,
+      );
       if (ItemIndex >= 0) {
-        state.cartItems[ItemIndex].cartQuantity += action.payload.cartQuantity ?? 1;
+        state.cartItems[ItemIndex].cartQuantity +=
+          action.payload.cartQuantity ?? 1;
         state.cartQuantityTotal += action.payload.cartQuantity ?? 1;
         state.isMinicartOpen = true;
       } else {
@@ -42,7 +45,9 @@ const productSlice = createSlice({
       state.cartTotalAmount = calculateTotalAmount(state.cartItems);
     },
     removeCartItem(state, action) {
-      const filteredCartItem = state.cartItems.filter((cartItem) => cartItem.id !== action.payload.id);
+      const filteredCartItem = state.cartItems.filter(
+        (cartItem) => cartItem.id !== action.payload.id,
+      );
       const filteredItemQuantity = filteredCartItem.map((item) => {
         return item.cartQuantity;
       });
@@ -50,11 +55,15 @@ const productSlice = createSlice({
       state.cartItems = filteredCartItem;
     },
     cartQuantityIncrease(state, action) {
-      const findItem = state.cartItems.findIndex((item) => item.id === action.payload.id);
+      const findItem = state.cartItems.findIndex(
+        (item) => item.id === action.payload.id,
+      );
       state.cartItems[findItem].cartQuantity += 1;
     },
     cartQuantityDecrease(state, action) {
-      const findItem = state.cartItems.findIndex((item) => item.id === action.payload.id);
+      const findItem = state.cartItems.findIndex(
+        (item) => item.id === action.payload.id,
+      );
       if (state.cartItems[findItem].cartQuantity > 1) {
         state.cartItems[findItem].cartQuantity -= 1;
       }
@@ -68,7 +77,9 @@ const productSlice = createSlice({
       state.cartQuantityTotal = calculateTotalQuantity(state.cartItems);
     },
     addToWishlist(state, action) {
-      const ItemIndex = state.wishlistItems.findIndex((item) => item.id === action.payload.id);
+      const ItemIndex = state.wishlistItems.findIndex(
+        (item) => item.id === action.payload.id,
+      );
       if (ItemIndex >= 0) {
         Swal.fire({
           title: action.payload.title,
@@ -92,7 +103,9 @@ const productSlice = createSlice({
       }
     },
     removeWishlistItem(state, action) {
-      const filteredWishlistItem = state.wishlistItems.filter((wishlistItem) => wishlistItem.id !== action.payload.id);
+      const filteredWishlistItem = state.wishlistItems.filter(
+        (wishlistItem) => wishlistItem.id !== action.payload.id,
+      );
       state.wishlistItems = filteredWishlistItem;
       state.wishListQuantity = state.wishlistItems.length;
     },

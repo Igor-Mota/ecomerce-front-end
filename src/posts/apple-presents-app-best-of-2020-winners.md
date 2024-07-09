@@ -1,24 +1,29 @@
 ---
 id: 3
-postFormat: 'gallery'
-title: 'Apple presents App Best of 2020 winners'
-excerpt: 'Donec metus lorem, vulputate at sapien sit amet, auctor iaculis lorem. In vel hendrerit nisi. Vestibulum eget risus velit. Aliquam tristique libero at dui sodales, et placerat orci lobortis. Maecenas ipsum neque, elementum id dignissim et, imperdiet vitae mauris.'
-featureImg: '/images/blog/blog-03.png'
-gallery: ['/images/blog/blog-single-2.jpg', '/images/blog/blog-single-3.jpg', '/images/blog/blog-single.jpg' ]
-date: 'May 20, 2022'
-pCate: 'Fashion'
-cate: 'Shoes'
-views: '300k Views'
-author_name: 'Leslie Alexander'
-author_img: '/images/blog/author-image-3.png'
-tags: 
-    - HTML
-    - Graphic 
-    - Development 
-    - UI/UX Design
-    - eCommerce
-    - CSS
-    - JS
+postFormat: "gallery"
+title: "Apple presents App Best of 2020 winners"
+excerpt: "Donec metus lorem, vulputate at sapien sit amet, auctor iaculis lorem. In vel hendrerit nisi. Vestibulum eget risus velit. Aliquam tristique libero at dui sodales, et placerat orci lobortis. Maecenas ipsum neque, elementum id dignissim et, imperdiet vitae mauris."
+featureImg: "/images/blog/blog-03.png"
+gallery:
+  [
+    "/images/blog/blog-single-2.jpg",
+    "/images/blog/blog-single-3.jpg",
+    "/images/blog/blog-single.jpg",
+  ]
+date: "May 20, 2022"
+pCate: "Fashion"
+cate: "Shoes"
+views: "300k Views"
+author_name: "Leslie Alexander"
+author_img: "/images/blog/author-image-3.png"
+tags:
+  - HTML
+  - Graphic
+  - Development
+  - UI/UX Design
+  - eCommerce
+  - CSS
+  - JS
 ---
 
 Habitasse per feugiat aliquam luctus accumsan curae, suspendisse aliquam taciti eros neque, aenean sit iaculis risus commodo ut sociosqu rhoncus potenti tristique placerat sit tempus, duis erat feugiat cras sociosqu porta ut praesent, fermentum donec convallis tellus vulputate duis nibh rhoncus phasellus dui massa nisl.

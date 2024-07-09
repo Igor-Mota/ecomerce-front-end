@@ -7,7 +7,8 @@ export const productSerializer = (payload) => {
     data.data = payload.data.map((product) => serializer(product));
   }
 
-  if (!("data" in payload) && !Array.isArray(payload)) data = serializer(payload);
+  if (!("data" in payload) && !Array.isArray(payload))
+    data = serializer(payload);
 
   return data;
 };
@@ -25,7 +26,8 @@ const serializer = (product) => {
     thumb = `${environment.API_STORE}/${product.images[0].url}`;
   }
   if (product.images.length > 1) hoverThumb = product.images.slice(1);
-  if (product.end_promotion) countTime = new Date(product.end_promotion).toISOString();
+  if (product.end_promotion)
+    countTime = new Date(product.end_promotion).toISOString();
 
   return {
     id: product.id,
@@ -33,7 +35,9 @@ const serializer = (product) => {
     CountTime: countTime,
     thumbnail: thumb,
     thumb,
-    gallery: product.images.map((image) => `${environment.API_STORE}/${image.url}`),
+    gallery: product.images.map(
+      (image) => `${environment.API_STORE}/${image.url}`,
+    ),
     hoverThumbnail: hoverThumb,
     pCate: "Electronics",
     cate: ["Headphones", "Computers"],

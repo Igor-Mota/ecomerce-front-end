@@ -1,4 +1,5 @@
 "use client";
+
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
@@ -158,7 +159,13 @@ const Checkout = () => {
                           <label>
                             Phone <span>*</span>
                           </label>
-                          <input type="number" {...register("phone", { required: true, maxLength: 11 })} />
+                          <input
+                            type="number"
+                            {...register("phone", {
+                              required: true,
+                              maxLength: 11,
+                            })}
+                          />
                           {errors.phone && <p className="error">Please enter 11 digit phone number.</p>}
                         </div>
                       </div>
@@ -195,7 +202,11 @@ const Checkout = () => {
                             <label>
                               Country<span>*</span>
                             </label>
-                            <select {...register("shippingCountry", { required: true })}>
+                            <select
+                              {...register("shippingCountry", {
+                                required: true,
+                              })}
+                            >
                               <option value="">Select a Country</option>
                               <option value="Australia">Australia</option>
                               <option value="Australia">England</option>
@@ -212,7 +223,9 @@ const Checkout = () => {
                             </label>
                             <input
                               type="text"
-                              {...register("shippingStreet1", { required: true })}
+                              {...register("shippingStreet1", {
+                                required: true,
+                              })}
                               placeholder="House number and street name"
                             />
                             {errors.shippingStreet1 && <p className="error">Street Address is required.</p>}
@@ -243,7 +256,13 @@ const Checkout = () => {
                             <label>
                               Phone <span>*</span>
                             </label>
-                            <input type="number" {...register("shippingPhone", { required: true, maxLength: 11 })} />
+                            <input
+                              type="number"
+                              {...register("shippingPhone", {
+                                required: true,
+                                maxLength: 11,
+                              })}
+                            />
                             {errors.shippingPhone && <p className="error">Please enter 11 digit phone number.</p>}
                           </div>
                           <div className="form-group">

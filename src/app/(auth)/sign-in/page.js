@@ -10,7 +10,7 @@ import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import AuthLayout from "../layout";
 import { logIn } from "@/store/slices/authSlice";
-import { loginMutation } from "@/services/http/auth";
+import { useLoginMutation } from "@/services/http/auth";
 import Skeleton from "react-loading-skeleton";
 
 const GoogleSocialLogin = dynamic(() => import("@/components/auth/login/google"), {
@@ -50,7 +50,7 @@ const SignIn = () => {
     },
   });
 
-  const { mutate, data } = loginMutation();
+  const { mutate, data } = useLoginMutation();
 
   useEffect(() => {
     if (data && data.data) {

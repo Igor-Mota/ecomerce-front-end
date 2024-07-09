@@ -24,8 +24,7 @@ const CampaignSlider = () => {
                 <div key={index}>
                   <div className="campaign-content" key={index}>
                     <p>
-                      {data.title} : {" "}
-                      <Link href="/shop">GET OFFER</Link>
+                      {data.title} : <Link href="/shop">GET OFFER</Link>
                     </p>
                   </div>
                 </div>

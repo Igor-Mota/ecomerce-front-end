@@ -10,7 +10,7 @@ import * as yup from "yup";
 import { useDispatch } from "react-redux";
 import AuthLayout from "../layout";
 import { logIn } from "@/store/slices/authSlice";
-import { registerMutation, loginFetcher } from "@/services/http/auth";
+import { useRegisterMutation, loginFetcher } from "@/services/http/auth";
 import Skeleton from "react-loading-skeleton";
 
 const GoogleSocialLogin = dynamic(() => import("@/components/auth/login/google"), {
@@ -45,7 +45,7 @@ const SignIn = () => {
     },
   });
 
-  const { mutate, data } = registerMutation();
+  const { mutate, data } = useRegisterMutation();
 
   if (data && "data" in data) {
     if (data.data.message === "User already exists") {

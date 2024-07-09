@@ -45,12 +45,22 @@ const DahsboardLayout = ({ children }) => {
               <div className="axil-dashboard-author">
                 <div className="media">
                   <div className="thumbnail">
-                    <Image src={userInfo.avatar} height={70} width={70} alt={userInfo.name} />
+                    <Image
+                      src={userInfo.avatar}
+                      height={70}
+                      width={70}
+                      alt={userInfo.name}
+                    />
                   </div>
                   <div className="media-body">
-                    <h5 className="title mb-0">Hello {user && user.userName ? user.userName : ""}</h5>
+                    <h5 className="title mb-0">
+                      Hello {user && user.userName ? user.userName : ""}
+                    </h5>
                     <span className="joining-date">
-                      eTrade Member Since {user && user.joinDate ? user.joinDate.split("-").reverse().join("/") : ""}
+                      eTrade Member Since{" "}
+                      {user && user.joinDate
+                        ? user.joinDate.split("-").reverse().join("/")
+                        : ""}
                     </span>
                   </div>
                 </div>
@@ -80,7 +90,9 @@ const DahsboardLayout = ({ children }) => {
                 </div>
                 <div className="col-xl-9 col-md-8">
                   <div className="tab-content">
-                    {authProviderLoading && <Skeleton width="100%" height={200} />}
+                    {authProviderLoading && (
+                      <Skeleton width="100%" height={200} />
+                    )}
                     {!authProviderLoading && children}
                   </div>
                 </div>

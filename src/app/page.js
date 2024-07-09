@@ -15,7 +15,12 @@ import NewsLetter from "@/components/newsletter/NewsLetter";
 import ProductListOne from "@/components/product/ProductListOne";
 import { mapInSlices, slugify } from "@/utils";
 import ProductTwo from "@/components/product/ProductTwo";
-import { useGetHomeProducts, useGetHomePromotion, useGetArrivals, useGetMostSold } from "@/services/http/home.service";
+import {
+  useGetHomeProducts,
+  useGetHomePromotion,
+  useGetArrivals,
+  useGetMostSold,
+} from "@/services/http/home.service";
 import Skeleton from "react-loading-skeleton";
 import HeaderFive from "@/components/header/HeaderFive";
 import { productsFetcher } from "@/services/http/many.products";
@@ -24,20 +29,30 @@ const HomeElectronics = ({ products }) => {
   const pathname = usePathname();
   const split = pathname.split("/");
   const pageCategory = split[split.length - 1];
-  const electronicsProduct = ProductsData.filter((data) => slugify(data.pCate) === pageCategory);
+  const electronicsProduct = ProductsData.filter(
+    (data) => slugify(data.pCate) === pageCategory,
+  );
   const exploreProduct = mapInSlices(electronicsProduct, 8);
   const { data } = useGetHomeProducts();
   const { data: promotion, isLoading: promotionIsLoad } = useGetHomePromotion();
   const { data: arrivals, isLoading: arrivalsIsLoading } = useGetArrivals();
   const { data: mostSold, isLoading: mostSoldIsLoading } = useGetMostSold();
-  const idx = promotion.data.findIndex((product) => typeof product.CountTime === "string");
+  const idx = promotion.data.findIndex(
+    (product) => typeof product.CountTime === "string",
+  );
 
   return (
     <>
       <HeaderFive />
       <main className="main-wrapper">
         {data.data.length > 0 && <BannerOne data={data} />}
-        {idx !== -1 && <PosterOne isLoading={promotionIsLoad} singleAnimation {...promotion.data[idx]} />}
+        {idx !== -1 && (
+          <PosterOne
+            isLoading={promotionIsLoad}
+            singleAnimation
+            {...promotion.data[idx]}
+          />
+        )}
 
         <Section pClass="pb--0" borderBottom="pb--50">
           <SectionTitle

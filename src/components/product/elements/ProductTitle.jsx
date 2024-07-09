@@ -7,11 +7,11 @@ const ProductTitle = (props) => {
     <CustomTag className="title">
       <Link href={`/products/${props.productTitle.id}`}>
         {props.productTitle.title}
-		{props.verified && 
-		<span className="verified-icon">
-		<i className="fas fa-badge-check" />
-		</span>
-		}
+        {props.verified && (
+          <span className="verified-icon">
+            <i className="fas fa-badge-check" />
+          </span>
+        )}
       </Link>
     </CustomTag>
   );

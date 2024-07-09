@@ -24,6 +24,7 @@ const serializer = (user) => {
           if (index === 0) {
             return {
               id: address.id,
+              number: address.number,
               name: user.client.userName,
               email: user.email,
               phone: user.client.phone,
@@ -43,6 +44,8 @@ const serializer = (user) => {
           if (index === 1) {
             return {
               id: address.id,
+              number: address.number,
+
               name: user.client.username,
               email: user.email,
               phone: user.client.phone,

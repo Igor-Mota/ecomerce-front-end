@@ -64,16 +64,16 @@ export const meFetcher = async () => {
   }
 };
 
-export const loginMutation = () => {
+export const useLoginMutation = () => {
   return useMutation({
     mutationKey: "post:login",
     mutationFn: loginFetcher,
   });
 };
 
-export const registerMutation = () => {
+export const useRegisterMutation = () => {
   return useMutation({
-    mutationKey: "post:login",
+    mutationKey: "post:register",
     mutationFn: registerFetcher,
   });
 };

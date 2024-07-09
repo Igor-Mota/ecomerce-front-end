@@ -13,7 +13,12 @@ const SingleLayouSeven = ({ singleData }) => {
                 <div className="position-sticky sticky-top">
                   <div className="single-product-thumbnail axil-product">
                     <div className="thumbnail">
-                      <Image src={singleData.thumbnail} width={595} height={595} alt={singleData.title} />
+                      <Image
+                        src={singleData.thumbnail}
+                        width={595}
+                        height={595}
+                        alt={singleData.title}
+                      />
                     </div>
                   </div>
                 </div>
@@ -26,14 +31,19 @@ const SingleLayouSeven = ({ singleData }) => {
                     <div className="inner">
                       <h2 className="product-title">{singleData.title}</h2>
                       <div className="price-amount price-offer-amount">
-                        <span className="price current-price">${singleData.price}</span>
+                        <span className="price current-price">
+                          ${singleData.price}
+                        </span>
                       </div>
                       {/* Start Product Action Wrapper  */}
                       <div className="product-action-wrapper d-flex-center">
                         {/* Start Product Action  */}
                         <ul className="product-action action-style-two d-flex-center mb--0">
                           <li className="add-to-cart">
-                            <a href={singleData.buyUrl} className="axil-btn btn-bg-primary">
+                            <a
+                              href={singleData.buyUrl}
+                              className="axil-btn btn-bg-primary"
+                            >
                               Buy Product
                             </a>
                           </li>
@@ -115,18 +125,22 @@ const SingleLayouSeven = ({ singleData }) => {
                             >
                               <div className="product-additional-info">
                                 <p className="mb--15">
-                                  <strong>{singleData.description.textDesc.title}</strong>
+                                  <strong>
+                                    {singleData.description.textDesc.title}
+                                  </strong>
                                 </p>
                                 <p>{singleData.description.textDesc.text}</p>
                                 <div className="table-responsive">
                                   <table>
                                     <tbody>
-                                      {singleData.description.listDesc?.map((data, index) => (
-                                        <tr key={index}>
-                                          <th>{data.title}</th>
-                                          <td>{data.text}</td>
-                                        </tr>
-                                      ))}
+                                      {singleData.description.listDesc?.map(
+                                        (data, index) => (
+                                          <tr key={index}>
+                                            <th>{data.title}</th>
+                                            <td>{data.text}</td>
+                                          </tr>
+                                        ),
+                                      )}
                                     </tbody>
                                   </table>
                                 </div>
@@ -142,28 +156,37 @@ const SingleLayouSeven = ({ singleData }) => {
                                 <div className="table-responsive">
                                   <table>
                                     <tbody>
-                                      {singleData.addInfo?.map((data, index) => (
-                                        <tr key={index}>
-                                          <th>{data.title}</th>
-                                          <td>{data.text}</td>
-                                        </tr>
-                                      ))}
+                                      {singleData.addInfo?.map(
+                                        (data, index) => (
+                                          <tr key={index}>
+                                            <th>{data.title}</th>
+                                            <td>{data.text}</td>
+                                          </tr>
+                                        ),
+                                      )}
                                     </tbody>
                                   </table>
                                 </div>
                               </div>
                             </div>
-                            <div className="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                            <div
+                              className="tab-pane fade"
+                              id="reviews"
+                              role="tabpanel"
+                              aria-labelledby="reviews-tab"
+                            >
                               <div className="product-additional-info">
                                 <div className="table-responsive">
                                   <table>
                                     <tbody>
-                                      {singleData.property?.map((data, index) => (
-                                        <tr key={index}>
-                                          <th>{data.title}</th>
-                                          <td>{data.text}</td>
-                                        </tr>
-                                      ))}
+                                      {singleData.property?.map(
+                                        (data, index) => (
+                                          <tr key={index}>
+                                            <th>{data.title}</th>
+                                            <td>{data.text}</td>
+                                          </tr>
+                                        ),
+                                      )}
                                     </tbody>
                                   </table>
                                 </div>
