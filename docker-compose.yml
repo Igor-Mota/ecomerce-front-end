@@ -1,0 +1,6 @@
+services:
+  web:
+    build: .
+    ports:
+      - "3200:3000"
+    command: bash -c "yarn build && yarn start"
