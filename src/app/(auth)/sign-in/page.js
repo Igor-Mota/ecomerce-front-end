@@ -12,6 +12,7 @@ import AuthLayout from "../layout";
 import { logIn } from "@/store/slices/authSlice";
 import { useLoginMutation } from "@/services/http/auth";
 import Skeleton from "react-loading-skeleton";
+import { toast } from "react-toastify";
 
 const GoogleSocialLogin = dynamic(() => import("@/components/auth/login/google"), {
   ssr: false,
@@ -22,7 +23,10 @@ const schema = yup
   .object()
   .shape({
     email: yup.string().required("O email é obrigatório").email("O email deve ser um email válido"),
-    password: yup.string().required("A senha é obrigatória").min(8, "A senha deve conter pelo menos 8 caracteres"),
+    password: yup
+      .string()
+      .required("A senha é obrigatória")
+      .min(8, "A senha deve conter pelo menos 8 caracteres"),
   })
   .required();
 
@@ -34,7 +38,7 @@ const SignIn = () => {
 
   useEffect(() => {
     if (authInfo.login) {
-      redirect("/");
+      // redirect("/");
     }
   }, [authInfo]);
 

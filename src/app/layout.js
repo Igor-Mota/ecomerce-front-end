@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { Providers } from "@/store/provider";
+import { ToastContainer } from "react-toastify";
 import { QueryClientProvider } from "react-query";
 import { queryClient } from "@/services/http/api";
 import { AuthProvider } from "@/providers/auth.provider";
@@ -9,6 +10,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "@/styles/style.scss";
 import "react-loading-skeleton/dist/skeleton.css";
+import "react-toastify/dist/ReactToastify.css";
 
 const RootLayout = ({ children }) => {
   useEffect(() => {
@@ -28,6 +30,14 @@ const RootLayout = ({ children }) => {
       </head>
       <body>
         <Providers>
+          <ToastContainer
+            closeOnClick
+            closeButton
+            theme="colored"
+            rtl={false}
+            autoClose={2000}
+            position="top-right"
+          />
           <QueryClientProvider client={queryClient}>
             <AuthProvider>{children}</AuthProvider>
           </QueryClientProvider>
