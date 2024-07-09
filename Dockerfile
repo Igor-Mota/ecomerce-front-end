@@ -2,7 +2,7 @@ FROM node:18
 
 
 WORKDIR /app
-COPY package.json yarn.lock ./
+COPY package.json ./
 
 RUN yarn install --network-timeout 600000
 
