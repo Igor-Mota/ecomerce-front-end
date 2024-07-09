@@ -3,4 +3,4 @@ services:
     build: .
     ports:
       - "3200:3000"
-    command: bash -c "yarn build && yarn start"
+    command: bash -c "yarn install && yarn build && yarn start"
