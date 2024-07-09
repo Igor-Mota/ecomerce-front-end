@@ -9,6 +9,7 @@ WORKDIR /app
 # Copiar apenas os arquivos necessários para instalar as dependências
 COPY package.json ./
 
+RUN  yarn cache clean
 # Instalar as dependências com um tempo limite de rede aumentado
 RUN yarn install --network-timeout 600000
 
