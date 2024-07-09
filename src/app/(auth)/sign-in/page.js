@@ -11,10 +11,11 @@ import { useDispatch, useSelector } from "react-redux";
 import AuthLayout from "../layout";
 import { logIn } from "@/store/slices/authSlice";
 import { loginMutation } from "@/services/http/auth";
+import Skeleton from "react-loading-skeleton";
 
 const GoogleSocialLogin = dynamic(() => import("@/components/auth/login/google"), {
   ssr: false,
-  loading: () => <></>,
+  loading: () => <Skeleton width="100%" height={50} />,
 });
 
 const schema = yup
@@ -63,6 +64,7 @@ const SignIn = () => {
   };
 
   const onGoogleLogin = (data) => {
+    console.log(data);
     mutate({
       email: "email@email.com",
       provider: "Google",

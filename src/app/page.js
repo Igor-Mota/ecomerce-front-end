@@ -4,7 +4,6 @@ import { usePathname } from "next/navigation";
 import Section from "@/components/elements/Section";
 import SectionTitle from "@/components/elements/SectionTitle";
 import SlickSlider from "@/components/elements/SlickSlider";
-import HeaderOne from "@/components/header/HeaderOne";
 import BannerOne from "@/components/hero-banner/BannerOne";
 import PosterOne from "@/components/poster/PosterOne";
 import ProductOne from "@/components/product/ProductOne";
@@ -18,8 +17,10 @@ import { mapInSlices, slugify } from "@/utils";
 import ProductTwo from "@/components/product/ProductTwo";
 import { useGetHomeProducts, useGetHomePromotion, useGetArrivals, useGetMostSold } from "@/services/http/home.service";
 import Skeleton from "react-loading-skeleton";
+import HeaderFive from "@/components/header/HeaderFive";
+import { productsFetcher } from "@/services/http/many.products";
 
-const HomeElectronics = () => {
+const HomeElectronics = ({ products }) => {
   const pathname = usePathname();
   const split = pathname.split("/");
   const pageCategory = split[split.length - 1];
@@ -33,7 +34,7 @@ const HomeElectronics = () => {
 
   return (
     <>
-      <HeaderOne />
+      <HeaderFive />
       <main className="main-wrapper">
         {data.data.length > 0 && <BannerOne data={data} />}
         {idx !== -1 && <PosterOne isLoading={promotionIsLoad} singleAnimation {...promotion.data[idx]} />}

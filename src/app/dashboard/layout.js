@@ -14,6 +14,7 @@ import ServiceTwo from "@/components/services/ServiceTwo";
 import { DashboardAsideMenu } from "@/data/Menu";
 import { UserLists } from "@/data/Users";
 import { useSelector } from "react-redux";
+import Skeleton from "react-loading-skeleton";
 
 const DahsboardLayout = ({ children }) => {
   const { authProviderLoading } = useAuthContext();
@@ -27,9 +28,11 @@ const DahsboardLayout = ({ children }) => {
     userData: { user },
   } = useSelector((state) => state.auth);
 
+  console.log(login);
+
   useEffect(() => {
     if (!login && !authProviderLoading) redirect("/");
-  }, [user]);
+  }, [login, authProviderLoading]);
 
   return (
     <>
@@ -77,7 +80,7 @@ const DahsboardLayout = ({ children }) => {
                 </div>
                 <div className="col-xl-9 col-md-8">
                   <div className="tab-content">
-                    {authProviderLoading && <h1>Loading</h1>}
+                    {authProviderLoading && <Skeleton width="100%" height={200} />}
                     {!authProviderLoading && children}
                   </div>
                 </div>

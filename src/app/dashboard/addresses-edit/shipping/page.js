@@ -22,7 +22,9 @@ const ShippingAddress = () => {
   const dispatch = useDispatch();
 
   const { userData } = useSelector((state) => state.auth);
-  const address = userData.shippingAddress ?? null;
+  const address = userData.user.shippingAddress ?? null;
+  console.log(address);
+
   const {
     control,
     handleSubmit,
@@ -42,6 +44,7 @@ const ShippingAddress = () => {
   } = useCreateAddress();
 
   if (createData && createData.id) {
+    dispatch(shippingAddress(createData));
     createReset();
   }
 
@@ -70,7 +73,8 @@ const ShippingAddress = () => {
   };
 
   const userShippingInfoHandler = async (data) => {
-    createAddressFn(data);
+    console.log(data);
+    createAddressFn({ ...data, complement: data.complement ?? "" });
   };
 
   const replacerCep = (value) => {
@@ -117,6 +121,7 @@ const ShippingAddress = () => {
             <Controller
               control={control}
               name="city"
+              defaultValue={address ? address.city : ""}
               render={({ field }) => {
                 return <input {...field} type="text" className="form-control" />;
               }}
@@ -129,7 +134,7 @@ const ShippingAddress = () => {
             <Controller
               control={control}
               name="neighborhood"
-              defaultValue=""
+              defaultValue={address ? address.neighborhood : ""}
               render={({ field }) => {
                 return <input {...field} type="text" className="form-control" />;
               }}
@@ -141,8 +146,8 @@ const ShippingAddress = () => {
             <label>Endereço</label>
             <Controller
               control={control}
+              defaultValue={address ? address.street : ""}
               name="address"
-              defaultValue=""
               render={({ field }) => {
                 return <input {...field} type="text" className="form-control" />;
               }}
@@ -155,7 +160,7 @@ const ShippingAddress = () => {
             <Controller
               control={control}
               name="number"
-              defaultValue=""
+              defaultValue={address ? address.number : ""}
               render={({ field }) => {
                 return <input {...field} type="text" className="form-control" />;
               }}

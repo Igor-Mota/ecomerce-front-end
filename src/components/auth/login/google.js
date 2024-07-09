@@ -34,8 +34,11 @@ function GoogleSocialLogin({ onLogin, onerror }) {
       });
     }
   }, []);
-
+  const onLoginPopupPermissions = async () => {
+    await Notification.requestPermission((call) => console.log(call));
+  };
   const onLoginStart = useCallback(() => {
+    onLoginPopupPermissions();
     _window.google.accounts.id.prompt();
   }, []);
 

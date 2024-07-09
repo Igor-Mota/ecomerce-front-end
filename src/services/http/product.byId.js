@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 import { api } from "./api";
 
-const fetcher = (id) => {
+export const productFetcher = (id) => {
   return async () => {
     const { data } = await api.get(`product/${id}`, {
       params: {
@@ -15,7 +15,7 @@ const fetcher = (id) => {
 
 export const useGetProductById = (id) => {
   return useQuery({
-    queryFn: fetcher(id),
+    queryFn: productFetcher(id),
     queryKey: "get:product-by-id",
     initialData: {},
   });

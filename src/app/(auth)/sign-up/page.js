@@ -11,8 +11,12 @@ import { useDispatch } from "react-redux";
 import AuthLayout from "../layout";
 import { logIn } from "@/store/slices/authSlice";
 import { registerMutation, loginFetcher } from "@/services/http/auth";
+import Skeleton from "react-loading-skeleton";
 
-const GoogleSocialLogin = dynamic(() => import("@/components/auth/login/google"), { ssr: false });
+const GoogleSocialLogin = dynamic(() => import("@/components/auth/login/google"), {
+  ssr: false,
+  loading: () => <Skeleton width="100%" height={50} />,
+});
 
 const schema = yup
   .object()

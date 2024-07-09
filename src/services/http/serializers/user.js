@@ -30,6 +30,7 @@ const serializer = (user) => {
               street: address.address,
               state: address.state,
               city: address.city,
+              neighborhood: address.neighborhood,
               postCode: address.zip_code,
               country: "Brazil",
             };
@@ -47,6 +48,7 @@ const serializer = (user) => {
               phone: user.client.phone,
               street: address.address,
               state: address.state,
+              neighborhood: address.neighborhood,
               city: address.city,
               postCode: address.zip_code,
               country: "Brazil",

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import Nav from "@/components/header/elements/Nav";
@@ -11,24 +11,25 @@ import CampaignSlider from "./elements/CampaignSlider";
 
 const HeaderFive = (props) => {
   const menuOption = useSelector((state) => state.menu);
+  const authIfo = useSelector((state) => state.auth);
   const axilHeader = useRef();
   const axilPlaceholder = useRef();
   const axilMainmenu = useRef();
-  
+
   useEffect(() => {
     const headerHeight = axilHeader.current.clientHeight;
     const mainMenu = axilMainmenu.current;
     const mainMenuHeight = axilMainmenu.current.clientHeight;
     const mainmenuPlaceholder = axilPlaceholder.current;
-  
+
     window.addEventListener("scroll", (event) => {
-        if (window.scrollY > headerHeight) {
-            mainmenuPlaceholder.style.height = mainMenuHeight + 'px';
-            mainMenu.classList.add("axil-sticky");
-        } else {
-            mainmenuPlaceholder.style.height = '0';
-            mainMenu.classList.remove("axil-sticky");
-        }
+      if (window.scrollY > headerHeight) {
+        mainmenuPlaceholder.style.height = mainMenuHeight + "px";
+        mainMenu.classList.add("axil-sticky");
+      } else {
+        mainmenuPlaceholder.style.height = "0";
+        mainMenu.classList.remove("axil-sticky");
+      }
     });
   }, []);
   return (
@@ -43,20 +44,20 @@ const HeaderFive = (props) => {
               </div>
             </div>
             <div className="col-sm-6">
-              <HeaderQuickLink />
+              <div className="col-sm-6">{!authIfo.login && <HeaderQuickLink />} </div>
             </div>
           </div>
         </div>
       </div>
-      <div id="axil-sticky-placeholder" ref={axilPlaceholder}/>
+      <div id="axil-sticky-placeholder" ref={axilPlaceholder} />
       <div className="axil-mainmenu" ref={axilMainmenu}>
         <div className="container">
           <div className="header-navbar">
             <HeaderBrand />
-            <div className={`header-main-nav ${menuOption.isMobileMenuOpen ? "open": ""}`}>
+            <div className={`header-main-nav ${menuOption.isMobileMenuOpen ? "open" : ""}`}>
               <Nav />
             </div>
-            <HeaderActions searchBox searchIcon/>
+            <HeaderActions searchBox searchIcon />
           </div>
         </div>
       </div>
