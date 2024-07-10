@@ -30,12 +30,10 @@ const UserAddress = () => {
             <ul className="address-details">
               {userData.user && userData.user.shippingAddress && (
                 <>
-                  <li>Name: {userData.user.shippingAddress.name}</li>
-                  <li>Email: {userData.user.shippingAddress.email}</li>
-                  <li>Phone: {userData.user.shippingAddress.phone}</li>
                   <li className="mt--30">
-                    {userData.user.shippingAddress.street} <br />
-                    {`${userData.user.shippingAddress.state}, ${userData.user.shippingAddress.city} ${userData.user.shippingAddress.postCode}`}
+                    {userData.user.shippingAddress.street} Numero: {userData.user.shippingAddress.number} <br />
+                    {`${userData.user.shippingAddress.state}, ${userData.user.shippingAddress.city} ${userData.user.shippingAddress.postCode}`} <br />
+                    {userData.user.shippingAddress.complement}
                   </li>
                 </>
               )}
@@ -56,14 +54,12 @@ const UserAddress = () => {
                 </Link>
               </div>
               <ul className="address-details">
-                {userData.billingAddress && (
+                {userData.user.billingAddress && (
                   <>
-                    <li>Name: {userData.billingAddress.name}</li>
-                    <li>Email: {userData.billingAddress.email}</li>
-                    <li>Phone: {userData.billingAddress.phone}</li>
                     <li className="mt--30">
-                      {userData.billingAddress.street} <br />
-                      {`${userData.billingAddress.state}, ${userData.billingAddress.city} ${userData.billingAddress.postCode}`}
+                    {userData.user.billingAddress.street} Numero: {userData.user.billingAddress.number} <br />
+                    {`${userData.user.billingAddress.state}, ${userData.user.billingAddress.city} ${userData.user.billingAddress.postCode}`} <br />
+                    {userData.user.billingAddress.complement}
                     </li>
                   </>
                 )}
