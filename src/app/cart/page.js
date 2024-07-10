@@ -16,6 +16,7 @@ import FooterTwo from "@/components/footer/FooterTwo";
 const Cart = () => {
   const dispatch = useDispatch();
   const cartProducts = useSelector((state) => state.productData);
+  const { userData } = useSelector((state) => state.auth);
 
   const removeCartHandler = (data) => {
     dispatch(removeCartItem(data));
@@ -44,10 +45,7 @@ const Cart = () => {
               <div className="axil-product-cart-wrap">
                 <div className="product-table-heading">
                   <h4 className="title">Your Cart</h4>
-                  <button
-                    className="cart-clear"
-                    onClick={() => cartClearHandler()}
-                  >
+                  <button className="cart-clear" onClick={() => cartClearHandler()}>
                     Clear Shoping Cart
                   </button>
                 </div>
@@ -93,15 +91,11 @@ const Cart = () => {
                             </Link>
                           </td>
                           <td className="product-title">
-                            <Link href={`/products/${slugify(product.id)}`}>
-                              {product.title}
-                            </Link>
+                            <Link href={`/products/${slugify(product.id)}`}>{product.title}</Link>
                           </td>
                           <td className="product-price" data-title="Price">
                             <span className="currency-symbol">$</span>
-                            {product.salePrice
-                              ? product.salePrice
-                              : product.price}
+                            {product.salePrice ? product.salePrice : product.price}
                           </td>
                           <td className="product-quantity" data-title="Qty">
                             <div className="pro-qty">
@@ -125,15 +119,12 @@ const Cart = () => {
                               </span>
                             </div>
                           </td>
-                          <td
-                            className="product-subtotal"
-                            data-title="Subtotal"
-                          >
+                          <td className="product-subtotal" data-title="Subtotal">
                             <span className="currency-symbol">$</span>
                             {parseFloat(
                               product.salePrice
                                 ? product.salePrice * product.cartQuantity
-                                : product.price * product.cartQuantity,
+                                : product.price * product.cartQuantity
                             ).toFixed(2)}
                           </td>
                         </tr>
@@ -151,10 +142,7 @@ const Cart = () => {
                     </div>
                   </div>
                   <div className="update-btn">
-                    <button
-                      className="axil-btn btn-outline"
-                      onClick={() => updateCartHandler()}
-                    >
+                    <button className="axil-btn btn-outline" onClick={() => updateCartHandler()}>
                       Update Cart
                     </button>
                   </div>
@@ -174,31 +162,16 @@ const Cart = () => {
                               <td>Shipping</td>
                               <td>
                                 <div className="input-group">
-                                  <input
-                                    type="radio"
-                                    id="radio1"
-                                    name="shipping"
-                                    defaultChecked
-                                  />
+                                  <input type="radio" id="radio1" name="shipping" defaultChecked />
                                   <label htmlFor="radio1">Free Shippping</label>
                                 </div>
                                 <div className="input-group">
-                                  <input
-                                    type="radio"
-                                    id="radio2"
-                                    name="shipping"
-                                  />
+                                  <input type="radio" id="radio2" name="shipping" />
                                   <label htmlFor="radio2">Local: $35.00</label>
                                 </div>
                                 <div className="input-group">
-                                  <input
-                                    type="radio"
-                                    id="radio3"
-                                    name="shipping"
-                                  />
-                                  <label htmlFor="radio3">
-                                    Flat rate: $12.00
-                                  </label>
+                                  <input type="radio" id="radio3" name="shipping" />
+                                  <label htmlFor="radio3">Flat rate: $12.00</label>
                                 </div>
                               </td>
                             </tr>
@@ -211,12 +184,16 @@ const Cart = () => {
                           </tbody>
                         </table>
                       </div>
-                      <Link
-                        href="/checkout"
-                        className="axil-btn btn-bg-primary checkout-btn"
-                      >
-                        Process to Checkout
-                      </Link>
+                      {!!userData.login && (
+                        <Link href="/checkout" className="axil-btn btn-bg-primary checkout-btn">
+                          Process to Checkout
+                        </Link>
+                      )}
+                      {!userData.login && (
+                        <Link href="/checkout" className="axil-btn btn-bg-primary checkout-btn">
+                          Faça login para continuar
+                        </Link>
+                      )}
                     </div>
                   </div>
                 </div>

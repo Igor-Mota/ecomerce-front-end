@@ -1,6 +1,11 @@
+"use client";
+
 import Link from "next/link";
+import { useGetOrders } from "@/services/http/order";
 
 const UserOrders = () => {
+  const { data } = useGetOrders();
+
   return (
     <div className="axil-dashboard-order">
       <div className="table-responsive">
@@ -21,10 +26,7 @@ const UserOrders = () => {
               <td>Processing</td>
               <td>$326.63 for 1 items</td>
               <td>
-                <Link
-                  href="dashboard/orders/view"
-                  className="axil-btn view-btn"
-                >
+                <Link href="dashboard/orders/view" className="axil-btn view-btn">
                   View
                 </Link>
               </td>

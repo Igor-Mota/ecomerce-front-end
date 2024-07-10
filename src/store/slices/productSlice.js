@@ -2,12 +2,32 @@ import { createSlice } from "@reduxjs/toolkit";
 import Swal from "sweetalert2";
 import { calculateTotalAmount, calculateTotalQuantity } from "@/utils";
 
+const cartPersistence = (state) => {
+  window.localStorage.removeItem('cartItems')
+  window.localStorage.removeItem('cartTotalAmount')
+  window.localStorage.removeItem('cartQuantityTotal')
+
+  window.localStorage.setItem('cartItems', JSON.stringify(state.cartItems))
+  window.localStorage.setItem('cartTotalAmount', calculateTotalAmount(state.cartItems))
+  window.localStorage.setItem('cartQuantityTotal', state.cartQuantityTotal)
+}
+
+const initialPersistent = (key, notfounded, parse = false) => {
+
+  if(!!window && window.localStorage.getItem(key)){
+    if(parse) return JSON.parse(window.localStorage.getItem(key))
+      return localStorage.getItem(key)
+    }
+
+    return notfounded
+}
+
 const productSlice = createSlice({
   name: "products",
   initialState: {
-    cartItems: [],
-    cartQuantityTotal: 0,
-    cartTotalAmount: 0,
+    cartItems: initialPersistent("cartItems", [], true),
+    cartQuantityTotal: initialPersistent('cartQuantityTotal', 0),
+    cartTotalAmount: initialPersistent('cartTotalAmount', 0),
     wishlistItems: [],
     wishListQuantity: 0,
     quickView: false,
@@ -17,12 +37,10 @@ const productSlice = createSlice({
   },
   reducers: {
     addToCart(state, action) {
-      const ItemIndex = state.cartItems.findIndex(
-        (item) => item.id === action.payload.id,
-      );
+
+      const ItemIndex = state.cartItems.findIndex((item) => item.id === action.payload.id);
       if (ItemIndex >= 0) {
-        state.cartItems[ItemIndex].cartQuantity +=
-          action.payload.cartQuantity ?? 1;
+        state.cartItems[ItemIndex].cartQuantity += action.payload.cartQuantity ?? 1;
         state.cartQuantityTotal += action.payload.cartQuantity ?? 1;
         state.isMinicartOpen = true;
       } else {
@@ -40,46 +58,48 @@ const productSlice = createSlice({
         state.cartItems.push(tempProduct);
         state.cartQuantityTotal += action.payload.cartQuantity ?? 1;
         state.isMinicartOpen = true;
+      
       }
 
       state.cartTotalAmount = calculateTotalAmount(state.cartItems);
+      cartPersistence(state)
+
     },
     removeCartItem(state, action) {
       const filteredCartItem = state.cartItems.filter(
-        (cartItem) => cartItem.id !== action.payload.id,
+        (cartItem) => cartItem.id !== action.payload.id
       );
       const filteredItemQuantity = filteredCartItem.map((item) => {
         return item.cartQuantity;
       });
       state.cartQuantityTotal = filteredItemQuantity.length;
       state.cartItems = filteredCartItem;
+      cartPersistence(state)
+
     },
     cartQuantityIncrease(state, action) {
-      const findItem = state.cartItems.findIndex(
-        (item) => item.id === action.payload.id,
-      );
+      const findItem = state.cartItems.findIndex((item) => item.id === action.payload.id);
       state.cartItems[findItem].cartQuantity += 1;
     },
     cartQuantityDecrease(state, action) {
-      const findItem = state.cartItems.findIndex(
-        (item) => item.id === action.payload.id,
-      );
+      const findItem = state.cartItems.findIndex((item) => item.id === action.payload.id);
       if (state.cartItems[findItem].cartQuantity > 1) {
         state.cartItems[findItem].cartQuantity -= 1;
       }
+      cartPersistence()
     },
     cartClear(state, action) {
       state.cartItems = [];
       state.cartQuantityTotal = 0;
+      cartPersistence(state)
     },
     updateCartAmount(state, action) {
       state.cartTotalAmount = calculateTotalAmount(state.cartItems);
       state.cartQuantityTotal = calculateTotalQuantity(state.cartItems);
+      cartPersistence(state)
     },
     addToWishlist(state, action) {
-      const ItemIndex = state.wishlistItems.findIndex(
-        (item) => item.id === action.payload.id,
-      );
+      const ItemIndex = state.wishlistItems.findIndex((item) => item.id === action.payload.id);
       if (ItemIndex >= 0) {
         Swal.fire({
           title: action.payload.title,
@@ -104,7 +124,7 @@ const productSlice = createSlice({
     },
     removeWishlistItem(state, action) {
       const filteredWishlistItem = state.wishlistItems.filter(
-        (wishlistItem) => wishlistItem.id !== action.payload.id,
+        (wishlistItem) => wishlistItem.id !== action.payload.id
       );
       state.wishlistItems = filteredWishlistItem;
       state.wishListQuantity = state.wishlistItems.length;
