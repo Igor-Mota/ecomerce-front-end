@@ -38,7 +38,7 @@ const SignIn = () => {
 
   useEffect(() => {
     if (authInfo.login) {
-      // redirect("/");
+       redirect("/");
     }
   }, [authInfo]);
 
