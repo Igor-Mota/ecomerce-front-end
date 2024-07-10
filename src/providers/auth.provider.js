@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { refreshTokenFetcher, meFetcher } from "@/services/http/auth";
 import { useSelector, useDispatch } from "react-redux";
 import { logIn } from "@/store/slices/authSlice";
+import {startState} from '@/store/slices/productSlice'
 
 export const AuthContext = createContext(null);
 
@@ -28,6 +29,7 @@ export const AuthProvider = ({ children }) => {
       setAuthProviderLoading(false);
     };
     isAuth();
+    dispatch(startState())
   }, [authInfo.login, dispatch]);
 
   return <AuthContext.Provider value={{ authProviderLoading }}>{children}</AuthContext.Provider>;
