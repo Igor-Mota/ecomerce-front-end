@@ -57,18 +57,20 @@ const SignIn = () => {
   const { mutate, data } = useLoginMutation();
 
   useEffect(() => {
+
     if (data && data.data) {
+
       const { token, user } = data.data;
       dispatch(logIn({ token, user: { user } }));
     }
+
   }, [data, dispatch]);
 
-  const onSubmit = async (formData) => {
-    mutate(formData.email, formData.password);
+  const onSubmit = async (data) => {
+    mutate({provider:'Default', email:data.email, password:data.password});
   };
 
   const onGoogleLogin = (data) => {
-    console.log(data);
     mutate({
       email: "email@email.com",
       provider: "Google",

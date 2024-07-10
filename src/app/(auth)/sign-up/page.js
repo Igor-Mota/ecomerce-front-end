@@ -84,7 +84,7 @@ const SignIn = () => {
     console.log(error);
   };
 
-  const onSubmit = async (data) => mutate(data.email, data.password);
+  const onSubmit = async (data) => mutate({provider:'Default', email:data.email, password:data.password});
 
   return (
     <AuthLayout bgImage="bg_image--9">

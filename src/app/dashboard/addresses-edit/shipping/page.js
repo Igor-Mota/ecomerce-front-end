@@ -31,6 +31,10 @@ const ShippingAddress = () => {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
+    defaultValues:{
+      state: address  && address.state ? address.state : '',
+      complement: address && address.complement ? address.complement : ''
+    }
   });
 
   const selectRef = useRef(null);
@@ -96,7 +100,6 @@ const ShippingAddress = () => {
   };
 
   const userShippingInfoHandler = async (data) => {
-    console.log(data);
     if (address && address.id) {
       updateAddressFn({
         id: address.id,
@@ -116,9 +119,10 @@ const ShippingAddress = () => {
   };
 
   const defaultState = (state) => {
+
     if (
-      !!address &&
-      address.country.toUpperCase() === state.code.toUpperCase()
+      !!address && !!address.state &&
+      address.state.toUpperCase() === state.code.toUpperCase()
     ) {
       return true;
     }
@@ -238,13 +242,14 @@ const ShippingAddress = () => {
                 <select
                   {...field}
                   ref={selectRef}
+                  value={address ? address.state : ""}
                   className="form-control js-select-states fs-3  ps-4"
                 >
                   {getStates().map((state) => (
                     <option
                       key={state.code}
                       value={state.code}
-                      selected={defaultState(state)}
+                      selected={address && address.state && address.state === state.code ? true : false}
                     >
                       {state.name}
                     </option>
@@ -262,6 +267,7 @@ const ShippingAddress = () => {
             <Controller
               control={control}
               name="complement"
+              defaultValue={address ? address.complement : ''}
               render={({ field }) => {
                 return (
                   <input {...field} type="text" className="form-control" />

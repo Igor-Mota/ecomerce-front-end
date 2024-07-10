@@ -9,7 +9,12 @@ export const userSerializer = (payload) => {
   };
 };
 
-const serializer = (user) => {
+const serializer = (payload) => {
+  let user = payload
+  if('user' in payload) user = payload.user
+
+    console.log(user)
+
   return {
     id: user.id,
     userName: user.client.username,
@@ -31,6 +36,7 @@ const serializer = (user) => {
               street: address.address,
               state: address.state,
               city: address.city,
+              complement: address.complement,
               neighborhood: address.neighborhood,
               postCode: address.zip_code,
               country: "Brazil",
@@ -45,7 +51,7 @@ const serializer = (user) => {
             return {
               id: address.id,
               number: address.number,
-
+              complement: address.complement,
               name: user.client.username,
               email: user.email,
               phone: user.client.phone,
