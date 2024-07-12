@@ -46,8 +46,8 @@ export const initialPersistent = (key, notfounded, parse = false) => {
 
       startState(state) {
         state.cartItems =  initialPersistent("cartItems", [], true);
-        state.cartQuantityTotal = initialPersistent('cartQuantityTotal', 0);
-        state.cartTotalAmount  = initialPersistent('cartTotalAmount', 0);
+        state.cartQuantityTotal = Number(initialPersistent('cartQuantityTotal', 0));
+        state.cartTotalAmount  = Number(initialPersistent('cartTotalAmount', 0));
         state.wishlistItems = initialPersistent('wishlistItems', [], true)
         state.wishListQuantity = initialPersistent('wishListQuantity', 0)
       },
