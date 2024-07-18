@@ -1,82 +1,42 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useReducer } from "react";
 import Section from "@/components/elements/Section";
 import ProductOne from "@/components/product/ProductOne";
 import { slugify } from "@/utils";
-import { Category } from "@/data/ProductCategory";
-import { Gender } from "@/data/ProductAttribute";
-import { ColorAttribute } from "@/data/ProductAttribute";
-import { SizeAttribute } from "@/data/ProductAttribute";
 import { useGetManyProducts } from "@/services/http/many.products";
+import { useGetTags } from "@/services/http/tags";
+import Skelleton from "react-loading-skeleton";
+import {
+  initialState,
+  shopReducer,
+  changeFilterCategory,
+  changeFilterColor,
+  changeFilterSizer,
+  clearFilters,
+  changePage,
+  toggleCategory,
+  toggleColors,
+  toggleSizes,
+} from "./reducer";
 
 const ShopWithSidebar = ({}) => {
-  const { data, isLoading, isRefetching } = useGetManyProducts(9);
+  const { data: tags, isLoading: tagsLoad, isRefetching: tagRefetch } = useGetTags();
+  const [state, dispatch] = useReducer(shopReducer, initialState);
 
-  const [filterProduct, setFilterProduct] = useState([]);
-  const [productShow, setProductShow] = useState(9);
-  const [filterText, setFilterText] = useState("");
-  const [cateToggle, setcateToggle] = useState(true);
-  const [genderToggle, setgenderToggle] = useState(true);
-  const [colorToggle, setcolorToggle] = useState(true);
-  const [sizeToggle, setsizeToggle] = useState(true);
-  const [priceRangeToggle, setpriceRangeToggle] = useState(true);
+  const {
+    data,
+    refetch,
+    isLoading: productIsLoad,
+    isRefetching: productRefetching,
+  } = useGetManyProducts(state.page, state.offset);
 
-  if (data.data.length > 0 && filterProduct.length === 0)
-    setFilterProduct(data.data);
+  const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-  const categoryHandler = (cateSelect) => {
-    const cateFilterProduct = ProductsData.filter(
-      (data) => slugify(data.pCate) === cateSelect,
-    );
-    setFilterProduct(cateFilterProduct);
-    setFilterText(cateSelect);
+  const getNextPage = () => {
+    dispatch(changePage());
+    console.log(state.offset);
+    refetch();
   };
-  const genderHandler = (genderSelect) => {
-    const genderFilterProduct = ProductsData.filter(
-      (data) => data.gender === genderSelect,
-    );
-    setFilterProduct(genderFilterProduct);
-    setFilterText(genderSelect);
-  };
-  const colorHandler = (colorSelect) => {
-    let getColorData = ProductsData.filter((items) => {
-      let colors = items.colorAttribute?.filter(
-        (color) => slugify(color.color) === colorSelect,
-      );
-      return colors?.length > 0;
-    });
-    setFilterProduct(getColorData);
-    setFilterText(colorSelect);
-  };
-  const sizeHandler = (sizeSelect) => {
-    let getSizeData = ProductsData.filter((items) => {
-      let sizes = items.sizeAttribute?.filter(
-        (size) => slugify(size) === sizeSelect,
-      );
-      return sizes?.length > 0;
-    });
-    setFilterProduct(getSizeData);
-    setFilterText(sizeSelect);
-  };
-
-  const priceRangeHandler = (rangeSelect) => {
-    const getPriceData = ProductsData.filter(
-      (data) => data.price <= rangeSelect,
-    );
-    setFilterProduct(getPriceData);
-    setFilterText(rangeSelect);
-  };
-
-  const ProductShowHandler = () => {
-    setProductShow(productShow + 3);
-  };
-
-  const productFilterReset = () => {
-    setFilterProduct(ProductsData);
-    setFilterText("");
-  };
-
-  const priceRangeData = [50, 100, 200, 300, 400, 500];
 
   return (
     <Section pClass="axil-shop-area">
@@ -90,24 +50,20 @@ const ShopWithSidebar = ({}) => {
             </div>
             {/* Category Filter */}
             <div
-              className={`toggle-list product-categories ${cateToggle ? "active" : ""}`}
+              className={`toggle-list product-categories ${state.categoryToggle ? "active" : ""}`}
             >
-              <h6 onClick={() => setcateToggle(!cateToggle)} className="title">
+              <h6 onClick={() => dispatch(toggleCategory())} className="title">
                 CATEGORIES
               </h6>
-              {cateToggle && (
+              {state.categoryToggle && (
                 <div className="shop-submenu">
                   <ul>
-                    {Category.map((data, index) => (
+                    {tags.categories.map((data, index) => (
                       <li
-                        className={
-                          filterText === slugify(data.cate) ? "current-cat" : ""
-                        }
+                        className={state.category === slugify(data.cate) ? "current-cat" : ""}
                         key={index}
                       >
-                        <button
-                          onClick={() => categoryHandler(slugify(data.cate))}
-                        >
+                        <button onClick={() => dispatch(changeFilterCategory(slugify(data.cate)))}>
                           {data.cate}
                         </button>
                       </li>
@@ -117,53 +73,40 @@ const ShopWithSidebar = ({}) => {
               )}
             </div>
             {/* Gender Filter  */}
-            <div
+            {/* <div
               className={`toggle-list product-categories product-gender ${genderToggle ? "active" : ""}`}
             >
-              <h6
-                onClick={() => setgenderToggle(!genderToggle)}
-                className="title"
-              >
+              <h6 onClick={() => setgenderToggle(!genderToggle)} className="title">
                 GENDER
               </h6>
               {genderToggle && (
                 <div className="shop-submenu">
                   <ul>
                     {Gender?.map((data, index) => (
-                      <li
-                        className={filterText === data ? "chosen" : ""}
-                        key={index}
-                      >
-                        <button onClick={() => genderHandler(data)}>
-                          {data}
-                        </button>
+                      <li className={filterText === data ? "chosen" : ""} key={index}>
+                        <button onClick={() => genderHandler(data)}>{data}</button>
                       </li>
                     ))}
                   </ul>
                 </div>
               )}
-            </div>
+            </div> */}
             {/* Color Filter  */}
-            <div
-              className={`toggle-list product-color ${colorToggle ? "active" : ""}`}
-            >
-              <h6
-                onClick={() => setcolorToggle(!colorToggle)}
-                className="title"
-              >
+            <div className={`toggle-list product-color ${state.colorsToggle ? "active" : ""}`}>
+              <h6 onClick={() => dispatch(toggleColors())} className="title">
                 COLORS
               </h6>
-              {colorToggle && (
+              {state.colorsToggle && (
                 <div className="shop-submenu">
                   <ul>
-                    {ColorAttribute?.map((data, index) => (
+                    {tags.colors.map((data, index) => (
                       <li
-                        className={filterText === slugify(data) ? "chosen" : ""}
+                        className={state.color === slugify(data.name) ? "chosen" : ""}
                         key={index}
                       >
                         <button
-                          onClick={() => colorHandler(slugify(data))}
-                          className={slugify(data)}
+                          onClick={() => dispatch(changeFilterColor(slugify(data.name)))}
+                          style={{ backgroundColor: `${data.code}` }}
                         ></button>
                       </li>
                     ))}
@@ -172,22 +115,17 @@ const ShopWithSidebar = ({}) => {
               )}
             </div>
             {/* Size Filter  */}
-            <div
-              className={`toggle-list product-size ${sizeToggle ? "active" : ""}`}
-            >
-              <h6 onClick={() => setsizeToggle(!sizeToggle)} className="title">
+            <div className={`toggle-list product-size ${state.sizesToggle ? "active" : ""}`}>
+              <h6 onClick={() => dispatch(toggleSizes())} className="title">
                 SIZE
               </h6>
-              {sizeToggle && (
+              {state.sizesToggle && (
                 <div className="shop-submenu">
                   <ul>
-                    {SizeAttribute?.map((data, index) => (
-                      <li
-                        className={filterText === slugify(data) ? "chosen" : ""}
-                        key={index}
-                      >
-                        <button onClick={() => sizeHandler(slugify(data))}>
-                          {data}
+                    {tags.sizes.map((data, index) => (
+                      <li className={state.size === slugify(data.name) ? "chosen" : ""} key={index}>
+                        <button onClick={() => dispatch(changeFilterSizer(slugify(data.name)))}>
+                          {data.name}
                         </button>
                       </li>
                     ))}
@@ -196,44 +134,40 @@ const ShopWithSidebar = ({}) => {
               )}
             </div>
             {/* Price Filter  */}
-            <div
-              className={`toggle-list product-price-range ${priceRangeToggle ? "active" : ""}`}
-            >
-              <h6
-                onClick={() => setpriceRangeToggle(!priceRangeToggle)}
-                className="title"
-              >
+            {/* <div className={`toggle-list product-price-range ${priceRangeToggle ? "active" : ""}`}>
+              <h6 onClick={() => setpriceRangeToggle(!priceRangeToggle)} className="title">
                 PRICE
               </h6>
               {priceRangeToggle && (
                 <div className="shop-submenu">
                   <ul>
                     {priceRangeData?.map((data, index) => (
-                      <li
-                        className={filterText === data ? "chosen" : ""}
-                        key={index}
-                      >
-                        <button onClick={() => priceRangeHandler(data)}>
-                          {data}
-                        </button>
+                      <li className={state.category === data ? "chosen" : ""} key={index}>
+                        <button onClick={() => priceRangeHandler(data)}>{data}</button>
                       </li>
                     ))}
                   </ul>
                 </div>
               )}
-            </div>
-            <button
-              className="axil-btn btn-bg-primary"
-              onClick={() => productFilterReset()}
-            >
-              All Reset
+            </div> */}
+            <button className="axil-btn btn-bg-primary" onClick={() => dispatch(clearFilters())}>
+              Reset
             </button>
           </div>
         </div>
         <div className="col-lg-9">
           <div className="row row--15">
-            {filterProduct.length > 0 ? (
-              filterProduct.map((data) => (
+            {!!productIsLoad &&
+              skeletons.map((_) => {
+                return (
+                  <div className="col-xl-4 col-sm-6" key={data.id}>
+                    <Skelleton height={220} width={200} />
+                  </div>
+                );
+              })}
+
+            {!productIsLoad && data && data.data && data.data.length > 0 ? (
+              data.data.map((data) => (
                 <div className="col-xl-4 col-sm-6" key={data.id}>
                   <ProductOne product={data} pClass="mb--30" />
                 </div>
@@ -243,16 +177,21 @@ const ShopWithSidebar = ({}) => {
             )}
           </div>
           <div className="text-center pt--20">
-            <button
-              className={`axil-btn btn-bg-lighter btn-load-more ${
-                filterProduct.length < productShow ? "disabled" : ""
-              }`}
-              onClick={ProductShowHandler}
-            >
-              {filterProduct.length < productShow
-                ? "No More Data"
-                : "Load more"}
-            </button>
+            {!productRefetching && (
+              <button
+                className={`axil-btn btn-bg-lighter btn-load-more ${
+                  data && data.data && data.data.length >= Number(data.recordsTotal)
+                    ? "disabled"
+                    : ""
+                }`}
+                onClick={getNextPage}
+              >
+                {data && data.data && data.data.length >= data.recordsTotal
+                  ? "No More Data"
+                  : "Load more"}
+              </button>
+            )}
+            {productRefetching && <Skelleton height={50} width={220} />}
           </div>
         </div>
       </div>
