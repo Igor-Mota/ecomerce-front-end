@@ -7,7 +7,7 @@ const ProductColorAttribute = (props) => {
     setColorImage(color);
     props.getAttribute(color);
   };
-  console.log(props);
+
   return (
     <div className="color-variant-wrapper">
       <ul className="color-variant">

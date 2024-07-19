@@ -31,7 +31,7 @@ const ShopWithSidebar = ({}) => {
     isRefetching: productRefetching,
     refetch,
   } = useGetManyProducts();
-  console.log(data);
+
   const reset = async () => {
     dispatch(resetPage);
     createUrl("page", "0");

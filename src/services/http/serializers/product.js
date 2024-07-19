@@ -70,8 +70,8 @@ const serializer = (product) => {
 
   if (product.variant) {
     product.variant.forEach((variant) => {
-      if (variant.tag_size && !sizes.includes(variant.tag_size.nam)) {
-        sizes.push(`${environment.API_STORE}/${variant.images[0].url}/${variant.images[0]}`);
+      if (variant.tag_size && !sizes.includes(variant.tag_size.name)) {
+        sizes.push(variant.tag_size.name);
       }
 
       if (variant.color) {
