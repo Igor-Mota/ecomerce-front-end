@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import { QueryClientProvider } from "react-query";
 import { queryClient } from "@/services/http/api";
 import { AuthProvider } from "@/providers/auth.provider";
+import { TagsProvider } from "@/providers/tags.provider";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "@/styles/style.scss";
@@ -39,7 +40,9 @@ const RootLayout = ({ children }) => {
             position="top-right"
           />
           <QueryClientProvider client={queryClient}>
-            <AuthProvider>{children}</AuthProvider>
+            <AuthProvider>
+              <TagsProvider>{children}</TagsProvider>
+            </AuthProvider>
           </QueryClientProvider>
         </Providers>
       </body>

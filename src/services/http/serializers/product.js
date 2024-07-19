@@ -1,4 +1,5 @@
 import { environment } from "@/data/environment";
+const today = new Date();
 
 export const productSerializer = (payload) => {
   let data = payload;
@@ -13,6 +14,7 @@ export const productSerializer = (payload) => {
 };
 
 const serializer = (product) => {
+  console.log(product.categories);
   let thumb = "/images/product/product-big-03.png";
   let hoverThumb = [
     "/images/product/product-big-01.png",
@@ -27,6 +29,22 @@ const serializer = (product) => {
   if (product.images.length > 1) hoverThumb = product.images.slice(1);
   if (product.end_promotion) countTime = new Date(product.end_promotion).toISOString();
 
+  const startPromotion = product.start_promotion ? new Date(product.start_promotion) : null;
+  const end_promotion = product.end_promotion ? new Date(product.endPromotion) : null;
+  let inPromotion = false;
+  if (startPromotion && end_promotion) {
+    if (startPromotion.getTime() < today.getTime() || end_promotion > today.getTime()) {
+      inPromotion = true;
+    }
+  }
+
+  let category = "";
+  if (product.categories && product.categories.category) {
+    category = product.categories.category;
+  }
+
+  const sizes = [];
+
   return {
     id: product.id,
     title: product.name,
@@ -35,8 +53,9 @@ const serializer = (product) => {
     thumb,
     gallery: product.images.map((image) => `${environment.API_STORE}/${image.url}`),
     hoverThumbnail: hoverThumb,
-    pCate: "Electronics",
+    pCate: category,
     cate: ["Headphones", "Computers"],
+    inPromotion,
     price: product.price,
     salePrice: product.promotional_price,
     productType: "variable",

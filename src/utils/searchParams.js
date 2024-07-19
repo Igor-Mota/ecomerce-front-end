@@ -1,64 +1,37 @@
-const push = (payload, key, value) => {
-  let url = payload;
+export const createUrl = (param, value) => {
+  const url = new URL(window.location);
+  const params = url.searchParams;
 
-  if (!url.toString().includes("?")) {
-    url += "?" + key + "=" + value;
-  } else {
-    url += "&" + key + "=" + value;
+  if (params.has(param)) {
+    params.delete(param);
   }
 
-  return url;
+  params.append(param, value);
+
+  const newUrl = url.origin + url.pathname + "?" + params.toString();
+
+  window.history.pushState({}, "", newUrl);
 };
 
-export const createUrl = (payload) => {
-  let url = window.location.pathname + window.location.search;
+export const creatUrlRemoveParam = (param) => {
+  const url = new URL(window.location);
+  const params = url.searchParams;
 
-  if (payload) url = payload;
+  if (params.has(param)) {
+    params.delete(param);
+  }
 
-  return {
-    get: () => {
-      return url;
-    },
-    push: (key, value) => {
-      url = push(url, key, value);
-      window.history.pushState({}, "", url);
-    },
-    remove: (param) => {
-      if (!window.location.search.includes("?")) return;
-      const [_, params] = window.location.search.replace("?", "");
-      if (params.includes("&")) {
-        const separate = params.split("&");
-        if (Array.isArray(separate)) {
-          separate.forEach(([key, value]) => {
-            if (key !== param) {
-              url = push(url, key, value);
-            }
-          });
-        }
-      } else {
-        const [key, value] = params.split("=");
-        push(url, key, value);
-      }
+  const newUrl = url.origin + url.pathname + "?" + params.toString();
 
-      return {
-        push: () => {
-          window.history.pushState({}, "", url);
-        },
-        get: () => {
-          return url;
-        },
-      };
-    },
-    clearAll: () => {
-      url = window.location.pathname;
-      return {
-        get: () => {
-          return url;
-        },
-        push: () => {
-          window.history.pushState({}, "", url);
-        },
-      };
-    },
-  };
+  window.history.pushState({}, "", newUrl);
+};
+
+export const clearAllSearchParams = () => {
+  const url = new URL(window.location);
+  url.search = "";
+
+  const newUrl = url.origin + url.pathname;
+  window.history.pushState({}, "", newUrl);
+
+  return newUrl;
 };

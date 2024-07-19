@@ -28,12 +28,13 @@ const ProductOne = ({ product, pClass }) => {
         <div className="product-content">
           <div className="inner">
             <ProductTitle verified={product.verified} productTitle={product} />
-            <ProductPrice price={product.price} />
+            <ProductPrice
+              inPromotion={product.inPromotion}
+              price={product.price}
+              salePrice={product.salePrice}
+            />
             {product.colorAttribute && (
-              <ProductColorAttribute
-                attributeColor={product}
-                getAttribute={getAttributeData}
-              />
+              <ProductColorAttribute attributeColor={product} getAttribute={getAttributeData} />
             )}
           </div>
         </div>

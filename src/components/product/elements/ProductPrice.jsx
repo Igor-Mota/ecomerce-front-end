@@ -1,7 +1,7 @@
-const ProductPrice = ({ price }) => {
+const ProductPrice = ({ inPromotion, price, salePrice }) => {
   return (
     <div className="product-price-variant">
-      {price ? (
+      {inPromotion ? (
         <span className="price old-price">
           <span className="currency-symbol">$</span>
           {price}
@@ -11,7 +11,7 @@ const ProductPrice = ({ price }) => {
       )}
       <span className="price current-price">
         <span className="currency-symbol">$</span>
-        {price ? price : ""}
+        {inPromotion ? salePrice : price}
       </span>
     </div>
   );

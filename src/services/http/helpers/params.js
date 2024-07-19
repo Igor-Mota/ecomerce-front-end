@@ -7,6 +7,7 @@ export const queryParamsHelper = () => {
     for (const [key, value] of searchParams) {
       params[key] = value;
     }
+
     return {
       ...params,
     };

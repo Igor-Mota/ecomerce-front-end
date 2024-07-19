@@ -4,10 +4,8 @@ import Section from "@/components/elements/Section";
 import ProductOne from "@/components/product/ProductOne";
 import { slugify } from "@/utils";
 import { useGetManyProducts } from "@/services/http/many.products";
-import { useGetTags } from "@/services/http/tags";
 import Skelleton from "react-loading-skeleton";
-import { useSearchParams } from "next/navigation";
-import { createUrl } from "@/utils/searchParams";
+import { createUrl, clearAllSearchParams } from "@/utils/searchParams";
 
 import {
   initialState,
@@ -21,32 +19,28 @@ import {
   resetPage,
   changeFilterColor,
 } from "./reducer";
+import { useTagsContext } from "../../providers/tags.provider";
 
 const ShopWithSidebar = ({}) => {
-  const { data: tags, isLoading: tagsLoad, isRefetching: tagRefetch } = useGetTags();
+  const { data: tags } = useTagsContext();
   const [state, dispatch] = useReducer(shopReducer, initialState);
-  const urlSearchParams = useSearchParams();
-
-  const color = urlSearchParams.get("color") ?? "";
-  const size = urlSearchParams.get("size") ?? "";
-  const category = urlSearchParams.get("category") ?? "";
 
   const {
     data,
     isLoading: productIsLoad,
     isRefetching: productRefetching,
     refetch,
+    isFetching,
   } = useGetManyProducts();
 
   const reset = async () => {
     dispatch(resetPage);
-    await refetch();
+    createUrl("page", "0");
+    const result = await refetch();
     dispatch(resetProducts());
-    dispatch(appendProducts(data.data));
-    createUrl().clearAll().push();
-    createUrl().push("page", 0);
+    dispatch(appendProducts(result.data.data));
   };
-
+  console.log(isFetching);
   if (state.page === 1 && state.products.length === 0 && data.data.length > 0) {
     dispatch(appendProducts(data.data));
   }
@@ -54,33 +48,31 @@ const ShopWithSidebar = ({}) => {
   const getNextPage = async () => {
     if (state.products.length >= Number(data.recordsTotal)) return;
     dispatch(changePage());
-    await refetch();
-    dispatch(appendProducts(data.data));
+    const result = await refetch();
+    dispatch(appendProducts(result.data.data));
   };
 
-  const filterByCategories = (name) => {
+  const filterByCategories = async (name) => {
     dispatch(changeFilterCategory(slugify(name)));
-    createUrl().push("category", name);
+    createUrl("category", name);
     reset();
   };
 
   const filterByColors = (name) => {
-    createUrl().push("color", name);
     dispatch(changeFilterColor(name));
-    reset();
+    createUrl("color", name);
   };
-
-  const filterBySize = async (name) => {
+  const filterBySize = (name) => {
     dispatch(changeFilterSizer(slugify(name)));
-
+    createUrl("size", name);
     reset();
   };
 
   const resetFilters = async () => {
-    createUrl().clearAll().push();
     if (state.category.trim() === "" && state.size.trim() === "" && state.color.trim() === "")
       return;
     dispatch(clearFilters());
+    clearAllSearchParams();
     reset();
   };
 
@@ -100,9 +92,7 @@ const ShopWithSidebar = ({}) => {
             <div
               className={`toggle-list product-categories ${state.categoryToggle ? "active" : ""}`}
             >
-              <h6 onClick className="title">
-                CATEGORIES
-              </h6>
+              <h6 className="title">CATEGORIES</h6>
               {state.categoryToggle && (
                 <div className="shop-submenu">
                   <ul>
