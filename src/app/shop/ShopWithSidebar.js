@@ -19,20 +19,19 @@ import {
   resetPage,
   changeFilterColor,
 } from "./reducer";
+
 import { useTagsContext } from "../../providers/tags.provider";
 
 const ShopWithSidebar = ({}) => {
   const { data: tags } = useTagsContext();
   const [state, dispatch] = useReducer(shopReducer, initialState);
-
   const {
     data,
     isLoading: productIsLoad,
     isRefetching: productRefetching,
     refetch,
-    isFetching,
   } = useGetManyProducts();
-
+  console.log(data);
   const reset = async () => {
     dispatch(resetPage);
     createUrl("page", "0");
@@ -40,7 +39,6 @@ const ShopWithSidebar = ({}) => {
     dispatch(resetProducts());
     dispatch(appendProducts(result.data.data));
   };
-  console.log(isFetching);
   if (state.page === 1 && state.products.length === 0 && data.data.length > 0) {
     dispatch(appendProducts(data.data));
   }
@@ -61,6 +59,7 @@ const ShopWithSidebar = ({}) => {
   const filterByColors = (name) => {
     dispatch(changeFilterColor(name));
     createUrl("color", name);
+    reset();
   };
   const filterBySize = (name) => {
     dispatch(changeFilterSizer(slugify(name)));

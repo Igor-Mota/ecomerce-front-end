@@ -7,20 +7,18 @@ const ProductColorAttribute = (props) => {
     setColorImage(color);
     props.getAttribute(color);
   };
-
+  console.log(props);
   return (
     <div className="color-variant-wrapper">
       <ul className="color-variant">
         {props.attributeColor.colorAttribute.map((data, index) => (
           <li
-            className={`${data.color} ${
-              colorImage.color === data.color ? "active" : ""
-            }`}
+            className={` ${colorImage.color === data.color ? "active" : ""}`}
             key={index}
             onClick={() => colorImageHandler(data)}
           >
-            <span>
-              <span className="color" />
+            <span style={colorImage.color === data.color ? { borderColor: data.color } : {}}>
+              <span style={{ background: data.color }} className="color" />
             </span>
           </li>
         ))}

@@ -9,7 +9,7 @@ const ProductOne = ({ product, pClass }) => {
   const [colorAttribute, setColorAttribute] = useState("");
 
   const getAttributeData = (data) => {
-    setColorAttribute(data.img);
+    setColorAttribute(data.image);
   };
 
   return (
@@ -18,6 +18,7 @@ const ProductOne = ({ product, pClass }) => {
         <ProductThumbnail
           productThumb={product}
           attributeImg={colorAttribute}
+          inPromotion={product.inPromotion}
           discountLabel
           hoverItems
           wishlistBtn
