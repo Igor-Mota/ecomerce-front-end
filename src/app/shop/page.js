@@ -6,7 +6,6 @@ import NewsLetter from "@/components/newsletter/NewsLetter";
 import ServiceTwo from "@/components/services/ServiceTwo";
 import ShopNoSidebar from "./ShopNoSidebar";
 import ShopWithSidebar from "./ShopWithSidebar";
-import { useGetTags } from "@/services/http/tags";
 
 const Shop = ({ searchParams }) => {
   return (

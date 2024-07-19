@@ -5,6 +5,7 @@ export const actions = {
   CHANGE_FILTERED_PRICE: "CHANGE_FILTERED_PRICE",
   CLEAR_FILTERS: "CLEAR_FILTERS",
   CHANGE_PAGE: "CHANGE_PAGE",
+  RESET_PAGE: "RESET_PAGE",
   TOGGLE_CATEGORY: "TOGGLE_CATEGORY",
   TOGGLE_COLORS: "TOGGLE_COLORS",
   TOGGLE_SIZES: "TOGGLE_SIZES",
@@ -52,4 +53,8 @@ export const appendProducts = (products) => {
 };
 export const resetProducts = () => {
   return { type: actions.RESET_PRODUCTS };
+};
+
+export const resetPage = () => {
+  return { type: actions.RESET_PAGE };
 };

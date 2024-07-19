@@ -9,6 +9,7 @@ import {
   toggleColors,
   appendProducts,
   resetProducts,
+  resetPage,
 } from "./actions";
 import { initialState, shopReducer } from "./reducer";
 
@@ -23,6 +24,7 @@ export {
   toggleColors,
   appendProducts,
   resetProducts,
+  resetPage,
   initialState,
   shopReducer,
 };

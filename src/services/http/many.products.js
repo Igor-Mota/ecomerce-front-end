@@ -1,27 +1,22 @@
 import { useQuery } from "react-query";
 import { api } from "./api";
+import { queryParamsHelper } from "./helpers/params";
 
-const fetcher = (page, offset) => {
-  return async () => {
-    const { data } = await api.get("product", {
-      params: {
-        page,
-        offset,
-      },
-    });
-    return data;
-  };
+const fetcher = async () => {
+  const { data } = await api.get("product", {
+    params: queryParamsHelper(),
+  });
+  return data;
 };
 
-export const useGetManyProducts = (page, offset) => {
+export const useGetManyProducts = () => {
   return useQuery({
-    queryFn: fetcher(page, offset),
-    queryKey: "get:many-products",
-    getNextPageParam: "page",
-    keepPreviousData: true,
+    queryFn: fetcher,
+    queryKey: "get:masny-products",
+    refetchOnWindowFocus: false,
     initialData: {
       data: [],
-      totalRecords: 0,
+      recordsTotal: 0,
     },
   });
 };

@@ -6,37 +6,85 @@ import { slugify } from "@/utils";
 import { useGetManyProducts } from "@/services/http/many.products";
 import { useGetTags } from "@/services/http/tags";
 import Skelleton from "react-loading-skeleton";
+import { useSearchParams } from "next/navigation";
+import { createUrl } from "@/utils/searchParams";
+
 import {
   initialState,
   shopReducer,
   changeFilterCategory,
-  changeFilterColor,
   changeFilterSizer,
   clearFilters,
   changePage,
-  toggleCategory,
-  toggleColors,
-  toggleSizes,
+  appendProducts,
+  resetProducts,
+  resetPage,
+  changeFilterColor,
 } from "./reducer";
 
 const ShopWithSidebar = ({}) => {
   const { data: tags, isLoading: tagsLoad, isRefetching: tagRefetch } = useGetTags();
   const [state, dispatch] = useReducer(shopReducer, initialState);
+  const urlSearchParams = useSearchParams();
+
+  const color = urlSearchParams.get("color") ?? "";
+  const size = urlSearchParams.get("size") ?? "";
+  const category = urlSearchParams.get("category") ?? "";
 
   const {
     data,
-    refetch,
     isLoading: productIsLoad,
     isRefetching: productRefetching,
-  } = useGetManyProducts(state.page, state.offset);
+    refetch,
+  } = useGetManyProducts();
+
+  const reset = async () => {
+    dispatch(resetPage);
+    await refetch();
+    dispatch(resetProducts());
+    dispatch(appendProducts(data.data));
+    createUrl().clearAll().push();
+    createUrl().push("page", 0);
+  };
+
+  if (state.page === 1 && state.products.length === 0 && data.data.length > 0) {
+    dispatch(appendProducts(data.data));
+  }
+
+  const getNextPage = async () => {
+    if (state.products.length >= Number(data.recordsTotal)) return;
+    dispatch(changePage());
+    await refetch();
+    dispatch(appendProducts(data.data));
+  };
+
+  const filterByCategories = (name) => {
+    dispatch(changeFilterCategory(slugify(name)));
+    createUrl().push("category", name);
+    reset();
+  };
+
+  const filterByColors = (name) => {
+    createUrl().push("color", name);
+    dispatch(changeFilterColor(name));
+    reset();
+  };
+
+  const filterBySize = async (name) => {
+    dispatch(changeFilterSizer(slugify(name)));
+
+    reset();
+  };
+
+  const resetFilters = async () => {
+    createUrl().clearAll().push();
+    if (state.category.trim() === "" && state.size.trim() === "" && state.color.trim() === "")
+      return;
+    dispatch(clearFilters());
+    reset();
+  };
 
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-  const getNextPage = () => {
-    dispatch(changePage());
-    console.log(state.offset);
-    refetch();
-  };
 
   return (
     <Section pClass="axil-shop-area">
@@ -52,7 +100,7 @@ const ShopWithSidebar = ({}) => {
             <div
               className={`toggle-list product-categories ${state.categoryToggle ? "active" : ""}`}
             >
-              <h6 onClick={() => dispatch(toggleCategory())} className="title">
+              <h6 onClick className="title">
                 CATEGORIES
               </h6>
               {state.categoryToggle && (
@@ -60,52 +108,31 @@ const ShopWithSidebar = ({}) => {
                   <ul>
                     {tags.categories.map((data, index) => (
                       <li
-                        className={state.category === slugify(data.cate) ? "current-cat" : ""}
+                        className={
+                          slugify(state.category) === slugify(data.cate) ? "current-cat" : ""
+                        }
                         key={index}
                       >
-                        <button onClick={() => dispatch(changeFilterCategory(slugify(data.cate)))}>
-                          {data.cate}
-                        </button>
+                        <button onClick={() => filterByCategories(data.cate)}>{data.cate}</button>
                       </li>
                     ))}
                   </ul>
                 </div>
               )}
             </div>
-            {/* Gender Filter  */}
-            {/* <div
-              className={`toggle-list product-categories product-gender ${genderToggle ? "active" : ""}`}
-            >
-              <h6 onClick={() => setgenderToggle(!genderToggle)} className="title">
-                GENDER
-              </h6>
-              {genderToggle && (
-                <div className="shop-submenu">
-                  <ul>
-                    {Gender?.map((data, index) => (
-                      <li className={filterText === data ? "chosen" : ""} key={index}>
-                        <button onClick={() => genderHandler(data)}>{data}</button>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div> */}
-            {/* Color Filter  */}
-            <div className={`toggle-list product-color ${state.colorsToggle ? "active" : ""}`}>
-              <h6 onClick={() => dispatch(toggleColors())} className="title">
-                COLORS
-              </h6>
+
+            <div className={`toggle-list product-color ${state.colorToggle ? "active" : ""}`}>
+              <h6 className="title">COLORS</h6>
               {state.colorsToggle && (
                 <div className="shop-submenu">
                   <ul>
                     {tags.colors.map((data, index) => (
                       <li
-                        className={state.color === slugify(data.name) ? "chosen" : ""}
+                        className={slugify(state.color) === slugify(data.name) ? "chosen" : ""}
                         key={index}
                       >
                         <button
-                          onClick={() => dispatch(changeFilterColor(slugify(data.name)))}
+                          onClick={() => filterByColors(data.name)}
                           style={{ backgroundColor: `${data.code}` }}
                         ></button>
                       </li>
@@ -116,41 +143,24 @@ const ShopWithSidebar = ({}) => {
             </div>
             {/* Size Filter  */}
             <div className={`toggle-list product-size ${state.sizesToggle ? "active" : ""}`}>
-              <h6 onClick={() => dispatch(toggleSizes())} className="title">
-                SIZE
-              </h6>
+              <h6 className="title">SIZE</h6>
               {state.sizesToggle && (
                 <div className="shop-submenu">
                   <ul>
                     {tags.sizes.map((data, index) => (
-                      <li className={state.size === slugify(data.name) ? "chosen" : ""} key={index}>
-                        <button onClick={() => dispatch(changeFilterSizer(slugify(data.name)))}>
-                          {data.name}
-                        </button>
+                      <li
+                        className={slugify(state.size) === slugify(data.name) ? "chosen" : ""}
+                        key={index}
+                      >
+                        <button onClick={() => filterBySize(data.name)}>{data.name}</button>
                       </li>
                     ))}
                   </ul>
                 </div>
               )}
             </div>
-            {/* Price Filter  */}
-            {/* <div className={`toggle-list product-price-range ${priceRangeToggle ? "active" : ""}`}>
-              <h6 onClick={() => setpriceRangeToggle(!priceRangeToggle)} className="title">
-                PRICE
-              </h6>
-              {priceRangeToggle && (
-                <div className="shop-submenu">
-                  <ul>
-                    {priceRangeData?.map((data, index) => (
-                      <li className={state.category === data ? "chosen" : ""} key={index}>
-                        <button onClick={() => priceRangeHandler(data)}>{data}</button>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div> */}
-            <button className="axil-btn btn-bg-primary" onClick={() => dispatch(clearFilters())}>
+
+            <button className="axil-btn btn-bg-primary" onClick={resetFilters}>
               Reset
             </button>
           </div>
@@ -166,8 +176,8 @@ const ShopWithSidebar = ({}) => {
                 );
               })}
 
-            {!productIsLoad && data && data.data && data.data.length > 0 ? (
-              data.data.map((data) => (
+            {!productIsLoad && state.products.length > 0 ? (
+              state.products.map((data) => (
                 <div className="col-xl-4 col-sm-6" key={data.id}>
                   <ProductOne product={data} pClass="mb--30" />
                 </div>

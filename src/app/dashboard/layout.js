@@ -28,7 +28,6 @@ const DahsboardLayout = ({ children }) => {
     userData: { user },
   } = useSelector((state) => state.auth);
 
-  console.log(login);
 
   useEffect(() => {
     if (!login && !authProviderLoading) redirect("/");

@@ -10,10 +10,8 @@ export const userSerializer = (payload) => {
 };
 
 const serializer = (payload) => {
-  let user = payload
-  if('user' in payload) user = payload.user
-
-    console.log(user)
+  let user = payload;
+  if ("user" in payload) user = payload.user;
 
   return {
     id: user.id,

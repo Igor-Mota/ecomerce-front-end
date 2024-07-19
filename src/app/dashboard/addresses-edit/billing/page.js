@@ -23,7 +23,6 @@ const ShippingAddress = () => {
 
   const { userData } = useSelector((state) => state.auth);
   const address = userData.user.billingAddress ?? null;
-  console.log(address)
   const {
     control,
     handleSubmit,

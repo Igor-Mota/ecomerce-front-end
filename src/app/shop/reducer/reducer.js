@@ -6,7 +6,7 @@ export const initialState = {
   category: "",
   color: "",
   size: "",
-  page: 0,
+  page: 1,
   offset: 1,
   categoryToggle: true,
   colorsToggle: true,
@@ -24,7 +24,9 @@ export const shopReducer = (state, action) => {
     case actions.CLEAR_FILTERS:
       return { ...initialState };
     case actions.CHANGE_PAGE:
-      return { ...state, offset: state.offset + 1 };
+      return { ...state, offset: state.page + 1 };
+    case actions.RESET_PAGE:
+      return { ...state, page: 0 };
     case actions.TOGGLE_CATEGORY:
       return { ...state, categoryToggle: !state.categoryToggle };
     case actions.TOGGLE_COLORS:

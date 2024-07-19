@@ -49,7 +49,7 @@ export const useGetHomeProducts = () => {
     queryKey: "get:home-products",
     initialData: {
       data: [],
-      totalRecords: 0,
+      recordsTotal: 0,
     },
   });
 };
@@ -60,7 +60,7 @@ export const useGetHomePromotion = () => {
     queryKey: "get:home-promotion",
     initialData: {
       data: [],
-      totalRecords: 0,
+      recordsTotal: 0,
     },
   });
 };
@@ -71,7 +71,7 @@ export const useGetArrivals = () => {
     queryKey: "get:home-arrivals",
     initialData: {
       data: [],
-      totalRecords: 0,
+      recordsTotal: 0,
     },
   });
 };
@@ -82,7 +82,7 @@ export const useGetMostSold = () => {
     queryKey: "get:home-most-sold",
     initialData: {
       data: [],
-      totalRecords: 0,
+      recordsTotal: 0,
     },
   });
 };

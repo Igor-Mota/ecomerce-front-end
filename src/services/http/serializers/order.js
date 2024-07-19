@@ -1,5 +1,4 @@
 export const orderSerializer = (payload) => {
-  console.log(payload);
   let data = payload;
 
   if (Array.isArray(payload.data)) {
