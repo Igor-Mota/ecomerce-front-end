@@ -8,7 +8,7 @@ export const productSerializer = (payload) => {
     data.data = payload.data.map((product) => serializer(product));
   }
 
-  if (payload && !Array.isArray(payload)) data = serializer(payload);
+  if (payload && !payload.data && !Array.isArray(payload)) data = serializer(payload);
 
   return data;
 };
