@@ -16,7 +16,7 @@ import { useGetProductById } from "@/services/http/product.byId";
 const ProductDetails = () => {
   const { id } = useParams();
   const { data: singleProduct, isLoading } = useGetProductById(id);
-
+  console.log(singleProduct);
   if (!!isLoading || !("id" in singleProduct)) return <p>Carregando...</p>;
 
   const ProductSingleLayout = () => {

@@ -8,7 +8,7 @@ export const productSerializer = (payload) => {
     data.data = payload.data.map((product) => serializer(product));
   }
 
-  if (!("data" in payload) && !Array.isArray(payload)) data.data = serializer(payload);
+  if (payload && !Array.isArray(payload)) data = serializer(payload);
 
   return data;
 };
@@ -42,9 +42,14 @@ const serializer = (product) => {
   const sizes = [];
   const colors = [];
   const subCategories = [];
+  const gallery = [];
 
   if (product.tag_size) {
     sizes.push(product.tag_size.name);
+  }
+
+  if (product.images) {
+    gallery.push(...product.images.map((image) => `${environment.API_STORE}/${image.url}`));
   }
 
   if (product.categories) {
@@ -85,6 +90,9 @@ const serializer = (product) => {
           });
         }
       }
+      if (variant.images) {
+        gallery.push(...variant.images.map((image) => `${environment.API_STORE}/${image.url}`));
+      }
     });
   }
 
@@ -94,7 +102,7 @@ const serializer = (product) => {
     CountTime: countTime,
     thumbnail: thumb,
     thumb,
-    gallery: product.images.map((image) => `${environment.API_STORE}/${image.url}`),
+    gallery: gallery,
     hoverThumbnail: hoverThumb,
     pCate: subCategories,
     cate: category,

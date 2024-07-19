@@ -17,9 +17,7 @@ const SingleLayoutTwo = ({ singleData }) => {
   const [productSize, setProductSize] = useState("");
   const [fsToggler, setFsToggler] = useState(false);
   const getWishlist = useSelector((state) => state.productData.wishlistItems);
-  const isWishlistAdded = getWishlist.filter(
-    (data) => data.id === singleData.id,
-  );
+  const isWishlistAdded = getWishlist.filter((data) => data.id === singleData.id);
 
   const colorImageHandler = (color) => {
     setColorImage(color);
@@ -62,6 +60,7 @@ const SingleLayoutTwo = ({ singleData }) => {
     return galleryPreview;
   };
 
+  console.log(singleData.gallery);
   return (
     <div className="axil-single-product-area bg-color-white">
       <div className="single-product-thumb axil-section-gap pb--20 pb_sm--0 bg-vista-white">
@@ -85,12 +84,7 @@ const SingleLayoutTwo = ({ singleData }) => {
                       {singleData.gallery ? (
                         singleData.gallery.map((galleryImg, index) => (
                           <div className="thumbnail" key={index}>
-                            <Image
-                              src={galleryImg}
-                              height={584}
-                              width={584}
-                              alt="Gallery Image"
-                            />
+                            <Image src={galleryImg} height={584} width={584} alt="Gallery Image" />
                           </div>
                         ))
                       ) : (
@@ -107,11 +101,7 @@ const SingleLayoutTwo = ({ singleData }) => {
                     {singleData.salePrice && (
                       <div className="label-block">
                         <div className="product-badget">
-                          {discountPercentage(
-                            singleData.price,
-                            singleData.salePrice,
-                          )}
-                          % OFF
+                          {discountPercentage(singleData.price, singleData.salePrice)}% OFF
                         </div>
                       </div>
                     )}
@@ -149,12 +139,7 @@ const SingleLayoutTwo = ({ singleData }) => {
                     {singleData.gallery ? (
                       singleData.gallery.map((galleryImg, index) => (
                         <div className="small-thumb-img" key={index}>
-                          <Image
-                            src={galleryImg}
-                            height={207}
-                            width={213}
-                            alt="Thumb Image"
-                          />
+                          <Image src={galleryImg} height={207} width={213} alt="Thumb Image" />
                         </div>
                       ))
                     ) : (
@@ -176,10 +161,7 @@ const SingleLayoutTwo = ({ singleData }) => {
                 <div className="inner">
                   <h2 className="product-title">{singleData.title}</h2>
                   <span className="price-amount">
-                    $
-                    {singleData.salePrice
-                      ? singleData.salePrice
-                      : singleData.price}
+                    ${singleData.salePrice ? singleData.salePrice : singleData.price}
                   </span>
                   <ProductRating rating={singleData} textEnable />
                   {singleData.shortDes && (
@@ -202,9 +184,7 @@ const SingleLayoutTwo = ({ singleData }) => {
                             {singleData.colorAttribute?.map((data, index) => (
                               <li
                                 className={`${data.color} ${
-                                  colorImage.color === data.color
-                                    ? "active"
-                                    : ""
+                                  colorImage.color === data.color ? "active" : ""
                                 }`}
                                 key={index}
                                 onClick={() => colorImageHandler(data)}
@@ -240,12 +220,7 @@ const SingleLayoutTwo = ({ singleData }) => {
                       <span className="qtybtn" onClick={decrementQuantity}>
                         -
                       </span>
-                      <input
-                        type="number"
-                        className="quantity-input"
-                        value={quantity}
-                        readOnly
-                      />
+                      <input type="number" className="quantity-input" value={quantity} readOnly />
                       <span className="qtybtn" onClick={incrementQuantity}>
                         +
                       </span>
@@ -272,9 +247,7 @@ const SingleLayoutTwo = ({ singleData }) => {
                         >
                           <i
                             className={
-                              isWishlistAdded.length === 1
-                                ? "fas fa-heart"
-                                : "far fa-heart"
+                              isWishlistAdded.length === 1 ? "fas fa-heart" : "far fa-heart"
                             }
                           />
                         </button>
@@ -282,9 +255,7 @@ const SingleLayoutTwo = ({ singleData }) => {
                     </ul>
                   </div>
                   <div className="product-desc-wrapper pt--80 pt_sm--60">
-                    <h4 className="primary-color mb--40 desc-heading">
-                      Description
-                    </h4>
+                    <h4 className="primary-color mb--40 desc-heading">Description</h4>
                     {Array.isArray(singleData.description.textDesc) &&
                       singleData.description.textDesc?.map((data, index) => (
                         <div
@@ -299,12 +270,7 @@ const SingleLayoutTwo = ({ singleData }) => {
                       {singleData.description.listDesc?.map((data, index) => (
                         <li className="single-features" key={index}>
                           <div className="icon">
-                            <Image
-                              src={data.icon}
-                              width={30}
-                              height={34}
-                              alt="icon"
-                            />
+                            <Image src={data.icon} width={30} height={34} alt="icon" />
                           </div>
                           {data.title}
                         </li>
