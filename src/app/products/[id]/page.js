@@ -1,8 +1,5 @@
 "use client";
 import { useParams } from "next/navigation";
-import ProductsData from "@/data/Products";
-import ProductOne from "@/components/product/ProductOne";
-import { slugify } from "@/utils";
 import SlickSlider from "@/components/elements/SlickSlider";
 import SingleLayouThree from "./SingleLayouThree";
 import Section from "@/components/elements/Section";
@@ -16,7 +13,6 @@ import { useGetProductById } from "@/services/http/product.byId";
 const ProductDetails = () => {
   const { id } = useParams();
   const { data: singleProduct, isLoading } = useGetProductById(id);
-  console.log(singleProduct);
   if (!!isLoading || !("id" in singleProduct)) return <p>Carregando...</p>;
 
   const ProductSingleLayout = () => {

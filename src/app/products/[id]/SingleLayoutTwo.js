@@ -60,7 +60,8 @@ const SingleLayoutTwo = ({ singleData }) => {
     return galleryPreview;
   };
 
-  console.log(singleData.gallery);
+  console.log(singleData);
+
   return (
     <div className="axil-single-product-area bg-color-white">
       <div className="single-product-thumb axil-section-gap pb--20 pb_sm--0 bg-vista-white">
@@ -98,22 +99,19 @@ const SingleLayoutTwo = ({ singleData }) => {
                         </div>
                       )}
                     </SlickSlider>
-                    {singleData.salePrice && (
+                    {singleData.isPromotion && singleData.salePrice && (
                       <div className="label-block">
                         <div className="product-badget">
                           {discountPercentage(singleData.price, singleData.salePrice)}% OFF
                         </div>
                       </div>
                     )}
-                    {/* <div className="product-quick-view position-view">
-                                            <button onClick={() => setFsToggler(!fsToggler)} className="popup-zoom">
-                                                <i className="far fa-search-plus" />
-                                            </button>
-                                        </div>
-                                        <FsLightbox
-                                        toggler={fsToggler}
-                                        sources={getFullscreenPreview()}
-                                        /> */}
+                    <div className="product-quick-view position-view">
+                      <button onClick={() => setFsToggler(!fsToggler)} className="popup-zoom">
+                        <i className="far fa-search-plus" />
+                      </button>
+                    </div>
+                    <FsLightbox toggler={fsToggler} sources={getFullscreenPreview()} />
                   </div>
                 </div>
                 <div className="col-lg-2 order-lg-1">
@@ -182,15 +180,9 @@ const SingleLayoutTwo = ({ singleData }) => {
                         <div className="color-variant-wrapper">
                           <ul className="color-variant">
                             {singleData.colorAttribute?.map((data, index) => (
-                              <li
-                                className={`${data.color} ${
-                                  colorImage.color === data.color ? "active" : ""
-                                }`}
-                                key={index}
-                                onClick={() => colorImageHandler(data)}
-                              >
-                                <span>
-                                  <span className="color" />
+                              <li key={index} onClick={() => colorImageHandler(data.color)}>
+                                <span style={{ borderColor: data.color }}>
+                                  <span style={{ backgroundColor: data.color }} />
                                 </span>
                               </li>
                             ))}
